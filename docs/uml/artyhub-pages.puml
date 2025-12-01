@@ -1,0 +1,19 @@
+@startuml
+
+[*] --> Login
+
+Login --> Home : button "Login"\n(correct credentials)
+Login --> Login : button "Login"\n(incorrect credentials)
+Login --> Register : link "Register"
+
+Register --> Login : button "Register"
+
+Home --> Profile : link "Profile"
+Home --> Login : link "Exit"
+Home --> Search : link "Search"
+Home --> Categories : link "Categories"
+
+Profile --> Home : link "Home"
+Profile --> Login : button "Login"
+
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+title Diagrama UML - Artyhub Backend
+
+class User {
+    - id : Long
+    - name : String
+    - email : String
+    - password : String
+    - nAccount : String
+    - description : String
+    - address : String
+    - imageProfileUrl : String
+}
+
+class Artwork {
+    - id : Long
+    - title : String
+    - description : String
+    - imageUrl : String
+    - price : double
+    - stock : int
+    - category : Category
+}
+
+class Category {
+    - id : Long
+    - name : String
+}
+
+class Detail {
+    - id : Long
+    - quantity : int
+    - price : double
+}
+
+class ShoppingCart {
+    - id : Long
+    - payMethod : PayMethod
+}
+
+class PayMethod {
+    - id : Long
+    - nTarget : String
+    - dateExpiration : String
+    - cvv : String
+}
+
+User -- "*" Artwork
+User -- "0...1" ShoppingCart
+ShoppingCart -- "*" Detail
+Detail -- "*" Artwork
+User -- "*" Artwork
+ShoppingCart -- PayMethod
+User -- "*" PayMethod
+Artwork "*" -- Category
+
+@enduml
