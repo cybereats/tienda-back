@@ -9,16 +9,31 @@ entity category_product {
 }
 
 entity products {
+    *id
+    --
+    label
+    slug
+    desc
+    price
 }
 
-entity item_cart {
+entity item_order {
+    *id
+    --
     units
 }
 
-entity cart {
+entity user_order {
+    *id
+    --
+    status
 }
 
 entity logs {
+    *id
+    --
+    info
+    timestamp
 }
 
 entity category_pc {
@@ -66,8 +81,8 @@ entity user {
 ' ---------------------------
 
 category_product ||--o| products
-products ||--o{ item_cart
-item_cart }o--|| cart
+products ||--o{ item_order
+item_order }o--|| user_order
 
 category_pc ||--o{ pc
 
@@ -77,6 +92,6 @@ user ||--o{ booking
 pc ||--o{ reports
 user ||--o{ reports
 
-user ||--|| cart
+user ||--|| user_order
 
 @enduml
