@@ -1,0 +1,82 @@
+@startuml
+!theme plain
+
+entity category_product {
+    *id
+    --
+    label
+    price
+}
+
+entity products {
+}
+
+entity item_cart {
+    units
+}
+
+entity cart {
+}
+
+entity logs {
+}
+
+entity category_pc {
+    *id
+    --
+    label
+    price
+}
+
+entity pc {
+    *id
+    --
+    label
+    slug
+    runtime
+    specs
+    working_since
+}
+
+entity booking {
+    *id
+    --
+    hours
+}
+
+entity reports {
+    *id
+    --
+    priority
+    desc
+}
+
+entity user {
+    *id
+    --
+    name
+    surname
+    born_date
+    username
+    password
+}
+
+' ---------------------------
+'      RELACIONES
+' ---------------------------
+
+category_product ||--o| products
+products ||--o{ item_cart
+item_cart }o--|| cart
+
+category_pc ||--o{ pc
+
+pc ||--o{ booking
+user ||--o{ booking
+
+pc ||--o{ reports
+user ||--o{ reports
+
+user ||--|| cart
+
+@enduml
