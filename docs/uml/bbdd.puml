@@ -1,75 +1,94 @@
-@startuml cybereats-back
+@startuml
 
 title Diagrama UML - CyberEats Backend
 
 entity category_product {
-    id : Long
-    label : String
+    *id
+    --
+    label
+    price
 }
 
 entity products {
-    id : Long
-    label : String
-    price : double
+    *id
+    --
+    label
+    slug
+    desc
+    price
 }
 
-entity item_cart {
-    id : Long
-    units : int
+entity item_order {
+    *id
+    --
+    units
 }
 
-entity cart {
-    id : Long
+entity user_order {
+    *id
+    --
+    status
 }
 
 entity logs {
-    id : Long
+    *id
+    --
+    info
+    timestamp
 }
 
 entity category_pc {
-    id : Long
-    label : String
-    price : double
+    *id
+    --
+    label
+    price
 }
 
 entity pc {
-    id : Long
-    label : String
-    slug : String
-    runtime : String
-    specs : String
-    working_since : String
+    *id
+    --
+    label
+    slug
+    runtime
+    specs
+    working_since
 }
 
 entity booking {
-    id : Long
-    hours : int
+    *id
+    --
+    hours
 }
 
 entity reports {
-    id : Long
-    priority : String
-    desc : String
+    *id
+    --
+    priority
+    desc
 }
 
 entity user {
-    id : Long
-    name : String
-    surname : String
-    born_date : String
-    username : String
-    password : String
+    *id
+    --
+    name
+    surname
+    born_date
+    username
+    password
 }
 
+category_product ||--o| products
+products ||--o{ item_order
+item_order }o--|| user_order
 
-category_product ||--o{ products
-products ||--o{ item_cart
-cart ||--o{ item_cart
-user ||--o{ cart
-user ||--o{ booking
-user ||--o{ reports
-user ||--o{ logs
 category_pc ||--o{ pc
+
 pc ||--o{ booking
+user ||--o{ booking
+
+pc ||--o{ reports
+user ||--o{ reports
+
+user ||--|| user_order
 
 @enduml
