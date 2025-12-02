@@ -1,0 +1,75 @@
+@startuml cybereats-back
+
+title Diagrama UML - CyberEats Backend
+
+entity category_product {
+    id : Long
+    label : String
+}
+
+entity products {
+    id : Long
+    label : String
+    price : double
+}
+
+entity item_cart {
+    id : Long
+    units : int
+}
+
+entity cart {
+    id : Long
+}
+
+entity logs {
+    id : Long
+}
+
+entity category_pc {
+    id : Long
+    label : String
+    price : double
+}
+
+entity pc {
+    id : Long
+    label : String
+    slug : String
+    runtime : String
+    specs : String
+    working_since : String
+}
+
+entity booking {
+    id : Long
+    hours : int
+}
+
+entity reports {
+    id : Long
+    priority : String
+    desc : String
+}
+
+entity user {
+    id : Long
+    name : String
+    surname : String
+    born_date : String
+    username : String
+    password : String
+}
+
+
+category_product ||--o{ products
+products ||--o{ item_cart
+cart ||--o{ item_cart
+user ||--o{ cart
+user ||--o{ booking
+user ||--o{ reports
+user ||--o{ logs
+category_pc ||--o{ pc
+pc ||--o{ booking
+
+@enduml
