@@ -27,19 +27,27 @@ public class UserJpaDaoImpl implements UserJpaDao {
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<UserJpaEntity> findById(Long id) {
 =======
     public Optional<UserJpaEntity> getById(Long id) {
 >>>>>>> ismael_7
+=======
+    public Optional<UserJpaEntity> getById(Long id) {
+>>>>>>> ismael_8
         return Optional.ofNullable(entityManager.find(UserJpaEntity.class, id));
     }
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public List<UserJpaEntity> findAll() {
 =======
     public List<UserJpaEntity> getAll() {
 >>>>>>> ismael_7
+=======
+    public List<UserJpaEntity> getAll() {
+>>>>>>> ismael_8
         return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.id ASC", UserJpaEntity.class)
                 .getResultList();
     }

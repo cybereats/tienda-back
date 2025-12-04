@@ -14,9 +14,9 @@ CREATE TABLE products (
     FOREIGN KEY (category_product_id) REFERENCES category_product(id)
 );
 
-CREATE TABLE item_order (
+CREATE TABLE order_item (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    units INT,
+    quantity INT,
     product_id INT,
     user_order_id INT,
     FOREIGN KEY (product_id) REFERENCES products(id),
