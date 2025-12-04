@@ -33,6 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<UserDto> getUserById(Long id) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.findById(id);
 =======
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
@@ -40,11 +41,15 @@ public class UserRepositoryImpl implements UserRepository {
 =======
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
 >>>>>>> ismael_8
+=======
+        Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
+>>>>>>> ismael_9
         return Optional.of(UserMapper.toUserDto(userJpaEntity.get()));
     }
 
     @Override
     public List<UserDto> getAll() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         return userJpaDao.findAll().stream().map(UserMapper::toUserDto).toList();
@@ -54,6 +59,9 @@ public class UserRepositoryImpl implements UserRepository {
 =======
         return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
 >>>>>>> ismael_8
+=======
+        return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
+>>>>>>> ismael_9
     }
 
     @Override

@@ -12,6 +12,7 @@ public interface UserJpaDao {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     Optional<UserJpaEntity> findById(Long id);
 
     List<UserJpaEntity> findAll();
@@ -25,6 +26,11 @@ public interface UserJpaDao {
 
     List<UserJpaEntity> getAll();
 >>>>>>> ismael_8
+=======
+    Optional<UserJpaEntity> getById(Long id);
+
+    List<UserJpaEntity> getAll();
+>>>>>>> ismael_9
 
     void deleteById(Long id);
 }

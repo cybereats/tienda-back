@@ -28,6 +28,7 @@ public class UserJpaDaoImpl implements UserJpaDao {
     @Override
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<UserJpaEntity> findById(Long id) {
 =======
     public Optional<UserJpaEntity> getById(Long id) {
@@ -35,10 +36,14 @@ public class UserJpaDaoImpl implements UserJpaDao {
 =======
     public Optional<UserJpaEntity> getById(Long id) {
 >>>>>>> ismael_8
+=======
+    public Optional<UserJpaEntity> getById(Long id) {
+>>>>>>> ismael_9
         return Optional.ofNullable(entityManager.find(UserJpaEntity.class, id));
     }
 
     @Override
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public List<UserJpaEntity> findAll() {
@@ -48,6 +53,9 @@ public class UserJpaDaoImpl implements UserJpaDao {
 =======
     public List<UserJpaEntity> getAll() {
 >>>>>>> ismael_8
+=======
+    public List<UserJpaEntity> getAll() {
+>>>>>>> ismael_9
         return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.id ASC", UserJpaEntity.class)
                 .getResultList();
     }

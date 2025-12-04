@@ -8,10 +8,14 @@ import jakarta.persistence.Table;
 
 @Entity
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Table(name = "reports")
 =======
 @Table(name = "report")
 >>>>>>> ismael_8
+=======
+@Table(name = "report")
+>>>>>>> ismael_9
 public class ReportJpaEntity {
 
     @Id
