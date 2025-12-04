@@ -1,0 +1,47 @@
+package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.UserJpaDao;
+import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserJpaEntity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
+public class UserJpaDaoImpl implements UserJpaDao {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public UserJpaEntity insert(UserJpaEntity user) {
+        entityManager.persist(user);
+        return user;
+    }
+
+    @Override
+    public UserJpaEntity update(UserJpaEntity user) {
+        entityManager.merge(user);
+        return user;
+    }
+
+    @Override
+    public Optional<UserJpaEntity> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(UserJpaEntity.class, id));
+    }
+
+    @Override
+    public List<UserJpaEntity> findAll() {
+        return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.id ASC", UserJpaEntity.class)
+                .getResultList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        UserJpaEntity user = entityManager.find(UserJpaEntity.class, id);
+        if (user != null) {
+            entityManager.remove(user);
+        }
+    }
+
+}
