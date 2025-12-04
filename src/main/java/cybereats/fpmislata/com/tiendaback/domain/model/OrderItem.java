@@ -12,7 +12,7 @@ public class OrderItem {
         this.id = builder.id;
         this.product = builder.product;
         this.quantity = builder.quantity;
-        this.price = this.product.getPrice() * this.quantity;
+        this.price = this.product.getPrice().multiply(BigDecimal.valueOf(this.quantity));
     }
 
     public Long getId() {

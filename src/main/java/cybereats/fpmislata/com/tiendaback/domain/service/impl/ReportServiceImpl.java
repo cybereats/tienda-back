@@ -46,8 +46,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportDto> getByPcId(Long pcId) {
-        return reportRepository.getByPcId(pcId);
+    public List<ReportDto> getByPCId(Long pcId) {
+        return reportRepository.getByPCId(pcId);
     }
 
     @Override

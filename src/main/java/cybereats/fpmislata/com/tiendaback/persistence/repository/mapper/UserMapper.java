@@ -4,8 +4,23 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserJpaEntity;
 
 public class UserMapper {
+    private static UserMapper INSTANCE;
 
-    public static UserJpaEntity toUserJpaEntity(UserDto userDto) {
+    private UserMapper() {
+    }
+
+    public static UserMapper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UserMapper();
+        }
+        return INSTANCE;
+    }
+
+    public UserJpaEntity userDtoToUserJpaEntity(UserDto userDto) {
+        if (userDto == null) {
+            return null;
+        }
+
         return new UserJpaEntity(
                 userDto.id(),
                 userDto.name(),
@@ -15,7 +30,11 @@ public class UserMapper {
                 userDto.password());
     }
 
-    public static UserDto toUserDto(UserJpaEntity userJpaEntity) {
+    public UserDto userJpaEntityToUserDto(UserJpaEntity userJpaEntity) {
+        if (userJpaEntity == null) {
+            return null;
+        }
+
         return new UserDto(
                 userJpaEntity.getId(),
                 userJpaEntity.getName(),

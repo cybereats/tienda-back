@@ -6,7 +6,6 @@ entity category_product {
     *id
     --
     label
-    price
 }
 
 entity products {

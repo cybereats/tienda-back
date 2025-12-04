@@ -31,10 +31,11 @@ public class UserOrderController {
 
     @PostMapping
     public ResponseEntity<UserOrderResponse> createUserOrder(@RequestBody UserOrderRequest userOrderRequest) {
-        UserOrderDto userOrderDto = UserOrderMapper.fromUserOrderRequestToUserOrderDto(userOrderRequest);
+        UserOrderDto userOrderDto = UserOrderMapper.getInstance().fromUserOrderRequestToUserOrderDto(userOrderRequest);
         DtoValidator.validate(userOrderDto);
         UserOrderDto createdUserOrderDto = userOrderService.insert(userOrderDto);
-        return new ResponseEntity<>(UserOrderMapper.fromUserOrderDtoToUserOrderResponse(createdUserOrderDto),
+        return new ResponseEntity<>(
+                UserOrderMapper.getInstance().fromUserOrderDtoToUserOrderResponse(createdUserOrderDto),
                 HttpStatus.CREATED);
     }
 
@@ -42,14 +43,16 @@ public class UserOrderController {
     public ResponseEntity<List<UserOrderResponse>> getAllUserOrders() {
         List<UserOrderDto> userOrderDtoList = userOrderService.getAll();
         return new ResponseEntity<>(
-                userOrderDtoList.stream().map(UserOrderMapper::fromUserOrderDtoToUserOrderResponse).toList(),
+                userOrderDtoList.stream().map(UserOrderMapper.getInstance()::fromUserOrderDtoToUserOrderResponse)
+                        .toList(),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserOrderResponse> getUserOrderById(@PathVariable Long id) {
         UserOrderDto userOrderDto = userOrderService.getUserOrderById(id).get();
-        return new ResponseEntity<>(UserOrderMapper.fromUserOrderDtoToUserOrderResponse(userOrderDto), HttpStatus.OK);
+        return new ResponseEntity<>(UserOrderMapper.getInstance().fromUserOrderDtoToUserOrderResponse(userOrderDto),
+                HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -58,10 +61,11 @@ public class UserOrderController {
         if (!id.equals(userOrderRequest.id())) {
             throw new IllegalArgumentException("El id del pedido no coincide con el id proporcionado");
         }
-        UserOrderDto userOrderDto = UserOrderMapper.fromUserOrderRequestToUserOrderDto(userOrderRequest);
+        UserOrderDto userOrderDto = UserOrderMapper.getInstance().fromUserOrderRequestToUserOrderDto(userOrderRequest);
         DtoValidator.validate(userOrderDto);
         UserOrderDto updatedUserOrderDto = userOrderService.update(userOrderDto);
-        return new ResponseEntity<>(UserOrderMapper.fromUserOrderDtoToUserOrderResponse(updatedUserOrderDto),
+        return new ResponseEntity<>(
+                UserOrderMapper.getInstance().fromUserOrderDtoToUserOrderResponse(updatedUserOrderDto),
                 HttpStatus.OK);
     }
 

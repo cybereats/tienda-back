@@ -14,11 +14,10 @@ public interface ReportService {
 
     List<ReportDto> getByUserId(Long userId);
 
-    List<ReportDto> getByPcId(Long pcId);
+    List<ReportDto> getByPCId(Long pcId);
 
     Optional<ReportDto> getById(Long id);
 
     void deleteById(Long id);
 
-    boolean existsById(Long id);
 }

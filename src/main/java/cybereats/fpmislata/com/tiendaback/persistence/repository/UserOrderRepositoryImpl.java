@@ -20,22 +20,28 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     @Override
     public Optional<UserOrderDto> getUserOrderById(Long id) {
         Optional<UserOrderJpaEntity> userOrderJpaEntity = userOrderJpaDao.getUserOrderById(id);
-        return Optional.ofNullable(UserOrderMapper.toUserOrderDto(userOrderJpaEntity.get()));
+        return userOrderJpaEntity.map(entity -> UserOrderMapper.getInstance().userOrderJpaEntityToUserOrderDto(entity));
     }
 
     @Override
     public List<UserOrderDto> getAll() {
-        return userOrderJpaDao.getAll().stream().map(UserOrderMapper::toUserOrderDto).toList();
+        return userOrderJpaDao.getAll().stream()
+                .map(entity -> UserOrderMapper.getInstance().userOrderJpaEntityToUserOrderDto(entity))
+                .toList();
     }
 
     @Override
     public UserOrderDto save(UserOrderDto userOrderDto) {
         if (userOrderDto.id() == null) {
-            UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.toUserOrderJpaEntity(userOrderDto);
-            return UserOrderMapper.toUserOrderDto(userOrderJpaDao.insert(userOrderJpaEntity));
+            UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.getInstance()
+                    .userOrderDtoToUserOrderJpaEntity(userOrderDto);
+            return UserOrderMapper.getInstance()
+                    .userOrderJpaEntityToUserOrderDto(userOrderJpaDao.insert(userOrderJpaEntity));
         } else {
-            UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.toUserOrderJpaEntity(userOrderDto);
-            return UserOrderMapper.toUserOrderDto(userOrderJpaDao.update(userOrderJpaEntity));
+            UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.getInstance()
+                    .userOrderDtoToUserOrderJpaEntity(userOrderDto);
+            return UserOrderMapper.getInstance()
+                    .userOrderJpaEntityToUserOrderDto(userOrderJpaDao.update(userOrderJpaEntity));
         }
     }
 

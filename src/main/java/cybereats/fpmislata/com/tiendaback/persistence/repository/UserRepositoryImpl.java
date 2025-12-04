@@ -11,61 +11,38 @@ import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private final UserJpaDao userJpaDao;
+        private final UserJpaDao userJpaDao;
 
-    public UserRepositoryImpl(UserJpaDao userJpaDao) {
-        this.userJpaDao = userJpaDao;
-    }
-
-    @Override
-    public UserDto save(UserDto user) {
-
-        if (user.id() != null) {
-            UserJpaEntity userJpaEntity = UserMapper.toUserJpaEntity(user);
-            return UserMapper.toUserDto(userJpaDao.update(userJpaEntity));
-        } else {
-            UserJpaEntity userJpaEntity = UserMapper.toUserJpaEntity(user);
-            return UserMapper.toUserDto(userJpaDao.insert(userJpaEntity));
+        public UserRepositoryImpl(UserJpaDao userJpaDao) {
+                this.userJpaDao = userJpaDao;
         }
-    }
 
-    @Override
-    public Optional<UserDto> getUserById(Long id) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Optional<UserJpaEntity> userJpaEntity = userJpaDao.findById(id);
-=======
-        Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
->>>>>>> ismael_7
-=======
-        Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
->>>>>>> ismael_8
-=======
-        Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
->>>>>>> ismael_9
-        return Optional.of(UserMapper.toUserDto(userJpaEntity.get()));
-    }
+        @Override
+        public UserDto save(UserDto user) {
+                if (user.id() != null) {
+                        UserJpaEntity userJpaEntity = UserMapper.getInstance().userDtoToUserJpaEntity(user);
+                        return UserMapper.getInstance().userJpaEntityToUserDto(userJpaDao.update(userJpaEntity));
+                } else {
+                        UserJpaEntity userJpaEntity = UserMapper.getInstance().userDtoToUserJpaEntity(user);
+                        return UserMapper.getInstance().userJpaEntityToUserDto(userJpaDao.insert(userJpaEntity));
+                }
+        }
 
-    @Override
-    public List<UserDto> getAll() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return userJpaDao.findAll().stream().map(UserMapper::toUserDto).toList();
-=======
-        return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
->>>>>>> ismael_7
-=======
-        return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
->>>>>>> ismael_8
-=======
-        return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
->>>>>>> ismael_9
-    }
+        @Override
+        public Optional<UserDto> getUserById(Long id) {
+                Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
+                return userJpaEntity.map(entity -> UserMapper.getInstance().userJpaEntityToUserDto(entity));
+        }
 
-    @Override
-    public void deleteById(Long id) {
-        userJpaDao.deleteById(id);
-    }
+        @Override
+        public List<UserDto> getAll() {
+                return userJpaDao.getAll().stream()
+                                .map(entity -> UserMapper.getInstance().userJpaEntityToUserDto(entity))
+                                .toList();
+        }
+
+        @Override
+        public void deleteById(Long id) {
+                userJpaDao.deleteById(id);
+        }
 }

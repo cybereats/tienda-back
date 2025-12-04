@@ -14,7 +14,7 @@ public interface ReportJpaDao {
 
     List<ReportJpaEntity> getByUserId(Long userId);
 
-    List<ReportJpaEntity> getByPcId(Long pcId);
+    List<ReportJpaEntity> getByPCId(Long pcId);
 
     Optional<ReportJpaEntity> getById(Long id);
 

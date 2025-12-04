@@ -5,7 +5,19 @@ import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.UserRequ
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.UserResponse;
 
 public class UserMapper {
-    public static UserResponse fromDtoToUserResponse(UserDto userDto) {
+    private static UserMapper INSTANCE;
+
+    private UserMapper() {
+    }
+
+    public static UserMapper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UserMapper();
+        }
+        return INSTANCE;
+    }
+
+    public UserResponse fromDtoToUserResponse(UserDto userDto) {
         return new UserResponse(
                 userDto.id(),
                 userDto.name(),
@@ -15,27 +27,7 @@ public class UserMapper {
                 userDto.password());
     }
 
-    public static UserDto fromUserResponseToDto(UserResponse userResponse) {
-        return new UserDto(
-                userResponse.id(),
-                userResponse.name(),
-                userResponse.surname(),
-                userResponse.born_date(),
-                userResponse.username(),
-                userResponse.password());
-    }
-
-    public static UserRequest fromUserDtoToUserRequest(UserDto userDto) {
-        return new UserRequest(
-                userDto.id(),
-                userDto.name(),
-                userDto.surname(),
-                userDto.born_date(),
-                userDto.username(),
-                userDto.password());
-    }
-
-    public static UserDto fromUserRequestToDto(UserRequest userRequest) {
+    public UserDto fromUserRequestToDto(UserRequest userRequest) {
         return new UserDto(
                 userRequest.id(),
                 userRequest.name(),

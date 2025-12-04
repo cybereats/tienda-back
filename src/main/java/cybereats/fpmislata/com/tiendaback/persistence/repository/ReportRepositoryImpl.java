@@ -39,8 +39,8 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
-    public List<ReportDto> getByPcId(Long pcId) {
-        return reportJpaDao.getByPcId(pcId).stream().map(ReportMapper::toReportDto).toList();
+    public List<ReportDto> getByPCId(Long pcId) {
+        return reportJpaDao.getByPCId(pcId).stream().map(ReportMapper::toReportDto).toList();
     }
 
     @Override

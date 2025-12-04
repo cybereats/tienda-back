@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.BookingService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.BookingMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.BookingRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.BookingResponse;
@@ -22,8 +23,9 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BookingResponse>> findAllBookings(@RequestParam(required = false, defaultValue = "1") int page,
-                                                              @RequestParam(required = false, defaultValue = "10") int size) {
+    public ResponseEntity<Page<BookingResponse>> findAllBookings(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
         Page<BookingDto> bookingDtoPage = bookingService.getAll(page, size);
 
         List<BookingResponse> bookingResponses = bookingDtoPage.data().stream()
@@ -34,15 +36,15 @@ public class BookingController {
                 bookingResponses,
                 bookingDtoPage.pageNumber(),
                 bookingDtoPage.pageSize(),
-                bookingDtoPage.totalElements()
-        );
+                bookingDtoPage.totalElements());
 
         return new ResponseEntity<>(bookingPage, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
-        BookingResponse bookingResponse = BookingMapper.getInstance().bookingDtoToBookingResponse(bookingService.getById(id));
+        BookingResponse bookingResponse = BookingMapper.getInstance()
+                .bookingDtoToBookingResponse(bookingService.getById(id));
         return new ResponseEntity<>(bookingResponse, HttpStatus.OK);
     }
 
@@ -51,18 +53,21 @@ public class BookingController {
         BookingDto bookingDto = BookingMapper.getInstance().bookingRequestToBookingDto(bookingRequest);
         DtoValidator.validate(bookingDto);
         BookingDto createdBooking = bookingService.create(bookingDto);
-        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(createdBooking), HttpStatus.CREATED);
+        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(createdBooking),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookingResponse> updateBooking(@PathVariable("id") Long id, @RequestBody BookingRequest bookingRequest) {
+    public ResponseEntity<BookingResponse> updateBooking(@PathVariable("id") Long id,
+            @RequestBody BookingRequest bookingRequest) {
         if (!id.equals(bookingRequest.id())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
         BookingDto bookingDto = BookingMapper.getInstance().bookingRequestToBookingDto(bookingRequest);
         DtoValidator.validate(bookingDto);
         BookingDto updatedBooking = bookingService.update(bookingDto);
-        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(updatedBooking), HttpStatus.OK);
+        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(updatedBooking),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

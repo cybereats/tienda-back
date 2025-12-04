@@ -8,6 +8,7 @@ public class Product {
     private String slug;
     private String desc;
     private BigDecimal price;
+    private CategoryProduct categoryProduct;
 
     private Product(Product.Builder builder) {
         this.id = builder.id;
@@ -15,6 +16,7 @@ public class Product {
         this.slug = builder.slug;
         this.desc = builder.desc;
         this.price = builder.price;
+        this.categoryProduct = builder.categoryProduct;
     }
 
     public Long getId() {
@@ -37,12 +39,17 @@ public class Product {
         return price;
     }
 
+    public CategoryProduct getCategoryProduct() {
+        return categoryProduct;
+    }
+
     public static class Builder {
         private Long id;
         private String label;
         private String slug;
         private String desc;
         private BigDecimal price;
+        private CategoryProduct categoryProduct;
 
         public Builder id(Long id) {
             this.id = id;
@@ -66,6 +73,11 @@ public class Product {
 
         public Builder price(BigDecimal price) {
             this.price = price;
+            return this;
+        }
+
+        public Builder categoryProduct(CategoryProduct categoryProduct) {
+            this.categoryProduct = categoryProduct;
             return this;
         }
 

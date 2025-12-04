@@ -45,8 +45,8 @@ public class ReportController {
     @PutMapping("/{id}")
     public ResponseEntity<ReportResponse> updateReport(@PathVariable Long id,
             @RequestBody ReportRequest reportRequest) {
-        if (!reportService.existsById(id)) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (!id.equals(reportRequest.id())) {
+            throw new IllegalArgumentException("El id del reporte no coincide con el id proporcionado");
         }
         ReportDto reportDto = ReportMapper.fromReportRequestToReportDto(reportRequest);
         DtoValidator.validate(reportDto);

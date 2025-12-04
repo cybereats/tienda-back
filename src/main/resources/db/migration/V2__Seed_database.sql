@@ -11,12 +11,13 @@ INSERT INTO user (name, surname, born_date, username, password) VALUES
 -- ============================
 -- TABLE: category_product
 -- ============================
-INSERT INTO category_product (label, price) VALUES
-                                                ('Periféricos', 19.99),
-                                                ('Componentes', 49.99),
-                                                ('Accesorios', 9.99),
-                                                ('Audio', 29.99),
-                                                ('Iluminación', 14.99);
+INSERT INTO category_product (label) VALUES
+    ('Hamburguesas'),
+    ('Acompañamientos'),
+    ('Bebidas'),
+    ('Postres'),
+    ('Desayunos');
+
 
 -- ============================
 -- TABLE: product

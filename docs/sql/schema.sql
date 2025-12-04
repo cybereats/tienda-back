@@ -1,7 +1,6 @@
 CREATE TABLE category_product (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    label VARCHAR(255),
-    price DECIMAL(10,2)
+    label VARCHAR(255)
 );
 
 CREATE TABLE products (

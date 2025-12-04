@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.ProductService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.ProductMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.ProductRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.ProductResponse;

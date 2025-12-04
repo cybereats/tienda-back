@@ -41,32 +41,15 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
 
     @Override
     public List<ReportJpaEntity> getByUserId(Long userId) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user_id = :userId")
-=======
         return entityManager
                 .createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user_id = :userId", ReportJpaEntity.class)
->>>>>>> ismael_8
-=======
-        return entityManager
-                .createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user_id = :userId", ReportJpaEntity.class)
->>>>>>> ismael_9
                 .setParameter("userId", userId)
                 .getResultList();
     }
 
     @Override
-    public List<ReportJpaEntity> getByPcId(Long pcId) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.pc_id = :pcId")
-=======
+    public List<ReportJpaEntity> getByPCId(Long pcId) {
         return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.pc_id = :pcId", ReportJpaEntity.class)
->>>>>>> ismael_8
-=======
-        return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.pc_id = :pcId", ReportJpaEntity.class)
->>>>>>> ismael_9
                 .setParameter("pcId", pcId)
                 .getResultList();
     }

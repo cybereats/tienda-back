@@ -20,18 +20,22 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public List<UserOrderDto> getAll() {
-        List<UserOrder> userOrderList = userOrderRepository.getAll().stream().map(UserOrderMapper::toUserOrder)
+        List<UserOrder> userOrderList = userOrderRepository.getAll().stream()
+                .map(dto -> UserOrderMapper.getInstance().userOrderDtoToUserOrder(dto))
                 .toList();
-        return userOrderList.stream().map(UserOrderMapper::toUserOrderDto).toList();
+        return userOrderList.stream()
+                .map(order -> UserOrderMapper.getInstance().userOrderToUserOrderDto(order))
+                .toList();
     }
 
     @Override
     public Optional<UserOrderDto> getUserOrderById(Long id) {
-        Optional<UserOrder> userOrder = userOrderRepository.getUserOrderById(id).map(UserOrderMapper::toUserOrder);
+        Optional<UserOrder> userOrder = userOrderRepository.getUserOrderById(id)
+                .map(dto -> UserOrderMapper.getInstance().userOrderDtoToUserOrder(dto));
         if (userOrder.isEmpty()) {
             throw new ResourceNotFoundException("UserOrder not found");
         }
-        return userOrder.map(UserOrderMapper::toUserOrderDto);
+        return userOrder.map(order -> UserOrderMapper.getInstance().userOrderToUserOrderDto(order));
     }
 
     @Override
@@ -40,8 +44,8 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (userOrderDtoOptional.isPresent()) {
             throw new BusinessException("UserOrder already exists");
         }
-        UserOrder userOrder = UserOrderMapper.toUserOrder(userOrderDto);
-        return userOrderRepository.save(UserOrderMapper.toUserOrderDto(userOrder));
+        UserOrder userOrder = UserOrderMapper.getInstance().userOrderDtoToUserOrder(userOrderDto);
+        return userOrderRepository.save(UserOrderMapper.getInstance().userOrderToUserOrderDto(userOrder));
     }
 
     @Override
@@ -50,8 +54,8 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (userOrderDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("UserOrder not found");
         }
-        UserOrder userOrder = UserOrderMapper.toUserOrder(userOrderDto);
-        return userOrderRepository.save(UserOrderMapper.toUserOrderDto(userOrder));
+        UserOrder userOrder = UserOrderMapper.getInstance().userOrderDtoToUserOrder(userOrderDto);
+        return userOrderRepository.save(UserOrderMapper.getInstance().userOrderToUserOrderDto(userOrder));
     }
 
     @Override

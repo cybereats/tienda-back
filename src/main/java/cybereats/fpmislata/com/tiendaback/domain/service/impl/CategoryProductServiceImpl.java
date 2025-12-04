@@ -1,0 +1,64 @@
+package cybereats.fpmislata.com.tiendaback.domain.service.impl;
+
+import cybereats.fpmislata.com.tiendaback.domain.repository.CategoryProductRepository;
+import cybereats.fpmislata.com.tiendaback.domain.service.CategoryProductService;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryProductDto;
+import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
+import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
+
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
+import java.util.Optional;
+
+public class CategoryProductServiceImpl implements CategoryProductService {
+    private final CategoryProductRepository categoryProductRepository;
+
+    public CategoryProductServiceImpl(CategoryProductRepository categoryProductRepository) {
+        this.categoryProductRepository = categoryProductRepository;
+    }
+
+    @Override
+    public Page<CategoryProductDto> getAll(int page, int size) {
+        return categoryProductRepository.getAll(page, size);
+    }
+
+    @Override
+    public CategoryProductDto getById(Long id) {
+        return categoryProductRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("CategoryProduct not found"));
+    }
+
+    @Override
+    public Optional<CategoryProductDto> findById(Long id) {
+        return categoryProductRepository.findById(id);
+    }
+
+    @Override
+    public CategoryProductDto getBySlug(String slug) {
+        return categoryProductRepository.findBySlug(slug)
+                .orElseThrow(() -> new ResourceNotFoundException("CategoryProduct not found"));
+    }
+
+    @Override
+    public CategoryProductDto insert(CategoryProductDto categoryProductDto) {
+        if (categoryProductRepository.findById(categoryProductDto.id()).isPresent()) {
+            throw new BusinessException("CategoryProduct already exists");
+        }
+        return categoryProductRepository.save(categoryProductDto);
+    }
+
+    @Override
+    public CategoryProductDto update(CategoryProductDto categoryProductDto) {
+        if (!categoryProductRepository.findById(categoryProductDto.id()).isPresent()) {
+            throw new ResourceNotFoundException("CategoryProduct not found");
+        }
+        return categoryProductRepository.save(categoryProductDto);
+    }
+
+    @Override
+    public void deleteBySlug(String slug) {
+        if (!categoryProductRepository.findBySlug(slug).isPresent()) {
+            throw new ResourceNotFoundException("CategoryProduct not found");
+        }
+        categoryProductRepository.deleteBySlug(slug);
+    }
+}

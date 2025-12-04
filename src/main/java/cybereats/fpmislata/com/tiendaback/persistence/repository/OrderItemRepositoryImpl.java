@@ -20,24 +20,28 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     @Override
     public List<OrderItemDto> getAll() {
         return orderItemJpaDao.getAll().stream()
-                .map(OrderItemMapper::toOrderItemDto)
+                .map(entity -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(entity))
                 .toList();
     }
 
     @Override
     public Optional<OrderItemDto> getOrderItemById(Long id) {
         return orderItemJpaDao.getOrderItemById(id)
-                .map(OrderItemMapper::toOrderItemDto);
+                .map(entity -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(entity));
     }
 
     @Override
     public OrderItemDto save(OrderItemDto orderItemDto) {
         if (orderItemDto.id() == null) {
-            OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.toOrderItemJpaEntity(orderItemDto);
-            return OrderItemMapper.toOrderItemDto(orderItemJpaDao.insert(orderItemJpaEntity));
+            OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.getInstance()
+                    .orderItemDtoToOrderItemJpaEntity(orderItemDto);
+            return OrderItemMapper.getInstance()
+                    .orderItemJpaEntityToOrderItemDto(orderItemJpaDao.insert(orderItemJpaEntity));
         } else {
-            OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.toOrderItemJpaEntity(orderItemDto);
-            return OrderItemMapper.toOrderItemDto(orderItemJpaDao.update(orderItemJpaEntity));
+            OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.getInstance()
+                    .orderItemDtoToOrderItemJpaEntity(orderItemDto);
+            return OrderItemMapper.getInstance()
+                    .orderItemJpaEntityToOrderItemDto(orderItemJpaDao.update(orderItemJpaEntity));
         }
     }
 

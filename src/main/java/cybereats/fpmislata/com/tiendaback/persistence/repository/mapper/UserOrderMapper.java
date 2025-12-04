@@ -4,20 +4,44 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserOrderJpaEntity;
 
 public class UserOrderMapper {
-    public static UserOrderJpaEntity toUserOrderJpaEntity(UserOrderDto userOrderDto) {
+    private static UserOrderMapper INSTANCE;
+
+    private UserOrderMapper() {
+    }
+
+    public static UserOrderMapper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UserOrderMapper();
+        }
+        return INSTANCE;
+    }
+
+    public UserOrderJpaEntity userOrderDtoToUserOrderJpaEntity(UserOrderDto userOrderDto) {
+        if (userOrderDto == null) {
+            return null;
+        }
+
         return new UserOrderJpaEntity(
                 userOrderDto.id(),
-                UserMapper.toUserJpaEntity(userOrderDto.user()),
-                userOrderDto.orderItems().stream().map(OrderItemMapper::toOrderItemJpaEntity).toList(),
+                UserMapper.getInstance().userDtoToUserJpaEntity(userOrderDto.user()),
+                userOrderDto.orderItems().stream()
+                        .map(item -> OrderItemMapper.getInstance().orderItemDtoToOrderItemJpaEntity(item))
+                        .toList(),
                 userOrderDto.totalPrice(),
                 userOrderDto.status());
     }
 
-    public static UserOrderDto toUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
+    public UserOrderDto userOrderJpaEntityToUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
+        if (userOrderJpaEntity == null) {
+            return null;
+        }
+
         return new UserOrderDto(
                 userOrderJpaEntity.getId(),
-                UserMapper.toUserDto(userOrderJpaEntity.getUser()),
-                userOrderJpaEntity.getOrderItems().stream().map(OrderItemMapper::toOrderItemDto).toList(),
+                UserMapper.getInstance().userJpaEntityToUserDto(userOrderJpaEntity.getUser()),
+                userOrderJpaEntity.getOrderItems().stream()
+                        .map(item -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(item))
+                        .toList(),
                 userOrderJpaEntity.getTotalPrice(),
                 userOrderJpaEntity.getStatus());
     }

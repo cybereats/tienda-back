@@ -3,7 +3,6 @@ package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.CategoryPCJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.CategoryPCJpaEntity;
-import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.CategoryPCJpaEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -42,7 +41,7 @@ public class CategoryPCJpaDaoImpl implements CategoryPCJpaDao {
     @Override
     public CategoryPCJpaEntity update(CategoryPCJpaEntity jpaEntity) {
         CategoryPCJpaEntity managed = entityManager.find(CategoryPCJpaEntity.class, jpaEntity.getId());
-        if(managed == null) {
+        if (managed == null) {
             throw new ResourceNotFoundException("CategoryPC with id " + jpaEntity.getId() + " not found");
         }
         entityManager.flush();

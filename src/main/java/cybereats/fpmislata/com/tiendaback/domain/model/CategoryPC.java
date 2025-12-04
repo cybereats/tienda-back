@@ -28,7 +28,7 @@ public class CategoryPC {
         return price;
     }
 
-    public List<PC> getPc_list() {
+    public List<PC> getPC_list() {
         return pc_list;
     }
 

@@ -7,7 +7,7 @@ public class Report {
     private String priority;
     private String desc;
     private User user;
-    private Pc pc;
+    private PC pc;
 
     private Report(Builder builder) {
         this.id = builder.id;
@@ -33,7 +33,7 @@ public class Report {
         return user;
     }
 
-    public Pc getPc() {
+    public PC getPC() {
         return pc;
     }
 
@@ -42,7 +42,7 @@ public class Report {
         private String priority;
         private String desc;
         private User user;
-        private Pc pc;
+        private PC pc;
 
         public Builder id(Long id) {
             this.id = id;
@@ -64,13 +64,13 @@ public class Report {
             return this;
         }
 
-        public Builder pc(Pc pc) {
+        public Builder pc(PC pc) {
             this.pc = pc;
             return this;
         }
 
         public Report build() {
-            return new Report(id, priority, desc, user, pc);
+            return new Report(this);
         }
     }
 

@@ -4,20 +4,39 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.OrderItemJpaEntity;
 
 public class OrderItemMapper {
-    public static OrderItemJpaEntity toOrderItemJpaEntity(OrderItemDto orderItemDto) {
+    private static OrderItemMapper INSTANCE;
+
+    private OrderItemMapper() {
+    }
+
+    public static OrderItemMapper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new OrderItemMapper();
+        }
+        return INSTANCE;
+    }
+
+    public OrderItemJpaEntity orderItemDtoToOrderItemJpaEntity(OrderItemDto orderItemDto) {
+        if (orderItemDto == null) {
+            return null;
+        }
+
         return new OrderItemJpaEntity(
                 orderItemDto.id(),
-                orderItemDto.product(),
+                ProductMapper.getInstance().productDtoToProductJpaEntity(orderItemDto.product()),
                 orderItemDto.quantity(),
                 orderItemDto.price());
     }
 
-    public static OrderItemDto toOrderItemDto(OrderItemJpaEntity orderItemJpaEntity) {
+    public OrderItemDto orderItemJpaEntityToOrderItemDto(OrderItemJpaEntity orderItemJpaEntity) {
+        if (orderItemJpaEntity == null) {
+            return null;
+        }
+
         return new OrderItemDto(
                 orderItemJpaEntity.getId(),
-                orderItemJpaEntity.getProduct(),
+                ProductMapper.getInstance().productJpaEntityToProductDto(orderItemJpaEntity.getProduct()),
                 orderItemJpaEntity.getQuantity(),
                 orderItemJpaEntity.getPrice());
     }
-
 }

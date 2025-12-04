@@ -24,8 +24,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         if (orderItemDtoOptional.isPresent()) {
             throw new BusinessException("OrderItemDto already exists");
         }
-        OrderItem orderItem = OrderItemMapper.toOrderItem(orderItemDto);
-        return orderItemRepository.save(OrderItemMapper.toOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDto);
+        return orderItemRepository.save(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
     }
 
     @Override
@@ -34,8 +34,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         if (orderItemDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("OrderItemDto not found");
         }
-        OrderItem orderItem = OrderItemMapper.toOrderItem(orderItemDto);
-        return orderItemRepository.save(OrderItemMapper.toOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDto);
+        return orderItemRepository.save(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
     }
 
     @Override
@@ -44,15 +44,18 @@ public class OrderItemServiceImpl implements OrderItemService {
         if (orderItemDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("OrderItemDto not found");
         }
-        OrderItem orderItem = OrderItemMapper.toOrderItem(orderItemDtoOptional.get());
-        return Optional.of(OrderItemMapper.toOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDtoOptional.get());
+        return Optional.of(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
     }
 
     @Override
     public List<OrderItemDto> getAll() {
-        List<OrderItem> orderItemList = orderItemRepository.getAll().stream().map(OrderItemMapper::toOrderItem)
+        List<OrderItem> orderItemList = orderItemRepository.getAll().stream()
+                .map(dto -> OrderItemMapper.getInstance().orderItemDtoToOrderItem(dto))
                 .toList();
-        return orderItemList.stream().map(OrderItemMapper::toOrderItemDto).toList();
+        return orderItemList.stream()
+                .map(item -> OrderItemMapper.getInstance().orderItemToOrderItemDto(item))
+                .toList();
     }
 
     @Override

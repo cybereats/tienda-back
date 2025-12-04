@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.LogService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.LogDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.LogMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.LogRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.LogResponse;
@@ -23,7 +24,7 @@ public class LogController {
 
     @GetMapping
     public ResponseEntity<Page<LogResponse>> findAllLogs(@RequestParam(required = false, defaultValue = "1") int page,
-                                                                 @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "10") int size) {
         Page<LogDto> logDtoPage = logService.getAll(page, size);
 
         List<LogResponse> logResponses = logDtoPage.data().stream()
@@ -34,8 +35,7 @@ public class LogController {
                 logResponses,
                 logDtoPage.pageNumber(),
                 logDtoPage.pageSize(),
-                logDtoPage.totalElements()
-        );
+                logDtoPage.totalElements());
 
         return new ResponseEntity<>(logPage, HttpStatus.OK);
     }

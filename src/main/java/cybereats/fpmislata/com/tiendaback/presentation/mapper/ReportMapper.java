@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.ReportRequest;
@@ -12,7 +13,7 @@ public class ReportMapper {
                 reportRequest.priority(),
                 reportRequest.description(),
                 mapUser(reportRequest.user_id()),
-                mapPc(reportRequest.pc_id()));
+                mapPC(reportRequest.pc_id()));
     }
 
     public static ReportResponse fromReportDtoToReportResponse(ReportDto reportDto) {
@@ -20,33 +21,15 @@ public class ReportMapper {
                 reportDto.id(),
                 reportDto.priority(),
                 reportDto.desc(),
-                UserMapper.fromDtoToUserResponse(reportDto.user()),
-                PcMapper.fromPcDtoToPcResponse(reportDto.pc()));
-    }
-
-    public static ReportRequest fromReportDtoToReportRequest(ReportDto reportDto) {
-        return new ReportRequest(
-                reportDto.id(),
-                reportDto.priority(),
-                reportDto.desc(),
-                UserMapper.fromDtoToUserResponse(reportDto.user()),
-                PcMapper.fromPcDtoToPcResponse(reportDto.pc()));
-    }
-
-    public static ReportDto fromReportResponseToReportDto(ReportResponse reportResponse) {
-        return new ReportDto(
-                reportResponse.id(),
-                reportResponse.priority(),
-                reportResponse.desc(),
-                UserMapper.fromUserResponseToDto(reportResponse.user()),
-                PcMapper.fromPcResponseToDto(reportResponse.pc()));
+                UserMapper.getInstance().fromDtoToUserResponse(reportDto.user()),
+                PCMapper.getInstance().pcDtoToPCResponse(reportDto.pc()));
     }
 
     private static UserDto mapUser(Long id) {
         return new UserDto(id, null, null, null, null, null);
     }
 
-    private static PcDto mapPc(Long id) {
-        return new PcDto(id, null, null, null, null, null);
+    private static PCDto mapPC(Long id) {
+        return new PCDto(id, null, null, 0, null, null);
     }
 }

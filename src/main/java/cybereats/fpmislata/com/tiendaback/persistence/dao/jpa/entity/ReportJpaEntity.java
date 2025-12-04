@@ -7,15 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-<<<<<<< HEAD
-<<<<<<< HEAD
-@Table(name = "reports")
-=======
 @Table(name = "report")
->>>>>>> ismael_8
-=======
-@Table(name = "report")
->>>>>>> ismael_9
 public class ReportJpaEntity {
 
     @Id
@@ -24,12 +16,12 @@ public class ReportJpaEntity {
     private String priority;
     private String desc;
     private UserJpaEntity user;
-    private PcJpaEntity pc;
+    private PCJpaEntity pc;
 
     public ReportJpaEntity() {
     }
 
-    public ReportJpaEntity(Long id, String priority, String desc, UserJpaEntity user, PcJpaEntity pc) {
+    public ReportJpaEntity(Long id, String priority, String desc, UserJpaEntity user, PCJpaEntity pc) {
         this.id = id;
         this.priority = priority;
         this.desc = desc;
@@ -69,11 +61,11 @@ public class ReportJpaEntity {
         this.user = user;
     }
 
-    public PcJpaEntity getPc() {
+    public PCJpaEntity getPC() {
         return pc;
     }
 
-    public void setPc(PcJpaEntity pc) {
+    public void setPC(PCJpaEntity pc) {
         this.pc = pc;
     }
 

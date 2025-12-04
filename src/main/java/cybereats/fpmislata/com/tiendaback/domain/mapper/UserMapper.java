@@ -4,8 +4,23 @@ import cybereats.fpmislata.com.tiendaback.domain.model.User;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 
 public class UserMapper {
+    private static UserMapper INSTANCE;
 
-    public static UserDto toUserDto(User user) {
+    private UserMapper() {
+    }
+
+    public static UserMapper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UserMapper();
+        }
+        return INSTANCE;
+    }
+
+    public UserDto userToUserDto(User user) {
+        if (user == null) {
+            return null;
+        }
+
         return new UserDto(
                 user.getId(),
                 user.getName(),
@@ -13,10 +28,13 @@ public class UserMapper {
                 user.getBorn_date(),
                 user.getUsername(),
                 user.getPassword());
-
     }
 
-    public static User toUser(UserDto userDto) {
+    public User userDtoToUser(UserDto userDto) {
+        if (userDto == null) {
+            return null;
+        }
+
         return new User.Builder()
                 .id(userDto.id())
                 .name(userDto.name())

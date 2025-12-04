@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.PCService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.PCMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.PCRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.PCResponse;
@@ -23,7 +24,7 @@ public class PCController {
 
     @GetMapping
     public ResponseEntity<Page<PCResponse>> findAllPCs(@RequestParam(required = false, defaultValue = "1") int page,
-                                                                 @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "10") int size) {
         Page<PCDto> pcDtoPage = pcService.getAll(page, size);
 
         List<PCResponse> pcResponses = pcDtoPage.data().stream()
@@ -34,8 +35,7 @@ public class PCController {
                 pcResponses,
                 pcDtoPage.pageNumber(),
                 pcDtoPage.pageSize(),
-                pcDtoPage.totalElements()
-        );
+                pcDtoPage.totalElements());
 
         return new ResponseEntity<>(pcPage, HttpStatus.OK);
     }

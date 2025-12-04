@@ -12,7 +12,7 @@ public interface ReportRepository {
 
     List<ReportDto> getByUserId(Long userId);
 
-    List<ReportDto> getByPcId(Long pcId);
+    List<ReportDto> getByPCId(Long pcId);
 
     Optional<ReportDto> getById(Long id);
 
