@@ -1,0 +1,82 @@
+CREATE TABLE category_product (
+                                  id INT PRIMARY KEY AUTO_INCREMENT,
+                                  label VARCHAR(255),
+                                  price DECIMAL(10,2)
+);
+
+CREATE TABLE product (
+                          id INT PRIMARY KEY AUTO_INCREMENT,
+                          label VARCHAR(255),
+                          slug VARCHAR(255),
+                          `desc` TEXT,
+                          price DECIMAL(10,2),
+                          category_product_id INT,
+                          FOREIGN KEY (category_product_id) REFERENCES category_product(id)
+);
+
+CREATE TABLE item_order (
+                            id INT PRIMARY KEY AUTO_INCREMENT,
+                            units INT,
+                            product_id INT,
+                            user_order_id INT,
+                            FOREIGN KEY (product_id) REFERENCES product(id),
+                            FOREIGN KEY (user_order_id) REFERENCES user_order(id)
+);
+
+CREATE TABLE user_order (
+                            id INT PRIMARY KEY AUTO_INCREMENT,
+                            status VARCHAR(255),
+                            user_id INT UNIQUE,
+                            FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE log (
+                      id INT PRIMARY KEY AUTO_INCREMENT,
+                      info TEXT,
+                      timestamp DATETIME
+);
+
+CREATE TABLE category_pc (
+                             id INT PRIMARY KEY AUTO_INCREMENT,
+                             label VARCHAR(255),
+                             price DECIMAL(10,2)
+);
+
+CREATE TABLE pc (
+                    id INT PRIMARY KEY AUTO_INCREMENT,
+                    label VARCHAR(255),
+                    slug VARCHAR(255),
+                    runtime VARCHAR(255),
+                    specs TEXT,
+                    working_since DATE,
+                    category_pc_id INT,
+                    FOREIGN KEY (category_pc_id) REFERENCES category_pc(id)
+);
+
+CREATE TABLE booking (
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         hours INT,
+                         pc_id INT,
+                         user_id INT,
+                         FOREIGN KEY (pc_id) REFERENCES pc(id),
+                         FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE report (
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         priority INT,
+                         `desc` TEXT,
+                         pc_id INT,
+                         user_id INT,
+                         FOREIGN KEY (pc_id) REFERENCES pc(id),
+                         FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE user (
+                      id INT PRIMARY KEY AUTO_INCREMENT,
+                      name VARCHAR(255),
+                      surname VARCHAR(255),
+                      born_date DATE,
+                      username VARCHAR(255),
+                      password VARCHAR(255)
+);

@@ -1,0 +1,54 @@
+package cybereats.fpmislata.com.tiendaback.domain.service.impl;
+
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
+import cybereats.fpmislata.com.tiendaback.domain.repository.LogRepository;
+import cybereats.fpmislata.com.tiendaback.domain.service.LogService;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.LogDto;
+
+import java.util.Optional;
+
+public class LogServiceImpl implements LogService {
+    private final LogRepository logRepository;
+
+    public LogServiceImpl(LogRepository logRepository) {
+        this.logRepository = logRepository;
+    }
+
+    @Override
+    public Page<LogDto> getAll(int page, int size) {
+        Page<LogDto> logDtoPage = logRepository.findAll(page, size);
+
+        return new Page<>(
+                logDtoPage.data(),
+                logDtoPage.pageNumber(),
+                logDtoPage.pageSize(),
+                logDtoPage.totalElements()
+        );
+    }
+
+    @Override
+    public LogDto getById(Long id) {
+        return logRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Log not found"));
+    }
+
+    @Override
+    public Optional<LogDto> findById(Long id) {
+        return Optional.ofNullable(logRepository.findById(id).orElseThrow(() -> new RuntimeException("Log not found")));
+    }
+
+    @Override
+    public LogDto create(LogDto logDto) {
+        return logRepository.save(logDto);
+    }
+
+    @Override
+    public LogDto update(LogDto logDto) {
+        return logRepository.save(logDto);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        logRepository.deleteById(id);
+    }
+}
