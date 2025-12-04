@@ -10,9 +10,15 @@ public interface UserJpaDao {
 
     UserJpaEntity update(UserJpaEntity user);
 
+<<<<<<< HEAD
     Optional<UserJpaEntity> findById(Long id);
 
     List<UserJpaEntity> findAll();
+=======
+    Optional<UserJpaEntity> getById(Long id);
+
+    List<UserJpaEntity> getAll();
+>>>>>>> ismael_7
 
     void deleteById(Long id);
 }

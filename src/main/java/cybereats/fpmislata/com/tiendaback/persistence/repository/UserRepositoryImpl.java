@@ -31,13 +31,21 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<UserDto> getUserById(Long id) {
+<<<<<<< HEAD
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.findById(id);
+=======
+        Optional<UserJpaEntity> userJpaEntity = userJpaDao.getById(id);
+>>>>>>> ismael_7
         return Optional.of(UserMapper.toUserDto(userJpaEntity.get()));
     }
 
     @Override
     public List<UserDto> getAll() {
+<<<<<<< HEAD
         return userJpaDao.findAll().stream().map(UserMapper::toUserDto).toList();
+=======
+        return userJpaDao.getAll().stream().map(UserMapper::toUserDto).toList();
+>>>>>>> ismael_7
     }
 
     @Override

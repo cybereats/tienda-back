@@ -1,0 +1,62 @@
+package cybereats.fpmislata.com.tiendaback.presentation;
+
+import cybereats.fpmislata.com.tiendaback.domain.service.ReportService;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
+import cybereats.fpmislata.com.tiendaback.presentation.mapper.ReportMapper;
+import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.ReportRequest;
+import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.ReportResponse;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/reports")
+public class ReportController {
+
+    @Autowired
+    private ReportService reportService;
+
+    @PostMapping
+    public ResponseEntity<ReportResponse> createReport(@RequestBody ReportRequest reportRequest) {
+        ReportDto reportDto = ReportMapper.fromReportRequestToReportDto(reportRequest);
+        DtoValidator.validate(reportDto);
+        ReportDto createdReportDto = reportService.insert(reportDto);
+        return new ResponseEntity<>(ReportMapper.fromReportDtoToReportResponse(createdReportDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReportResponse>> getAllReports() {
+        List<ReportDto> reportDtoList = reportService.getAll();
+        return new ResponseEntity<>(reportDtoList.stream().map(ReportMapper::fromReportDtoToReportResponse).toList(),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ReportResponse> getReportById(@PathVariable Long id) {
+        ReportDto reportDto = reportService.getById(id).get();
+        return new ResponseEntity<>(ReportMapper.fromReportDtoToReportResponse(reportDto), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReportResponse> updateReport(@PathVariable Long id,
+            @RequestBody ReportRequest reportRequest) {
+        if (!reportService.existsById(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        ReportDto reportDto = ReportMapper.fromReportRequestToReportDto(reportRequest);
+        DtoValidator.validate(reportDto);
+        ReportDto updatedReportDto = reportService.update(reportDto);
+        return new ResponseEntity<>(ReportMapper.fromReportDtoToReportResponse(updatedReportDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
+        reportService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
