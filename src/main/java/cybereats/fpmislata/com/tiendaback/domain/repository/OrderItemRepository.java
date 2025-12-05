@@ -8,9 +8,9 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 public interface OrderItemRepository {
     OrderItemDto save(OrderItemDto orderItemDto);
 
-    Optional<OrderItemDto> getOrderItemById(Long id);
+    Optional<OrderItemDto> findById(Long id);
 
-    List<OrderItemDto> getAll();
+    List<OrderItemDto> findAll();
 
     void deleteById(Long id);
 }

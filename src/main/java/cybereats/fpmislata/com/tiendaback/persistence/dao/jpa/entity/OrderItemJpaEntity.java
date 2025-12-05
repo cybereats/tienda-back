@@ -10,23 +10,22 @@ public class OrderItemJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "units")
     private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private ProductJpaEntity product;
-
+    private ProductJpaEntity product_id;
     @ManyToOne
     @JoinColumn(name = "user_order_id")
-    private UserOrderJpaEntity userOrder;
+    private UserOrderJpaEntity user_order_id;
 
     public OrderItemJpaEntity() {
     }
 
-    public OrderItemJpaEntity(Long id, ProductJpaEntity product, Integer quantity) {
+    public OrderItemJpaEntity(Long id, Integer quantity, ProductJpaEntity product_id, UserOrderJpaEntity user_order_id) {
         this.id = id;
-        this.product = product;
+        this.product_id = product_id;
         this.quantity = quantity;
+        this.user_order_id = user_order_id;
     }
 
     public Long getId() {
@@ -38,11 +37,19 @@ public class OrderItemJpaEntity {
     }
 
     public ProductJpaEntity getProduct() {
-        return product;
+        return product_id;
     }
 
-    public void setProduct(ProductJpaEntity product) {
-        this.product = product;
+    public void setProduct(ProductJpaEntity product_id) {
+        this.product_id = product_id;
+    }
+
+    public UserOrderJpaEntity getUser_order_id() {
+        return user_order_id;
+    }
+
+    public void setUser_order_id(UserOrderJpaEntity user_order_id) {
+        this.user_order_id = user_order_id;
     }
 
     public Integer getQuantity() {

@@ -1,22 +1,12 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa;
 
 import java.util.List;
-import java.util.Optional;
 
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
 
-public interface ReportJpaDao {
-    ReportJpaEntity insert(ReportJpaEntity reportJpaEntity);
+public interface ReportJpaDao extends GenericJpaDao<ReportJpaEntity> {
 
-    ReportJpaEntity update(ReportJpaEntity reportJpaEntity);
+    List<ReportJpaEntity> findByUserId(Long userId);
 
-    List<ReportJpaEntity> getAll();
-
-    List<ReportJpaEntity> getByUserId(Long userId);
-
-    List<ReportJpaEntity> getByPCId(Long pcId);
-
-    Optional<ReportJpaEntity> getById(Long id);
-
-    void deleteById(Long id);
+    List<ReportJpaEntity> findByPCId(Long pcId);
 }

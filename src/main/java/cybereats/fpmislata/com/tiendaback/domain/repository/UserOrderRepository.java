@@ -7,9 +7,9 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 
 public interface UserOrderRepository {
 
-    List<UserOrderDto> getAll();
+    List<UserOrderDto> findAll();
 
-    Optional<UserOrderDto> getUserOrderById(Long id);
+    Optional<UserOrderDto> findById(Long id);
 
     UserOrderDto save(UserOrderDto userOrderDto);
 

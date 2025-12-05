@@ -20,47 +20,52 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItemDto insert(OrderItemDto orderItemDto) {
-        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.getOrderItemById(orderItemDto.id());
+        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(orderItemDto.id());
         if (orderItemDtoOptional.isPresent()) {
             throw new BusinessException("OrderItemDto already exists");
         }
-        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDto);
-        return orderItemRepository.save(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(orderItemDto);
+        return orderItemRepository.save(OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem));
     }
 
     @Override
     public OrderItemDto update(OrderItemDto orderItemDto) {
-        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.getOrderItemById(orderItemDto.id());
+        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(orderItemDto.id());
         if (orderItemDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("OrderItemDto not found");
         }
-        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDto);
-        return orderItemRepository.save(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(orderItemDto);
+        return orderItemRepository.save(OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem));
     }
 
     @Override
-    public Optional<OrderItemDto> getOrderItemById(Long id) {
-        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.getOrderItemById(id);
+    public OrderItemDto getById(Long id) {
+        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(id);
         if (orderItemDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("OrderItemDto not found");
         }
-        OrderItem orderItem = OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDtoOptional.get());
-        return Optional.of(OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem));
+        OrderItem orderItem = OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(orderItemDtoOptional.get());
+        return OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem);
     }
 
     @Override
-    public List<OrderItemDto> getAll() {
-        List<OrderItem> orderItemList = orderItemRepository.getAll().stream()
-                .map(dto -> OrderItemMapper.getInstance().orderItemDtoToOrderItem(dto))
+    public Optional<OrderItemDto> findById(Long id) {
+        return orderItemRepository.findById(id);
+    }
+
+    @Override
+    public List<OrderItemDto> findAll() {
+        List<OrderItem> orderItemList = orderItemRepository.findAll().stream()
+                .map(dto -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(dto))
                 .toList();
         return orderItemList.stream()
-                .map(item -> OrderItemMapper.getInstance().orderItemToOrderItemDto(item))
+                .map(item -> OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(item))
                 .toList();
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.getOrderItemById(id);
+        Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(id);
         if (orderItemDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("OrderItemDto not found");
         }

@@ -6,7 +6,7 @@ public record UserResponse(
         Long id,
         String name,
         String surname,
-        @JsonFormat(pattern = "dd-MM-yyyy") String born_date,
+        @JsonFormat(pattern = "dd-MM-yyyy") String bornDate,
         String username,
         String password) {
 }

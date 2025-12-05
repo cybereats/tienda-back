@@ -14,12 +14,12 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
     private EntityManager entityManager;
 
     @Override
-    public Optional<UserOrderJpaEntity> getUserOrderById(Long id) {
+    public Optional<UserOrderJpaEntity> findById(Long id) {
         return Optional.of(entityManager.find(UserOrderJpaEntity.class, id));
     }
 
     @Override
-    public List<UserOrderJpaEntity> getAll() {
+    public List<UserOrderJpaEntity> findAll() {
         return entityManager
                 .createQuery("SELECT u FROM UserOrderJpaEntity u ORDER BY u.id ASC", UserOrderJpaEntity.class)
                 .getResultList();

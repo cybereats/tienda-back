@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.CategoryPCJ
 public class CategoryPCMapper {
     private static CategoryPCMapper INSTANCE;
 
-    private CategoryPCMapper() {}
+    private CategoryPCMapper() {
+    }
 
     public static CategoryPCMapper getInstance() {
         if (INSTANCE == null) {
@@ -15,7 +16,7 @@ public class CategoryPCMapper {
         return INSTANCE;
     }
 
-    public CategoryPCDto categoryPCJpaEntityToCategoryPCDto(CategoryPCJpaEntity categoryPCJpaEntity) {
+    public CategoryPCDto fromCategoryPCJpaEntityToCategoryPCDto(CategoryPCJpaEntity categoryPCJpaEntity) {
         if (categoryPCJpaEntity == null) {
             return null;
         }
@@ -23,12 +24,10 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPCJpaEntity.getId(),
                 categoryPCJpaEntity.getLabel(),
-                categoryPCJpaEntity.getPrice(),
-                categoryPCJpaEntity.getPCs().stream().map(pc -> PCMapper.getInstance().pcJpaEntityToPCDto(pc)).toList()
-        );
+                categoryPCJpaEntity.getPrice());
     }
 
-    public CategoryPCJpaEntity categoryPCDtoToCategoryPCJpaEntity(CategoryPCDto categoryPCDto) {
+    public CategoryPCJpaEntity fromCategoryPCDtoToCategoryPCJpaEntity(CategoryPCDto categoryPCDto) {
         if (categoryPCDto == null) {
             return null;
         }
@@ -36,8 +35,6 @@ public class CategoryPCMapper {
         return new CategoryPCJpaEntity(
                 categoryPCDto.id(),
                 categoryPCDto.label(),
-                categoryPCDto.price(),
-                categoryPCDto.pc_list().stream().map(pcDto -> PCMapper.getInstance().pcDtoToPCJpaEntity(pcDto)).toList()
-        );
+                categoryPCDto.price());
     }
 }

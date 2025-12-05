@@ -16,32 +16,31 @@ public class UserOrderMapper {
         return INSTANCE;
     }
 
-    public UserOrderJpaEntity userOrderDtoToUserOrderJpaEntity(UserOrderDto userOrderDto) {
+    public UserOrderJpaEntity fromUserOrderDtoToUserOrderJpaEntity(UserOrderDto userOrderDto) {
         if (userOrderDto == null) {
             return null;
         }
 
         return new UserOrderJpaEntity(
                 userOrderDto.id(),
-                UserMapper.getInstance().userDtoToUserJpaEntity(userOrderDto.user()),
+                UserMapper.getInstance().fromUserDtoToUserJpaEntity(userOrderDto.user()),
                 userOrderDto.orderItems().stream()
-                        .map(item -> OrderItemMapper.getInstance().orderItemDtoToOrderItemJpaEntity(item))
+                        .map(item -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItemJpaEntity(item))
                         .toList(),
                 userOrderDto.status());
     }
 
-    public UserOrderDto userOrderJpaEntityToUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
+    public UserOrderDto fromUserOrderJpaEntityToUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
         if (userOrderJpaEntity == null) {
             return null;
         }
 
         return new UserOrderDto(
                 userOrderJpaEntity.getId(),
-                UserMapper.getInstance().userJpaEntityToUserDto(userOrderJpaEntity.getUser()),
+                UserMapper.getInstance().fromUserJpaEntityToUserDto(userOrderJpaEntity.getUser()),
                 userOrderJpaEntity.getOrderItems().stream()
-                        .map(item -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(item))
+                        .map(item -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(item))
                         .toList(),
-                null,
                 userOrderJpaEntity.getStatus());
     }
 }

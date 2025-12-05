@@ -10,9 +10,11 @@ public interface OrderItemJpaDao {
 
     OrderItemJpaEntity update(OrderItemJpaEntity orderItemJpaEntity);
 
-    Optional<OrderItemJpaEntity> getOrderItemById(Long id);
+    Optional<OrderItemJpaEntity> findById(Long id);
 
-    List<OrderItemJpaEntity> getAll();
+    List<OrderItemJpaEntity> findAll();
 
     void deleteById(Long id);
+
+    long count();
 }

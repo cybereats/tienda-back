@@ -10,13 +10,15 @@ public interface ReportService {
 
     ReportDto update(ReportDto reportDto);
 
-    List<ReportDto> getAll();
+    List<ReportDto> findAll(int page, int size);
 
-    List<ReportDto> getByUserId(Long userId);
+    List<ReportDto> findByUserId(Long userId);
 
-    List<ReportDto> getByPCId(Long pcId);
+    List<ReportDto> findByPCId(Long pcId);
 
-    Optional<ReportDto> getById(Long id);
+    ReportDto getById(Long id);
+
+    Optional<ReportDto> findById(Long id);
 
     void deleteById(Long id);
 

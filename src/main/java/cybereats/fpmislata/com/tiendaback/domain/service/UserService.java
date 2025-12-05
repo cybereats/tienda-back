@@ -10,9 +10,11 @@ public interface UserService {
 
     UserDto update(UserDto user);
 
-    Optional<UserDto> getUserById(Long id);
+    UserDto getById(Long id);
 
-    List<UserDto> getAll();
+    Optional<UserDto> findById(Long id);
+
+    List<UserDto> findAll(int page, int size);
 
     void deleteById(Long id);
 }

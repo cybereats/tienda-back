@@ -17,17 +17,17 @@ public class UserMapper {
         return INSTANCE;
     }
 
-    public UserResponse fromDtoToUserResponse(UserDto userDto) {
+    public UserResponse fromUserDtoToUserResponse(UserDto userDto) {
         return new UserResponse(
                 userDto.id(),
                 userDto.name(),
                 userDto.surname(),
-                userDto.born_date(),
+                userDto.bornDate(),
                 userDto.username(),
                 userDto.password());
     }
 
-    public UserDto fromUserRequestToDto(UserRequest userRequest) {
+    public UserDto fromUserRequestToUserDto(UserRequest userRequest) {
         return new UserDto(
                 userRequest.id(),
                 userRequest.name(),

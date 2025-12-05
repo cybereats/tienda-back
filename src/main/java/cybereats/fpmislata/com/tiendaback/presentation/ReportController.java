@@ -30,15 +30,17 @@ public class ReportController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReportResponse>> getAllReports() {
-        List<ReportDto> reportDtoList = reportService.getAll();
+    public ResponseEntity<List<ReportResponse>> getAllReports(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        List<ReportDto> reportDtoList = reportService.findAll(page, size);
         return new ResponseEntity<>(reportDtoList.stream().map(ReportMapper::fromReportDtoToReportResponse).toList(),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReportResponse> getReportById(@PathVariable Long id) {
-        ReportDto reportDto = reportService.getById(id).get();
+        ReportDto reportDto = reportService.findById(id).get();
         return new ResponseEntity<>(ReportMapper.fromReportDtoToReportResponse(reportDto), HttpStatus.OK);
     }
 

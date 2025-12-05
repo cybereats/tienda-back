@@ -19,7 +19,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ReportDto insert(ReportDto reportDto) {
-        Optional<ReportDto> reportDtoOptional = reportRepository.getById(reportDto.id());
+        Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
         if (reportDtoOptional.isPresent()) {
             throw new BusinessException("Report already exists");
         }
@@ -28,7 +28,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ReportDto update(ReportDto reportDto) {
-        Optional<ReportDto> reportDtoOptional = reportRepository.getById(reportDto.id());
+        Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
         if (reportDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("Report not found");
         }
@@ -36,35 +36,37 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportDto> getAll() {
-        return reportRepository.getAll();
+    public List<ReportDto> findAll(int page, int size) {
+        return reportRepository.findAll(page, size);
     }
 
     @Override
-    public List<ReportDto> getByUserId(Long userId) {
-        return reportRepository.getByUserId(userId);
+    public List<ReportDto> findByUserId(Long userId) {
+        return reportRepository.findByUserId(userId);
     }
 
     @Override
-    public List<ReportDto> getByPCId(Long pcId) {
-        return reportRepository.getByPCId(pcId);
+    public List<ReportDto> findByPCId(Long pcId) {
+        return reportRepository.findByPCId(pcId);
     }
 
     @Override
-    public Optional<ReportDto> getById(Long id) {
-        Optional<ReportDto> reportDtoOptional = reportRepository.getById(id);
-        if (reportDtoOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Report not found");
-        }
-        return reportDtoOptional;
+    public Optional<ReportDto> findById(Long id) {
+        return reportRepository.findById(id);
+    }
+
+    @Override
+    public ReportDto getById(Long id) {
+        return reportRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Report not found"));
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<ReportDto> reportDtoOptional = reportRepository.getById(id);
+        Optional<ReportDto> reportDtoOptional = reportRepository.findById(id);
         if (reportDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("Report not found");
         }
         reportRepository.deleteById(id);
     }
+
 }

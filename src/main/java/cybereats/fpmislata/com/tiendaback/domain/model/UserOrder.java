@@ -7,14 +7,12 @@ public class UserOrder {
     private Long id;
     private User user;
     private List<OrderItem> orderItems;
-    private BigDecimal totalPrice;
     private String status;
 
     private UserOrder(Builder builder) {
         this.id = builder.id;
         this.user = builder.user;
         this.orderItems = builder.orderItems;
-        this.totalPrice = orderItems.stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         this.status = builder.status;
     }
 
@@ -28,10 +26,6 @@ public class UserOrder {
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
     }
 
     public String getStatus() {

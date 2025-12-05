@@ -15,7 +15,7 @@ public class LogMapper {
         return INSTANCE;
     }
 
-    public LogDto logToLogDto(Log log) {
+    public LogDto fromLogToLogDto(Log log) {
         if (log == null) {
             return null;
         }
@@ -25,7 +25,7 @@ public class LogMapper {
         );
     }
 
-    public Log logDtoToLog(LogDto logDto) {
+    public Log fromLogDtoToLog(LogDto logDto) {
         if (logDto == null) {
             return null;
         }

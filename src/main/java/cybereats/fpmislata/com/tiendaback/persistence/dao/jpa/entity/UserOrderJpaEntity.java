@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +25,8 @@ public class UserOrderJpaEntity {
     @JoinColumn(name = "user_id")
     private UserJpaEntity user;
 
-    @OneToMany(mappedBy = "userOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user_order_id")
     private List<OrderItemJpaEntity> orderItems;
-
     private String status;
 
     public UserOrderJpaEntity() {

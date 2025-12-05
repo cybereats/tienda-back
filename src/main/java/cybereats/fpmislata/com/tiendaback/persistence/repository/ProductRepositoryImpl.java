@@ -20,7 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Page<ProductDto> findAll(int page, int size) {
         List<ProductDto> content = productJpaDao.findAll(page, size).stream()
-                .map(productJpaEntity -> ProductMapper.getInstance().productJpaEntityToProductDto(productJpaEntity))
+                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity))
                 .toList();
         long totalElements = productJpaDao.count();
         return new Page<>(content, page, size, totalElements);
@@ -29,18 +29,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<ProductDto> findById(Long id) {
         return productJpaDao.findById(id)
-                .map(productJpaEntity -> ProductMapper.getInstance().productJpaEntityToProductDto(productJpaEntity));
+                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity));
     }
 
     @Override
     public ProductDto save(ProductDto productDto) {
-        ProductJpaEntity productJpaEntity = ProductMapper.getInstance().productDtoToProductJpaEntity(productDto);
+        ProductJpaEntity productJpaEntity = ProductMapper.getInstance().fromProductDtoToProductJpaEntity(productDto);
 
         if(productDto.id() == null) {
-            return ProductMapper.getInstance().productJpaEntityToProductDto(productJpaDao.insert(productJpaEntity));
+            return ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaDao.insert(productJpaEntity));
         }
 
-        return ProductMapper.getInstance().productJpaEntityToProductDto(productJpaDao.update(productJpaEntity));
+        return ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaDao.update(productJpaEntity));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<ProductDto> findBySlug(String slug) {
         return productJpaDao.findBySlug(slug)
-                .map(productJpaEntity -> ProductMapper.getInstance().productJpaEntityToProductDto(productJpaEntity));
+                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity));
     }
 }

@@ -42,7 +42,7 @@ INSERT INTO user_order (status, user_id) VALUES
 -- ============================
 -- TABLE: order_item
 -- ============================
-INSERT INTO order_item (units, product_id, user_order_id) VALUES
+INSERT INTO order_item (quantity, product_id, user_order_id) VALUES
                                                               (2, 1, 1),
                                                               (1, 3, 1),
                                                               (1, 2, 2),

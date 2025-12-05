@@ -25,10 +25,10 @@ public class PCController {
     @GetMapping
     public ResponseEntity<Page<PCResponse>> findAllPCs(@RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<PCDto> pcDtoPage = pcService.getAll(page, size);
+        Page<PCDto> pcDtoPage = pcService.findAll(page, size);
 
         List<PCResponse> pcResponses = pcDtoPage.data().stream()
-                .map(pcDto -> PCMapper.getInstance().pcDtoToPCResponse(pcDto))
+                .map(pcDto -> PCMapper.getInstance().fromPCDtoToPCResponse(pcDto))
                 .toList();
 
         Page<PCResponse> pcPage = new Page<>(
@@ -42,16 +42,16 @@ public class PCController {
 
     @GetMapping("/{slug}")
     public ResponseEntity<PCResponse> getPCBySlug(@PathVariable String slug) {
-        PCResponse pcResponse = PCMapper.getInstance().pcDtoToPCResponse(pcService.getBySlug(slug));
+        PCResponse pcResponse = PCMapper.getInstance().fromPCDtoToPCResponse(pcService.getBySlug(slug));
         return new ResponseEntity<>(pcResponse, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<PCResponse> createPC(@RequestBody PCRequest pcRequest) {
-        PCDto pcDto = PCMapper.getInstance().pcRequestToPCDto(pcRequest);
+        PCDto pcDto = PCMapper.getInstance().fromPCRequestToPCDto(pcRequest);
         DtoValidator.validate(pcDto);
         PCDto createdPC = pcService.create(pcDto);
-        return new ResponseEntity<>(PCMapper.getInstance().pcDtoToPCResponse(createdPC), HttpStatus.CREATED);
+        return new ResponseEntity<>(PCMapper.getInstance().fromPCDtoToPCResponse(createdPC), HttpStatus.CREATED);
     }
 
     @PutMapping("/{slug}")
@@ -59,10 +59,10 @@ public class PCController {
         if (!slug.equals(pcRequest.slug())) {
             throw new IllegalArgumentException("SLUG in path and request body must match");
         }
-        PCDto pcDto = PCMapper.getInstance().pcRequestToPCDto(pcRequest);
+        PCDto pcDto = PCMapper.getInstance().fromPCRequestToPCDto(pcRequest);
         DtoValidator.validate(pcDto);
         PCDto updatedPC = pcService.update(pcDto);
-        return new ResponseEntity<>(PCMapper.getInstance().pcDtoToPCResponse(updatedPC), HttpStatus.OK);
+        return new ResponseEntity<>(PCMapper.getInstance().fromPCDtoToPCResponse(updatedPC), HttpStatus.OK);
     }
 
     @DeleteMapping("/{slug}")

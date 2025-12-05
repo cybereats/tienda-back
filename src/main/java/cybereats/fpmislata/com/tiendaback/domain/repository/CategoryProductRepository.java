@@ -6,7 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import java.util.Optional;
 
 public interface CategoryProductRepository {
-    Page<CategoryProductDto> getAll(int page, int size);
+    Page<CategoryProductDto> findAll(int page, int size);
 
     Optional<CategoryProductDto> findById(Long id);
 

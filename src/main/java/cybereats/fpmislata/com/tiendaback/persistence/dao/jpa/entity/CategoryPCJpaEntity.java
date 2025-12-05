@@ -15,16 +15,14 @@ public class CategoryPCJpaEntity implements Serializable {
     private Long id;
     private String label;
     private BigDecimal price;
-    @OneToMany(mappedBy = "category")
-    private List<PCJpaEntity> pcs = new ArrayList<>();
 
-    public CategoryPCJpaEntity() { }
+    public CategoryPCJpaEntity() {
+    }
 
-    public CategoryPCJpaEntity(Long id, String label, BigDecimal price, List<PCJpaEntity> pcs) {
+    public CategoryPCJpaEntity(Long id, String label, BigDecimal price) {
         this.id = id;
         this.label = label;
         this.price = price;
-        setPCs(pcs);
     }
 
     public Long getId() {
@@ -37,13 +35,5 @@ public class CategoryPCJpaEntity implements Serializable {
 
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public List<PCJpaEntity> getPCs() {
-        return pcs;
-    }
-
-    public void setPCs(List<PCJpaEntity> pcs) {
-        this.pcs = pcs;
     }
 }

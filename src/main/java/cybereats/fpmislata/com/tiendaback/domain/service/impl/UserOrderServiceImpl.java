@@ -19,48 +19,51 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
-    public List<UserOrderDto> getAll() {
-        List<UserOrder> userOrderList = userOrderRepository.getAll().stream()
-                .map(dto -> UserOrderMapper.getInstance().userOrderDtoToUserOrder(dto))
+    public List<UserOrderDto> findAll() {
+        List<UserOrder> userOrderList = userOrderRepository.findAll().stream()
+                .map(dto -> UserOrderMapper.getInstance().fromUserOrderDtoToUserOrder(dto))
                 .toList();
         return userOrderList.stream()
-                .map(order -> UserOrderMapper.getInstance().userOrderToUserOrderDto(order))
+                .map(order -> UserOrderMapper.getInstance().fromUserOrderToUserOrderDto(order))
                 .toList();
     }
 
     @Override
-    public Optional<UserOrderDto> getUserOrderById(Long id) {
-        Optional<UserOrder> userOrder = userOrderRepository.getUserOrderById(id)
-                .map(dto -> UserOrderMapper.getInstance().userOrderDtoToUserOrder(dto));
-        if (userOrder.isEmpty()) {
-            throw new ResourceNotFoundException("UserOrder not found");
-        }
-        return userOrder.map(order -> UserOrderMapper.getInstance().userOrderToUserOrderDto(order));
+    public UserOrderDto getById(Long id) {
+        UserOrderDto userOrderDto = userOrderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("UserOrder not found"));
+        UserOrder userOrder = UserOrderMapper.getInstance().fromUserOrderDtoToUserOrder(userOrderDto);
+        return UserOrderMapper.getInstance().fromUserOrderToUserOrderDto(userOrder);
+    }
+
+    @Override
+    public Optional<UserOrderDto> findById(Long id) {
+        return userOrderRepository.findById(id);
     }
 
     @Override
     public UserOrderDto insert(UserOrderDto userOrderDto) {
-        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.getUserOrderById(userOrderDto.id());
+        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(userOrderDto.id());
         if (userOrderDtoOptional.isPresent()) {
             throw new BusinessException("UserOrder already exists");
         }
-        UserOrder userOrder = UserOrderMapper.getInstance().userOrderDtoToUserOrder(userOrderDto);
-        return userOrderRepository.save(UserOrderMapper.getInstance().userOrderToUserOrderDto(userOrder));
+        UserOrder userOrder = UserOrderMapper.getInstance().fromUserOrderDtoToUserOrder(userOrderDto);
+        return userOrderRepository.save(UserOrderMapper.getInstance().fromUserOrderToUserOrderDto(userOrder));
     }
 
     @Override
     public UserOrderDto update(UserOrderDto userOrderDto) {
-        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.getUserOrderById(userOrderDto.id());
+        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(userOrderDto.id());
         if (userOrderDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("UserOrder not found");
         }
-        UserOrder userOrder = UserOrderMapper.getInstance().userOrderDtoToUserOrder(userOrderDto);
-        return userOrderRepository.save(UserOrderMapper.getInstance().userOrderToUserOrderDto(userOrder));
+        UserOrder userOrder = UserOrderMapper.getInstance().fromUserOrderDtoToUserOrder(userOrderDto);
+        return userOrderRepository.save(UserOrderMapper.getInstance().fromUserOrderToUserOrderDto(userOrder));
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.getUserOrderById(id);
+        Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(id);
         if (userOrderDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("UserOrder not found");
         }

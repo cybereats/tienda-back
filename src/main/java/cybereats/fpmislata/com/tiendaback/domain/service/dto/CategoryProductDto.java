@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record CategoryProductDto(
                 Long id,
-                @NotNull String name,
+                @NotNull String label,
                 @NotNull String slug) {
 
 }

@@ -20,7 +20,7 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public Page<BookingDto> findAll(int page, int size) {
         List<BookingDto> content = bookingJpaDao.findAll(page, size).stream()
-                .map(bookingJpaEntity -> BookingMapper.getInstance().bookingJpaEntityToBookingDto(bookingJpaEntity))
+                .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity))
                 .toList();
         long totalElements = bookingJpaDao.count();
         return new Page<>(content, page, size, totalElements);
@@ -29,18 +29,18 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public Optional<BookingDto> findById(Long id) {
         return bookingJpaDao.findById(id)
-                .map(bookingJpaEntity -> BookingMapper.getInstance().bookingJpaEntityToBookingDto(bookingJpaEntity));
+                .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity));
     }
 
     @Override
     public BookingDto save(BookingDto bookingDto) {
-        BookingJpaEntity bookingJpaEntity = BookingMapper.getInstance().bookingDtoToBookingJpaEntity(bookingDto);
+        BookingJpaEntity bookingJpaEntity = BookingMapper.getInstance().fromBookingDtoToBookingJpaEntity(bookingDto);
 
         if(bookingDto.id() == null) {
-            return BookingMapper.getInstance().bookingJpaEntityToBookingDto(bookingJpaDao.insert(bookingJpaEntity));
+            return BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaDao.insert(bookingJpaEntity));
         }
 
-        return BookingMapper.getInstance().bookingJpaEntityToBookingDto(bookingJpaDao.update(bookingJpaEntity));
+        return BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaDao.update(bookingJpaEntity));
     }
 
     @Override

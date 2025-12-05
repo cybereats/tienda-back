@@ -21,12 +21,13 @@ public class ProductJpaEntity implements Serializable {
 
     public ProductJpaEntity() { }
 
-    public ProductJpaEntity(Long id, String label, String slug, String desc, BigDecimal price) {
+    public ProductJpaEntity(Long id, String label, String slug, String desc, BigDecimal price, CategoryProductJpaEntity categoryProductJpaEntity) {
         this.id = id;
         this.label = label;
         this.slug = slug;
         this.desc = desc;
         this.price = price;
+        this.categoryProductJpaEntity = categoryProductJpaEntity;
     }
 
     public Long getId() {
@@ -47,5 +48,9 @@ public class ProductJpaEntity implements Serializable {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public CategoryProductJpaEntity getCategoryProductJpaEntity() {
+        return categoryProductJpaEntity;
     }
 }

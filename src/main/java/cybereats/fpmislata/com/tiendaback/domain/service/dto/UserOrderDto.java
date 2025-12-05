@@ -9,7 +9,5 @@ public record UserOrderDto(
         Long id,
         @NotNull UserDto user,
         List<OrderItemDto> orderItems,
-        BigDecimal totalPrice,
-        String status) {
-
-}
+        String status
+) {  }

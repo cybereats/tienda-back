@@ -7,7 +7,8 @@ import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.Categor
 public class CategoryPCMapper {
     private static CategoryPCMapper INSTANCE;
 
-    private CategoryPCMapper() {}
+    private CategoryPCMapper() {
+    }
 
     public static CategoryPCMapper getInstance() {
         if (INSTANCE == null) {
@@ -16,7 +17,7 @@ public class CategoryPCMapper {
         return INSTANCE;
     }
 
-    public CategoryPCDto categoryPCRequestToCategoryPCDto(CategoryPCRequest categoryPCRequest) {
+    public CategoryPCDto fromCategoryPCRequestToCategoryPCDto(CategoryPCRequest categoryPCRequest) {
         if (categoryPCRequest == null) {
             return null;
         }
@@ -24,12 +25,10 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPCRequest.id(),
                 categoryPCRequest.label(),
-                categoryPCRequest.price(),
-                null
-        );
+                categoryPCRequest.price());
     }
 
-    public CategoryPCResponse categoryPCDtoToCategoryPCResponse(CategoryPCDto categoryPCDto) {
+    public CategoryPCResponse fromCategoryPCDtoToCategoryPCResponse(CategoryPCDto categoryPCDto) {
         if (categoryPCDto == null) {
             return null;
         }
@@ -37,8 +36,6 @@ public class CategoryPCMapper {
         return new CategoryPCResponse(
                 categoryPCDto.id(),
                 categoryPCDto.label(),
-                categoryPCDto.price(),
-                categoryPCDto.pc_list().stream().map(pc -> PCMapper.getInstance().pcDtoToPCResponse(pc)).toList()
-        );
+                categoryPCDto.price());
     }
 }

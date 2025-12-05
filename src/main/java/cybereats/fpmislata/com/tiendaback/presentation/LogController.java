@@ -25,10 +25,10 @@ public class LogController {
     @GetMapping
     public ResponseEntity<Page<LogResponse>> findAllLogs(@RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<LogDto> logDtoPage = logService.getAll(page, size);
+        Page<LogDto> logDtoPage = logService.findAll(page, size);
 
         List<LogResponse> logResponses = logDtoPage.data().stream()
-                .map(logDto -> LogMapper.getInstance().logDtoToLogResponse(logDto))
+                .map(logDto -> LogMapper.getInstance().fromLogDtoToLogResponse(logDto))
                 .toList();
 
         Page<LogResponse> logPage = new Page<>(
@@ -42,16 +42,16 @@ public class LogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<LogResponse> getLogById(@PathVariable Long id) {
-        LogResponse logResponse = LogMapper.getInstance().logDtoToLogResponse(logService.getById(id));
+        LogResponse logResponse = LogMapper.getInstance().fromLogDtoToLogResponse(logService.getById(id));
         return new ResponseEntity<>(logResponse, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<LogResponse> createLog(@RequestBody LogRequest logRequest) {
-        LogDto logDto = LogMapper.getInstance().logRequestToLogDto(logRequest);
+        LogDto logDto = LogMapper.getInstance().fromLogRequestToLogDto(logRequest);
         DtoValidator.validate(logDto);
         LogDto createdLog = logService.create(logDto);
-        return new ResponseEntity<>(LogMapper.getInstance().logDtoToLogResponse(createdLog), HttpStatus.CREATED);
+        return new ResponseEntity<>(LogMapper.getInstance().fromLogDtoToLogResponse(createdLog), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -59,10 +59,10 @@ public class LogController {
         if (!id.equals(logRequest.id())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
-        LogDto logDto = LogMapper.getInstance().logRequestToLogDto(logRequest);
+        LogDto logDto = LogMapper.getInstance().fromLogRequestToLogDto(logRequest);
         DtoValidator.validate(logDto);
         LogDto updatedLog = logService.update(logDto);
-        return new ResponseEntity<>(LogMapper.getInstance().logDtoToLogResponse(updatedLog), HttpStatus.OK);
+        return new ResponseEntity<>(LogMapper.getInstance().fromLogDtoToLogResponse(updatedLog), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

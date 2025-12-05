@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 public record OrderItemDto(
                 Long id,
                 @NotNull ProductDto product,
-                @NotNull @DecimalMin(value = "0.0", inclusive = true, message = "Quantity must be greater than or equal to 0") int quantity,
-                BigDecimal price) {
+                @NotNull @DecimalMin(value = "0.0", inclusive = true, message = "Quantity must be greater than or equal to 0") int quantity
+                ) {
 
 }

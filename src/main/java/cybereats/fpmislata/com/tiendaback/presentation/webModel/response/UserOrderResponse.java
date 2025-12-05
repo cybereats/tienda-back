@@ -7,7 +7,6 @@ public record UserOrderResponse(
                 Long id,
                 UserResponse user,
                 List<OrderItemResponse> orderItems,
-                BigDecimal price,
                 String status) {
 
 }

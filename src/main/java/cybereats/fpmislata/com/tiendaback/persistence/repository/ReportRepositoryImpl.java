@@ -20,33 +20,33 @@ public class ReportRepositoryImpl implements ReportRepository {
     @Override
     public ReportDto save(ReportDto reportDto) {
         if (reportDto.id() == null) {
-            ReportJpaEntity reportJpaEntity = ReportMapper.toReportJpaEntity(reportDto);
-            return ReportMapper.toReportDto(reportJpaDao.insert(reportJpaEntity));
+            ReportJpaEntity reportJpaEntity = ReportMapper.fromReportDtotoReportJpaEntity(reportDto);
+            return ReportMapper.fromReportJpaEntitytoReportDto(reportJpaDao.insert(reportJpaEntity));
         } else {
-            ReportJpaEntity reportJpaEntity = ReportMapper.toReportJpaEntity(reportDto);
-            return ReportMapper.toReportDto(reportJpaDao.update(reportJpaEntity));
+            ReportJpaEntity reportJpaEntity = ReportMapper.fromReportDtotoReportJpaEntity(reportDto);
+            return ReportMapper.fromReportJpaEntitytoReportDto(reportJpaDao.update(reportJpaEntity));
         }
     }
 
     @Override
-    public List<ReportDto> getAll() {
-        return reportJpaDao.getAll().stream().map(ReportMapper::toReportDto).toList();
+    public List<ReportDto> findAll(int page, int size) {
+        return reportJpaDao.findAll(page, size).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
     }
 
     @Override
-    public List<ReportDto> getByUserId(Long userId) {
-        return reportJpaDao.getByUserId(userId).stream().map(ReportMapper::toReportDto).toList();
+    public List<ReportDto> findByUserId(Long userId) {
+        return reportJpaDao.findByUserId(userId).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
     }
 
     @Override
-    public List<ReportDto> getByPCId(Long pcId) {
-        return reportJpaDao.getByPCId(pcId).stream().map(ReportMapper::toReportDto).toList();
+    public List<ReportDto> findByPCId(Long pcId) {
+        return reportJpaDao.findByPCId(pcId).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
     }
 
     @Override
-    public Optional<ReportDto> getById(Long id) {
-        Optional<ReportJpaEntity> reportJpaEntity = reportJpaDao.getById(id);
-        return reportJpaEntity.map(ReportMapper::toReportDto);
+    public Optional<ReportDto> findById(Long id) {
+        Optional<ReportJpaEntity> reportJpaEntity = reportJpaDao.findById(id);
+        return reportJpaEntity.map(ReportMapper::fromReportJpaEntitytoReportDto);
     }
 
     @Override

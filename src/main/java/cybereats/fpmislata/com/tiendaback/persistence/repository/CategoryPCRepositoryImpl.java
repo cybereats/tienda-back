@@ -20,7 +20,7 @@ public class CategoryPCRepositoryImpl implements CategoryPCRepository {
     @Override
     public Page<CategoryPCDto> findAll(int page, int size) {
         List<CategoryPCDto> content = categoryPCJpaDao.findAll(page, size).stream()
-                .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance().categoryPCJpaEntityToCategoryPCDto(categoryPCJpaEntity))
+                .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(categoryPCJpaEntity))
                 .toList();
         long totalElements = categoryPCJpaDao.count();
         return new Page<>(content, page, size, totalElements);
@@ -29,18 +29,18 @@ public class CategoryPCRepositoryImpl implements CategoryPCRepository {
     @Override
     public Optional<CategoryPCDto> findById(Long id) {
         return categoryPCJpaDao.findById(id)
-                .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance().categoryPCJpaEntityToCategoryPCDto(categoryPCJpaEntity));
+                .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(categoryPCJpaEntity));
     }
 
     @Override
     public CategoryPCDto save(CategoryPCDto categoryPCDto) {
-        CategoryPCJpaEntity categoryPCJpaEntity = CategoryPCMapper.getInstance().categoryPCDtoToCategoryPCJpaEntity(categoryPCDto);
+        CategoryPCJpaEntity categoryPCJpaEntity = CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCJpaEntity(categoryPCDto);
 
         if(categoryPCDto.id() == null) {
-            return CategoryPCMapper.getInstance().categoryPCJpaEntityToCategoryPCDto(categoryPCJpaDao.insert(categoryPCJpaEntity));
+            return CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(categoryPCJpaDao.insert(categoryPCJpaEntity));
         }
 
-        return CategoryPCMapper.getInstance().categoryPCJpaEntityToCategoryPCDto(categoryPCJpaDao.update(categoryPCJpaEntity));
+        return CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(categoryPCJpaDao.update(categoryPCJpaEntity));
     }
 
     @Override

@@ -12,6 +12,8 @@ public record ProductDto(
         String slug,
         @NotNull
         String desc,
-        BigDecimal price
+        BigDecimal price,
+        @NotNull
+        CategoryProductDto category
 ) {
 }

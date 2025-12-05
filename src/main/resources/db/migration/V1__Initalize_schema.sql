@@ -1,7 +1,7 @@
 CREATE TABLE category_product (
                                   id INT PRIMARY KEY AUTO_INCREMENT,
                                   label VARCHAR(255),
-                                    slug VARCHAR(255)
+                                  slug VARCHAR(255)
 );
 
 CREATE TABLE product (
@@ -22,7 +22,6 @@ CREATE TABLE user (
                       username VARCHAR(255),
                       password VARCHAR(255)
 );
-
 CREATE TABLE user_order (
                             id INT PRIMARY KEY AUTO_INCREMENT,
                             status VARCHAR(255),
@@ -32,7 +31,7 @@ CREATE TABLE user_order (
 
 CREATE TABLE order_item (
                             id INT PRIMARY KEY AUTO_INCREMENT,
-                            units INT,
+                            quantity INT,
                             product_id INT,
                             user_order_id INT,
                             FOREIGN KEY (product_id) REFERENCES product(id),

@@ -15,7 +15,7 @@ public class LogMapper {
         return INSTANCE;
     }
 
-    public LogDto logJpaEntityToLogDto(LogJpaEntity logJpaEntity) {
+    public LogDto fromLogJpaEntityToLogDto(LogJpaEntity logJpaEntity) {
         if (logJpaEntity == null) {
             return null;
         }
@@ -27,7 +27,7 @@ public class LogMapper {
         );
     }
 
-    public LogJpaEntity logDtoToLogJpaEntity(LogDto logDto) {
+    public LogJpaEntity fromLogDtoToLogJpaEntity(LogDto logDto) {
         if (logDto == null) {
             return null;
         }

@@ -26,10 +26,10 @@ public class CategoryPCController {
     public ResponseEntity<Page<CategoryPCResponse>> findAllCategoryPCs(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<CategoryPCDto> categoryPCDtoPage = categoryPCService.getAll(page, size);
+        Page<CategoryPCDto> categoryPCDtoPage = categoryPCService.findAll(page, size);
 
         List<CategoryPCResponse> categoryPCResponses = categoryPCDtoPage.data().stream()
-                .map(categoryPCDto -> CategoryPCMapper.getInstance().categoryPCDtoToCategoryPCResponse(categoryPCDto))
+                .map(categoryPCDto -> CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCResponse(categoryPCDto))
                 .toList();
 
         Page<CategoryPCResponse> categoryPCPage = new Page<>(
@@ -44,17 +44,17 @@ public class CategoryPCController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryPCResponse> getCategoryPCById(@PathVariable Long id) {
         CategoryPCResponse categoryPCResponse = CategoryPCMapper.getInstance()
-                .categoryPCDtoToCategoryPCResponse(categoryPCService.getById(id));
+                .fromCategoryPCDtoToCategoryPCResponse(categoryPCService.getById(id));
         return new ResponseEntity<>(categoryPCResponse, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<CategoryPCResponse> createCategoryPC(@RequestBody CategoryPCRequest categoryPCRequest) {
         CategoryPCDto categoryPCDto = CategoryPCMapper.getInstance()
-                .categoryPCRequestToCategoryPCDto(categoryPCRequest);
+                .fromCategoryPCRequestToCategoryPCDto(categoryPCRequest);
         DtoValidator.validate(categoryPCDto);
         CategoryPCDto createdCategoryPC = categoryPCService.create(categoryPCDto);
-        return new ResponseEntity<>(CategoryPCMapper.getInstance().categoryPCDtoToCategoryPCResponse(createdCategoryPC),
+        return new ResponseEntity<>(CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCResponse(createdCategoryPC),
                 HttpStatus.CREATED);
     }
 
@@ -65,10 +65,10 @@ public class CategoryPCController {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
         CategoryPCDto categoryPCDto = CategoryPCMapper.getInstance()
-                .categoryPCRequestToCategoryPCDto(categoryPCRequest);
+                .fromCategoryPCRequestToCategoryPCDto(categoryPCRequest);
         DtoValidator.validate(categoryPCDto);
         CategoryPCDto updatedCategoryPC = categoryPCService.update(categoryPCDto);
-        return new ResponseEntity<>(CategoryPCMapper.getInstance().categoryPCDtoToCategoryPCResponse(updatedCategoryPC),
+        return new ResponseEntity<>(CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCResponse(updatedCategoryPC),
                 HttpStatus.OK);
     }
 

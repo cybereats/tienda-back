@@ -18,30 +18,30 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     }
 
     @Override
-    public List<OrderItemDto> getAll() {
-        return orderItemJpaDao.getAll().stream()
-                .map(entity -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(entity))
+    public List<OrderItemDto> findAll() {
+        return orderItemJpaDao.findAll().stream()
+                .map(entity -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(entity))
                 .toList();
     }
 
     @Override
-    public Optional<OrderItemDto> getOrderItemById(Long id) {
-        return orderItemJpaDao.getOrderItemById(id)
-                .map(entity -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(entity));
+    public Optional<OrderItemDto> findById(Long id) {
+        return orderItemJpaDao.findById(id)
+                .map(entity -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(entity));
     }
 
     @Override
     public OrderItemDto save(OrderItemDto orderItemDto) {
         if (orderItemDto.id() == null) {
             OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.getInstance()
-                    .orderItemDtoToOrderItemJpaEntity(orderItemDto);
+                    .fromOrderItemDtoToOrderItemJpaEntity(orderItemDto);
             return OrderItemMapper.getInstance()
-                    .orderItemJpaEntityToOrderItemDto(orderItemJpaDao.insert(orderItemJpaEntity));
+                    .fromOrderItemJpaEntityToOrderItemDto(orderItemJpaDao.insert(orderItemJpaEntity));
         } else {
             OrderItemJpaEntity orderItemJpaEntity = OrderItemMapper.getInstance()
-                    .orderItemDtoToOrderItemJpaEntity(orderItemDto);
+                    .fromOrderItemDtoToOrderItemJpaEntity(orderItemDto);
             return OrderItemMapper.getInstance()
-                    .orderItemJpaEntityToOrderItemDto(orderItemJpaDao.update(orderItemJpaEntity));
+                    .fromOrderItemJpaEntityToOrderItemDto(orderItemJpaDao.update(orderItemJpaEntity));
         }
     }
 

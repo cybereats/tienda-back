@@ -15,17 +15,17 @@ public class ProductMapper {
         return INSTANCE;
     }
 
-    public ProductDto productToProductDto(Product product) {
+    public ProductDto fromProductToProductDto(Product product) {
         if (product == null) {
             return null;
         }
 
         return new ProductDto(
-                product.getId(), product.getLabel(), product.getSlug(), product.getDesc(), product.getPrice()
+                product.getId(), product.getLabel(), product.getSlug(), product.getDesc(), product.getPrice(), null
         );
     }
 
-    public Product productDtoToProduct(ProductDto productDto) {
+    public Product fromProductDtoToProduct(ProductDto productDto) {
         if (productDto == null) {
             return null;
         }

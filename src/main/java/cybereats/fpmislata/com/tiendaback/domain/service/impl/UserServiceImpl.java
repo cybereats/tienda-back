@@ -1,6 +1,5 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
-import cybereats.fpmislata.com.tiendaback.domain.model.User;
 import cybereats.fpmislata.com.tiendaback.domain.repository.UserRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.UserService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
@@ -19,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto insert(UserDto user) {
-        Optional<UserDto> userDto = userRepository.getUserById(user.id());
+        Optional<UserDto> userDto = userRepository.findById(user.id());
         if (userDto.isPresent()) {
             throw new BusinessException("User already exists");
         }
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto user) {
-        Optional<UserDto> userDto = userRepository.getUserById(user.id());
+        Optional<UserDto> userDto = userRepository.findById(user.id());
         if (userDto.isEmpty()) {
             throw new ResourceNotFoundException("User not found");
         }
@@ -36,22 +35,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> getUserById(Long id) {
-        Optional<UserDto> userDto = userRepository.getUserById(id);
-        if (userDto.isEmpty()) {
-            throw new ResourceNotFoundException("User not found");
-        }
-        return userDto;
+    public UserDto getById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
-    public List<UserDto> getAll() {
-        return userRepository.getAll();
+    public Optional<UserDto> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public List<UserDto> findAll(int page, int size) {
+        return userRepository.findAll(page, size);
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<UserDto> userDto = userRepository.getUserById(id);
+        Optional<UserDto> userDto = userRepository.findById(id);
         if (userDto.isEmpty()) {
             throw new ResourceNotFoundException("User not found");
         }

@@ -29,18 +29,20 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
     }
 
     @Override
-    public List<ReportJpaEntity> getAll() {
+    public List<ReportJpaEntity> findAll(int page, int size) {
         return entityManager.createQuery("SELECT r FROM ReportJpaEntity r ORDER BY r.id ASC", ReportJpaEntity.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
                 .getResultList();
     }
 
     @Override
-    public Optional<ReportJpaEntity> getById(Long id) {
+    public Optional<ReportJpaEntity> findById(Long id) {
         return Optional.ofNullable(entityManager.find(ReportJpaEntity.class, id));
     }
 
     @Override
-    public List<ReportJpaEntity> getByUserId(Long userId) {
+    public List<ReportJpaEntity> findByUserId(Long userId) {
         return entityManager
                 .createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user_id = :userId", ReportJpaEntity.class)
                 .setParameter("userId", userId)
@@ -48,9 +50,14 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
     }
 
     @Override
-    public List<ReportJpaEntity> getByPCId(Long pcId) {
+    public List<ReportJpaEntity> findByPCId(Long pcId) {
         return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.pc_id = :pcId", ReportJpaEntity.class)
                 .setParameter("pcId", pcId)
                 .getResultList();
+    }
+
+    @Override
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(r) FROM ReportJpaEntity r", Long.class).getSingleResult();
     }
 }

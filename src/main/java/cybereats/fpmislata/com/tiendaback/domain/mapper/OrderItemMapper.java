@@ -16,26 +16,25 @@ public class OrderItemMapper {
         return INSTANCE;
     }
 
-    public OrderItemDto orderItemToOrderItemDto(OrderItem orderItem) {
+    public OrderItemDto fromOrderItemToOrderItemDto(OrderItem orderItem) {
         if (orderItem == null) {
             return null;
         }
 
         return new OrderItemDto(
                 orderItem.getId(),
-                ProductMapper.getInstance().productToProductDto(orderItem.getProduct()),
-                orderItem.getQuantity(),
-                orderItem.getPrice());
+                ProductMapper.getInstance().fromProductToProductDto(orderItem.getProduct()),
+                orderItem.getQuantity());
     }
 
-    public OrderItem orderItemDtoToOrderItem(OrderItemDto orderItemDto) {
+    public OrderItem fromOrderItemDtoToOrderItem(OrderItemDto orderItemDto) {
         if (orderItemDto == null) {
             return null;
         }
 
         return new OrderItem.Builder()
                 .id(orderItemDto.id())
-                .product(ProductMapper.getInstance().productDtoToProduct(orderItemDto.product()))
+                .product(ProductMapper.getInstance().fromProductDtoToProduct(orderItemDto.product()))
                 .quantity(orderItemDto.quantity())
                 .build();
     }

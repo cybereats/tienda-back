@@ -1,7 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryProductDto;
-import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.CategoryProductJpaEntity;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.CategoryProductRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.CategoryProductResponse;
 
@@ -18,31 +17,7 @@ public class CategoryProductMapper {
         return INSTANCE;
     }
 
-    public CategoryProductDto categoryProductJpaEntityToCategoryProductDto(
-            CategoryProductJpaEntity categoryProductJpaEntity) {
-        if (categoryProductJpaEntity == null) {
-            return null;
-        }
-
-        return new CategoryProductDto(
-                categoryProductJpaEntity.getId(),
-                categoryProductJpaEntity.getName(),
-                categoryProductJpaEntity.getSlug());
-    }
-
-    public CategoryProductJpaEntity categoryProductDtoToCategoryProductJpaEntity(
-            CategoryProductDto categoryProductDto) {
-        if (categoryProductDto == null) {
-            return null;
-        }
-
-        return new CategoryProductJpaEntity(
-                categoryProductDto.id(),
-                categoryProductDto.name(),
-                categoryProductDto.slug());
-    }
-
-    public CategoryProductResponse categoryProductDtoToCategoryProductResponse(
+    public CategoryProductResponse fromCategoryProductDtoToCategoryProductResponse(
             CategoryProductDto categoryProductDto) {
         if (categoryProductDto == null) {
             return null;
@@ -50,11 +25,11 @@ public class CategoryProductMapper {
 
         return new CategoryProductResponse(
                 categoryProductDto.id(),
-                categoryProductDto.name(),
+                categoryProductDto.label(),
                 categoryProductDto.slug());
     }
 
-    public CategoryProductDto categoryProductRequestToCategoryProductDto(
+    public CategoryProductDto fromCategoryProductRequestToCategoryProductDto(
             CategoryProductRequest categoryProductRequest) {
         if (categoryProductRequest == null) {
             return null;

@@ -7,6 +7,7 @@ public record ProductResponse(
         String label,
         String slug,
         String desc,
-        BigDecimal price
+        BigDecimal price,
+        CategoryProductResponse category
 ) {
 }

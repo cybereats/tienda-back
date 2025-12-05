@@ -16,31 +16,30 @@ public class UserOrderMapper {
         return INSTANCE;
     }
 
-    public UserOrderDto userOrderToUserOrderDto(UserOrder userOrder) {
+    public UserOrderDto fromUserOrderToUserOrderDto(UserOrder userOrder) {
         if (userOrder == null) {
             return null;
         }
 
         return new UserOrderDto(
                 userOrder.getId(),
-                UserMapper.getInstance().userToUserDto(userOrder.getUser()),
+                UserMapper.getInstance().fromUserToUserDto(userOrder.getUser()),
                 userOrder.getOrderItems().stream()
-                        .map(orderItem -> OrderItemMapper.getInstance().orderItemToOrderItemDto(orderItem))
+                        .map(orderItem -> OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem))
                         .toList(),
-                userOrder.getTotalPrice(),
                 userOrder.getStatus());
     }
 
-    public UserOrder userOrderDtoToUserOrder(UserOrderDto userOrderDto) {
+    public UserOrder fromUserOrderDtoToUserOrder(UserOrderDto userOrderDto) {
         if (userOrderDto == null) {
             return null;
         }
 
         return new UserOrder.Builder()
                 .id(userOrderDto.id())
-                .user(UserMapper.getInstance().userDtoToUser(userOrderDto.user()))
+                .user(UserMapper.getInstance().fromUserDtoToUser(userOrderDto.user()))
                 .orderItems(userOrderDto.orderItems().stream()
-                        .map(orderItemDto -> OrderItemMapper.getInstance().orderItemDtoToOrderItem(orderItemDto))
+                        .map(orderItemDto -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(orderItemDto))
                         .toList())
                 .status(userOrderDto.status())
                 .build();

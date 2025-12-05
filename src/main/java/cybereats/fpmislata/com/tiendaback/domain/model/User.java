@@ -5,7 +5,7 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-    private String born_date;
+    private String bornDate;
     private String username;
     private String password;
 
@@ -13,7 +13,7 @@ public class User {
         this.id = builder.id;
         this.name = builder.name;
         this.surname = builder.surname;
-        this.born_date = builder.born_date;
+        this.bornDate = builder.bornDate;
         this.username = builder.username;
         this.password = builder.password;
     }
@@ -30,8 +30,8 @@ public class User {
         return surname;
     }
 
-    public String getBorn_date() {
-        return born_date;
+    public String getBornDate() {
+        return bornDate;
     }
 
     public String getUsername() {
@@ -46,7 +46,7 @@ public class User {
         private Long id;
         private String name;
         private String surname;
-        private String born_date;
+        private String bornDate;
         private String username;
         private String password;
 
@@ -65,8 +65,8 @@ public class User {
             return this;
         }
 
-        public Builder born_date(String born_date) {
-            this.born_date = born_date;
+        public Builder bornDate(String bornDate) {
+            this.bornDate = bornDate;
             return this;
         }
 

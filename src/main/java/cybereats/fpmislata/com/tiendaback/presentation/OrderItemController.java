@@ -41,7 +41,7 @@ public class OrderItemController {
 
     @GetMapping
     public ResponseEntity<List<OrderItemResponse>> getAllOrderItems() {
-        List<OrderItemDto> orderItemDtoList = orderItemService.getAll();
+        List<OrderItemDto> orderItemDtoList = orderItemService.findAll();
         return new ResponseEntity<>(
                 orderItemDtoList.stream().map(OrderItemMapper::fromOrderItemDtoToOrderItemResponse).toList(),
                 HttpStatus.OK);
@@ -49,7 +49,7 @@ public class OrderItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderItemResponse> getOrderItemById(@PathVariable Long id) {
-        OrderItemDto orderItemDto = orderItemService.getOrderItemById(id).get();
+        OrderItemDto orderItemDto = orderItemService.getById(id);
         return new ResponseEntity<>(OrderItemMapper.fromOrderItemDtoToOrderItemResponse(orderItemDto), HttpStatus.OK);
     }
 

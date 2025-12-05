@@ -34,11 +34,11 @@ public class CategoryProductController {
     public ResponseEntity<Page<CategoryProductResponse>> findAllCategoryProducts(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<CategoryProductDto> categoryProductDtoPage = categoryProductService.getAll(page, size);
+        Page<CategoryProductDto> categoryProductDtoPage = categoryProductService.findAll(page, size);
 
         List<CategoryProductResponse> categoryProductResponses = categoryProductDtoPage.data().stream()
                 .map(categoryProductDto -> CategoryProductMapper.getInstance()
-                        .categoryProductDtoToCategoryProductResponse(categoryProductDto))
+                        .fromCategoryProductDtoToCategoryProductResponse(categoryProductDto))
                 .toList();
 
         Page<CategoryProductResponse> categoryProductPage = new Page<>(
@@ -53,7 +53,7 @@ public class CategoryProductController {
     @GetMapping("/{slug}")
     public ResponseEntity<CategoryProductResponse> getCategoryProductBySlug(@PathVariable String slug) {
         CategoryProductResponse categoryProductResponse = CategoryProductMapper.getInstance()
-                .categoryProductDtoToCategoryProductResponse(categoryProductService.getBySlug(slug));
+                .fromCategoryProductDtoToCategoryProductResponse(categoryProductService.getBySlug(slug));
         return new ResponseEntity<>(categoryProductResponse, HttpStatus.OK);
     }
 
@@ -61,10 +61,10 @@ public class CategoryProductController {
     public ResponseEntity<CategoryProductResponse> createCategoryProduct(
             @RequestBody CategoryProductRequest categoryProductRequest) {
         CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
-                .categoryProductRequestToCategoryProductDto(categoryProductRequest);
+                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
         CategoryProductDto createdCategoryProduct = categoryProductService.insert(categoryProductDto);
         return new ResponseEntity<>(
-                CategoryProductMapper.getInstance().categoryProductDtoToCategoryProductResponse(createdCategoryProduct),
+                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(createdCategoryProduct),
                 HttpStatus.CREATED);
     }
 
@@ -75,10 +75,10 @@ public class CategoryProductController {
             throw new IllegalArgumentException("SLUG in path and request body must match");
         }
         CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
-                .categoryProductRequestToCategoryProductDto(categoryProductRequest);
+                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
         CategoryProductDto updatedCategoryProduct = categoryProductService.update(categoryProductDto);
         return new ResponseEntity<>(
-                CategoryProductMapper.getInstance().categoryProductDtoToCategoryProductResponse(updatedCategoryProduct),
+                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(updatedCategoryProduct),
                 HttpStatus.OK);
     }
 

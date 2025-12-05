@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
 public class BookingMapper {
     private static BookingMapper INSTANCE;
 
-    private BookingMapper() {}
+    private BookingMapper() {
+    }
 
     public static BookingMapper getInstance() {
         if (INSTANCE == null) {
@@ -15,17 +16,19 @@ public class BookingMapper {
         return INSTANCE;
     }
 
-    public BookingDto bookingToBookingDto(Booking booking) {
+    public BookingDto fromBookingToBookingDto(Booking booking) {
         if (booking == null) {
             return null;
         }
 
         return new BookingDto(
-                booking.getId(), booking.getHours()
-        );
+                booking.getId(),
+                booking.getHours(),
+                UserMapper.getInstance().fromUserToUserDto(booking.getUser()),
+                PCMapper.getInstance().fromPCToPCDto(booking.getPc()));
     }
 
-    public Booking bookingDtoToBooking(BookingDto bookingDto) {
+    public Booking fromBookingDtoToBooking(BookingDto bookingDto) {
         if (bookingDto == null) {
             return null;
         }
@@ -33,6 +36,8 @@ public class BookingMapper {
         return new Booking.Builder()
                 .id(bookingDto.id())
                 .hours(bookingDto.hours())
+                .user(UserMapper.getInstance().fromUserDtoToUser(bookingDto.user()))
+                .pc(PCMapper.getInstance().fromPCDtoToPC(bookingDto.pc()))
                 .build();
     }
 }

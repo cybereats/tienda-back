@@ -13,14 +13,7 @@ public class OrderItemJpaDaoImpl implements OrderItemJpaDao {
     private EntityManager entityManager;
 
     @Override
-    public List<OrderItemJpaEntity> getAll() {
-        return entityManager
-                .createQuery("SELECT e FROM OrderItemJpaEntity e ORDER BY e.id ASC", OrderItemJpaEntity.class)
-                .getResultList();
-    }
-
-    @Override
-    public Optional<OrderItemJpaEntity> getOrderItemById(Long id) {
+    public Optional<OrderItemJpaEntity> findById(Long id) {
         return Optional.ofNullable(entityManager.find(OrderItemJpaEntity.class, id));
     }
 
@@ -41,6 +34,18 @@ public class OrderItemJpaDaoImpl implements OrderItemJpaDao {
         if (orderItemJpaEntity != null) {
             entityManager.remove(orderItemJpaEntity);
         }
+    }
+
+    @Override
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(e) FROM OrderItemJpaEntity e", Long.class).getSingleResult();
+    }
+
+    @Override
+    public List<OrderItemJpaEntity> findAll() {
+        return entityManager
+                .createQuery("SELECT e FROM OrderItemJpaEntity e ORDER BY e.id ASC", OrderItemJpaEntity.class)
+                .getResultList();
     }
 
 }

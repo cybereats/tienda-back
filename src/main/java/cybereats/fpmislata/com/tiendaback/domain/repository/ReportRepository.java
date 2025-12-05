@@ -8,13 +8,13 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 public interface ReportRepository {
     ReportDto save(ReportDto reportDto);
 
-    List<ReportDto> getAll();
+    List<ReportDto> findAll(int page, int size);
 
-    List<ReportDto> getByUserId(Long userId);
+    List<ReportDto> findByUserId(Long userId);
 
-    List<ReportDto> getByPCId(Long pcId);
+    List<ReportDto> findByPCId(Long pcId);
 
-    Optional<ReportDto> getById(Long id);
+    Optional<ReportDto> findById(Long id);
 
     void deleteById(Long id);
 }

@@ -6,13 +6,11 @@ public class OrderItem {
     Long id;
     Product product;
     int quantity;
-    BigDecimal price;
 
     private OrderItem(Builder builder) {
         this.id = builder.id;
         this.product = builder.product;
         this.quantity = builder.quantity;
-        this.price = this.product.getPrice().multiply(BigDecimal.valueOf(this.quantity));
     }
 
     public Long getId() {
@@ -25,10 +23,6 @@ public class OrderItem {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     public static class Builder {

@@ -15,7 +15,7 @@ public class ProductMapper {
         return INSTANCE;
     }
 
-    public ProductDto productJpaEntityToProductDto(ProductJpaEntity productJpaEntity) {
+    public ProductDto fromProductJpaEntityToProductDto(ProductJpaEntity productJpaEntity) {
         if (productJpaEntity == null) {
             return null;
         }
@@ -25,11 +25,13 @@ public class ProductMapper {
                 productJpaEntity.getLabel(),
                 productJpaEntity.getSlug(),
                 productJpaEntity.getDesc(),
-                productJpaEntity.getPrice()
+                productJpaEntity.getPrice(),
+                CategoryProductMapper.getInstance().fromCategoryProductJpaEntityToCategoryProductDto(
+                productJpaEntity.getCategoryProductJpaEntity())
         );
     }
 
-    public ProductJpaEntity productDtoToProductJpaEntity(ProductDto productDto) {
+    public ProductJpaEntity fromProductDtoToProductJpaEntity(ProductDto productDto) {
         if (productDto == null) {
             return null;
         }
@@ -39,7 +41,9 @@ public class ProductMapper {
                 productDto.label(),
                 productDto.slug(),
                 productDto.desc(),
-                productDto.price()
+                productDto.price(),
+                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductJpaEntity(
+                        productDto.category())
         );
     }
 }

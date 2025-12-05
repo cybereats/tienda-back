@@ -25,21 +25,22 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
         DtoValidator.validate(userRequest);
-        UserDto userDto = UserMapper.getInstance().fromUserRequestToDto(userRequest);
+        UserDto userDto = UserMapper.getInstance().fromUserRequestToUserDto(userRequest);
         UserDto createdUserDto = userService.insert(userDto);
-        return new ResponseEntity<>(UserMapper.getInstance().fromDtoToUserResponse(createdUserDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(UserMapper.getInstance().fromUserDtoToUserResponse(createdUserDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        UserDto userDto = userService.getUserById(id).get();
-        return new ResponseEntity<>(UserMapper.getInstance().fromDtoToUserResponse(userDto), HttpStatus.OK);
+        UserDto userDto = userService.findById(id).get();
+        return new ResponseEntity<>(UserMapper.getInstance().fromUserDtoToUserResponse(userDto), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<UserDto> userDtoList = userService.getAll();
-        return new ResponseEntity<>(userDtoList.stream().map(UserMapper.getInstance()::fromDtoToUserResponse).toList(),
+    public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        List<UserDto> userDtoList = userService.findAll(page, size);
+        return new ResponseEntity<>(userDtoList.stream().map(UserMapper.getInstance()::fromUserDtoToUserResponse).toList(),
                 HttpStatus.OK);
     }
 
@@ -49,9 +50,9 @@ public class UserController {
             throw new IllegalArgumentException("El id del usuario no coincide con el id proporcionado");
         }
         DtoValidator.validate(userRequest);
-        UserDto userDto = UserMapper.getInstance().fromUserRequestToDto(userRequest);
+        UserDto userDto = UserMapper.getInstance().fromUserRequestToUserDto(userRequest);
         UserDto updatedUserDto = userService.update(userDto);
-        return new ResponseEntity<>(UserMapper.getInstance().fromDtoToUserResponse(updatedUserDto), HttpStatus.OK);
+        return new ResponseEntity<>(UserMapper.getInstance().fromUserDtoToUserResponse(updatedUserDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

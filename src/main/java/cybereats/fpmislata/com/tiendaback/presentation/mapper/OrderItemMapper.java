@@ -16,20 +16,19 @@ public class OrderItemMapper {
     public static OrderItemDto fromOrderItemRequestToOrderItemDto(OrderItemRequest orderItemRequest) {
         return new OrderItemDto(
                 orderItemRequest.id(),
-                mapProduct(orderItemRequest.product_id()),
-                orderItemRequest.quantity(),
-                null);
+                mapProduct(orderItemRequest.productId()),
+                orderItemRequest.quantity());
     }
 
     public static OrderItemResponse fromOrderItemDtoToOrderItemResponse(OrderItemDto orderItemDto) {
         return new OrderItemResponse(
                 orderItemDto.id(),
-                ProductMapper.getInstance().productDtoToProductResponse(orderItemDto.product()),
-                orderItemDto.quantity(),
-                orderItemDto.price());
+                ProductMapper.getInstance().fromProductDtoToProductResponse(orderItemDto.product()),
+                orderItemDto.quantity()
+        );
     }
 
     public static ProductDto mapProduct(Long id) {
-        return new ProductDto(id, null, null, null, null);
+        return new ProductDto(id, null, null, null, null, null);
     }
 }

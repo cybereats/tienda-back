@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity
 public class PCMapper {
     private static PCMapper INSTANCE;
 
-    private PCMapper() {}
+    private PCMapper() {
+    }
 
     public static PCMapper getInstance() {
         if (INSTANCE == null) {
@@ -15,7 +16,7 @@ public class PCMapper {
         return INSTANCE;
     }
 
-    public PCDto pcJpaEntityToPCDto(PCJpaEntity pcJpaEntity) {
+    public PCDto fromPCJpaEntityToPCDto(PCJpaEntity pcJpaEntity) {
         if (pcJpaEntity == null) {
             return null;
         }
@@ -26,11 +27,11 @@ public class PCMapper {
                 pcJpaEntity.getSlug(),
                 pcJpaEntity.getRuntime(),
                 pcJpaEntity.getSpecs(),
-                pcJpaEntity.getWorking_since()
-        );
+                pcJpaEntity.getWorkingSince(),
+                CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(pcJpaEntity.getCategory()));
     }
 
-    public PCJpaEntity pcDtoToPCJpaEntity(PCDto pcDto) {
+    public PCJpaEntity fromPCDtoToPCJpaEntity(PCDto pcDto) {
         if (pcDto == null) {
             return null;
         }
@@ -41,7 +42,7 @@ public class PCMapper {
                 pcDto.slug(),
                 pcDto.runtime(),
                 pcDto.specs(),
-                pcDto.working_since()
-        );
+                pcDto.workingSince(),
+                CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCJpaEntity(pcDto.categoryPCDto()));
     }
 }

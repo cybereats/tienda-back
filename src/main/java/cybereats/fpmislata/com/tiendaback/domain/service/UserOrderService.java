@@ -6,9 +6,11 @@ import java.util.Optional;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 
 public interface UserOrderService {
-    List<UserOrderDto> getAll();
+    List<UserOrderDto> findAll();
 
-    Optional<UserOrderDto> getUserOrderById(Long id);
+    UserOrderDto getById(Long id);
+
+    Optional<UserOrderDto> findById(Long id);
 
     UserOrderDto insert(UserOrderDto userOrderDto);
 

@@ -18,15 +18,15 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     }
 
     @Override
-    public Optional<UserOrderDto> getUserOrderById(Long id) {
-        Optional<UserOrderJpaEntity> userOrderJpaEntity = userOrderJpaDao.getUserOrderById(id);
-        return userOrderJpaEntity.map(entity -> UserOrderMapper.getInstance().userOrderJpaEntityToUserOrderDto(entity));
+    public Optional<UserOrderDto> findById(Long id) {
+        Optional<UserOrderJpaEntity> userOrderJpaEntity = userOrderJpaDao.findById(id);
+        return userOrderJpaEntity.map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity));
     }
 
     @Override
-    public List<UserOrderDto> getAll() {
-        return userOrderJpaDao.getAll().stream()
-                .map(entity -> UserOrderMapper.getInstance().userOrderJpaEntityToUserOrderDto(entity))
+    public List<UserOrderDto> findAll() {
+        return userOrderJpaDao.findAll().stream()
+                .map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity))
                 .toList();
     }
 
@@ -34,14 +34,14 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     public UserOrderDto save(UserOrderDto userOrderDto) {
         if (userOrderDto.id() == null) {
             UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.getInstance()
-                    .userOrderDtoToUserOrderJpaEntity(userOrderDto);
+                    .fromUserOrderDtoToUserOrderJpaEntity(userOrderDto);
             return UserOrderMapper.getInstance()
-                    .userOrderJpaEntityToUserOrderDto(userOrderJpaDao.insert(userOrderJpaEntity));
+                    .fromUserOrderJpaEntityToUserOrderDto(userOrderJpaDao.insert(userOrderJpaEntity));
         } else {
             UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.getInstance()
-                    .userOrderDtoToUserOrderJpaEntity(userOrderDto);
+                    .fromUserOrderDtoToUserOrderJpaEntity(userOrderDto);
             return UserOrderMapper.getInstance()
-                    .userOrderJpaEntityToUserOrderDto(userOrderJpaDao.update(userOrderJpaEntity));
+                    .fromUserOrderJpaEntityToUserOrderDto(userOrderJpaDao.update(userOrderJpaEntity));
         }
     }
 

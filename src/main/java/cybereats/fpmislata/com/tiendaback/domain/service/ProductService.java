@@ -6,7 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
 import java.util.Optional;
 
 public interface ProductService {
-    Page<ProductDto> getAll(int page, int size);
+    Page<ProductDto> findAll(int page, int size);
     ProductDto getBySlug(String slug);
     Optional<ProductDto> findBySlug(String slug);
     ProductDto create(ProductDto productoDto);

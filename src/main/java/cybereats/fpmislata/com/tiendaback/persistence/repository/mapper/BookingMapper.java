@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.BookingJpaE
 public class BookingMapper {
     private static BookingMapper INSTANCE;
 
-    private BookingMapper() {}
+    private BookingMapper() {
+    }
 
     public static BookingMapper getInstance() {
         if (INSTANCE == null) {
@@ -15,25 +16,27 @@ public class BookingMapper {
         return INSTANCE;
     }
 
-    public BookingDto bookingJpaEntityToBookingDto(BookingJpaEntity bookingJpaEntity) {
+    public BookingDto fromBookingJpaEntityToBookingDto(BookingJpaEntity bookingJpaEntity) {
         if (bookingJpaEntity == null) {
             return null;
         }
 
         return new BookingDto(
-            bookingJpaEntity.getId(),
-            bookingJpaEntity.getHours()
-        );
+                bookingJpaEntity.getId(),
+                bookingJpaEntity.getHours(),
+                UserMapper.getInstance().fromUserJpaEntityToUserDto(bookingJpaEntity.getUserJpaEntity()),
+                PCMapper.getInstance().fromPCJpaEntityToPCDto(bookingJpaEntity.getPcJpaEntity()));
     }
 
-    public BookingJpaEntity bookingDtoToBookingJpaEntity(BookingDto bookingDto) {
+    public BookingJpaEntity fromBookingDtoToBookingJpaEntity(BookingDto bookingDto) {
         if (bookingDto == null) {
             return null;
         }
 
         return new BookingJpaEntity(
-            bookingDto.id(),
-            bookingDto.hours()
-        );
+                bookingDto.id(),
+                bookingDto.hours(),
+                UserMapper.getInstance().fromUserDtoToUserJpaEntity(bookingDto.user()),
+                PCMapper.getInstance().fromPCDtoToPCJpaEntity(bookingDto.pc()));
     }
 }

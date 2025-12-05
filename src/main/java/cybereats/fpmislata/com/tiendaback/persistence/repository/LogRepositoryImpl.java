@@ -20,7 +20,7 @@ public class LogRepositoryImpl implements LogRepository {
     @Override
     public Page<LogDto> findAll(int page, int size) {
         List<LogDto> content = logJpaDao.findAll(page, size).stream()
-                .map(logJpaEntity -> LogMapper.getInstance().logJpaEntityToLogDto(logJpaEntity))
+                .map(logJpaEntity -> LogMapper.getInstance().fromLogJpaEntityToLogDto(logJpaEntity))
                 .toList();
         long totalElements = logJpaDao.count();
         return new Page<>(content, page, size, totalElements);
@@ -29,18 +29,18 @@ public class LogRepositoryImpl implements LogRepository {
     @Override
     public Optional<LogDto> findById(Long id) {
         return logJpaDao.findById(id)
-                .map(logJpaEntity -> LogMapper.getInstance().logJpaEntityToLogDto(logJpaEntity));
+                .map(logJpaEntity -> LogMapper.getInstance().fromLogJpaEntityToLogDto(logJpaEntity));
     }
 
     @Override
     public LogDto save(LogDto logDto) {
-        LogJpaEntity logJpaEntity = LogMapper.getInstance().logDtoToLogJpaEntity(logDto);
+        LogJpaEntity logJpaEntity = LogMapper.getInstance().fromLogDtoToLogJpaEntity(logDto);
 
         if(logDto.id() == null) {
-            return LogMapper.getInstance().logJpaEntityToLogDto(logJpaDao.insert(logJpaEntity));
+            return LogMapper.getInstance().fromLogJpaEntityToLogDto(logJpaDao.insert(logJpaEntity));
         }
 
-        return LogMapper.getInstance().logJpaEntityToLogDto(logJpaDao.update(logJpaEntity));
+        return LogMapper.getInstance().fromLogJpaEntityToLogDto(logJpaDao.update(logJpaEntity));
     }
 
     @Override

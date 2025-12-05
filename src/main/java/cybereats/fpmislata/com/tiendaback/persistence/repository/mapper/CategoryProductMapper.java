@@ -17,7 +17,7 @@ public class CategoryProductMapper {
         return INSTANCE;
     }
 
-    public CategoryProductDto categoryProductJpaEntityToCategoryProductDto(
+    public CategoryProductDto fromCategoryProductJpaEntityToCategoryProductDto(
             CategoryProductJpaEntity categoryProductJpaEntity) {
         if (categoryProductJpaEntity == null) {
             return null;
@@ -25,11 +25,11 @@ public class CategoryProductMapper {
 
         return new CategoryProductDto(
                 categoryProductJpaEntity.getId(),
-                categoryProductJpaEntity.getName(),
+                categoryProductJpaEntity.getLabel(),
                 categoryProductJpaEntity.getSlug());
     }
 
-    public CategoryProductJpaEntity categoryProductDtoToCategoryProductJpaEntity(
+    public CategoryProductJpaEntity fromCategoryProductDtoToCategoryProductJpaEntity(
             CategoryProductDto categoryProductDto) {
         if (categoryProductDto == null) {
             return null;
@@ -37,7 +37,7 @@ public class CategoryProductMapper {
 
         return new CategoryProductJpaEntity(
                 categoryProductDto.id(),
-                categoryProductDto.name(),
+                categoryProductDto.label(),
                 categoryProductDto.slug());
     }
 }

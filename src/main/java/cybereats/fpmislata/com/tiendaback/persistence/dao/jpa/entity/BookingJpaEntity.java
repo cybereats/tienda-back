@@ -18,11 +18,14 @@ public class BookingJpaEntity implements Serializable {
     @JoinColumn(name = "user_id")
     private UserJpaEntity userJpaEntity;
 
-    public BookingJpaEntity() { }
+    public BookingJpaEntity() {
+    }
 
-    public BookingJpaEntity(Long id, int hours) {
+    public BookingJpaEntity(Long id, int hours, UserJpaEntity userJpaEntity, PCJpaEntity pcJpaEntity) {
         this.id = id;
         this.hours = hours;
+        this.pcJpaEntity = pcJpaEntity;
+        this.userJpaEntity = userJpaEntity;
     }
 
     public Long getId() {
@@ -31,5 +34,13 @@ public class BookingJpaEntity implements Serializable {
 
     public int getHours() {
         return hours;
+    }
+
+    public PCJpaEntity getPcJpaEntity() {
+        return pcJpaEntity;
+    }
+
+    public UserJpaEntity getUserJpaEntity() {
+        return userJpaEntity;
     }
 }

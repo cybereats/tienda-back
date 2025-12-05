@@ -10,9 +10,11 @@ public interface OrderItemService {
 
     OrderItemDto update(OrderItemDto orderItemDto);
 
-    Optional<OrderItemDto> getOrderItemById(Long id);
+    Optional<OrderItemDto> findById(Long id);
 
-    List<OrderItemDto> getAll();
+    OrderItemDto getById(Long id);
+
+    List<OrderItemDto> findAll();
 
     void deleteById(Long id);
 }

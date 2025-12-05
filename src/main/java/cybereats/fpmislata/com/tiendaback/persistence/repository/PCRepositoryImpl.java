@@ -20,7 +20,7 @@ public class PCRepositoryImpl implements PCRepository {
     @Override
     public Page<PCDto> findAll(int page, int size) {
         List<PCDto> content = pcJpaDao.findAll(page, size).stream()
-                .map(pcJpaEntity -> PCMapper.getInstance().pcJpaEntityToPCDto(pcJpaEntity))
+                .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity))
                 .toList();
         long totalElements = pcJpaDao.count();
         return new Page<>(content, page, size, totalElements);
@@ -29,18 +29,18 @@ public class PCRepositoryImpl implements PCRepository {
     @Override
     public Optional<PCDto> findById(Long id) {
         return pcJpaDao.findById(id)
-                .map(pcJpaEntity -> PCMapper.getInstance().pcJpaEntityToPCDto(pcJpaEntity));
+                .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity));
     }
 
     @Override
     public PCDto save(PCDto pcDto) {
-        PCJpaEntity pcJpaEntity = PCMapper.getInstance().pcDtoToPCJpaEntity(pcDto);
+        PCJpaEntity pcJpaEntity = PCMapper.getInstance().fromPCDtoToPCJpaEntity(pcDto);
 
         if(pcDto.id() == null) {
-            return PCMapper.getInstance().pcJpaEntityToPCDto(pcJpaDao.insert(pcJpaEntity));
+            return PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaDao.insert(pcJpaEntity));
         }
 
-        return PCMapper.getInstance().pcJpaEntityToPCDto(pcJpaDao.update(pcJpaEntity));
+        return PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaDao.update(pcJpaEntity));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class PCRepositoryImpl implements PCRepository {
     @Override
     public Optional<PCDto> findBySlug(String slug) {
         return pcJpaDao.findBySlug(slug)
-                .map(pcJpaEntity -> PCMapper.getInstance().pcJpaEntityToPCDto(pcJpaEntity));
+                .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity));
     }
 }

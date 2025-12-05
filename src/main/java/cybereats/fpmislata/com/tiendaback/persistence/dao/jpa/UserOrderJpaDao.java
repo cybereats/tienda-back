@@ -6,9 +6,9 @@ import java.util.Optional;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserOrderJpaEntity;
 
 public interface UserOrderJpaDao {
-    public Optional<UserOrderJpaEntity> getUserOrderById(Long id);
+    public Optional<UserOrderJpaEntity> findById(Long id);
 
-    public List<UserOrderJpaEntity> getAll();
+    public List<UserOrderJpaEntity> findAll();
 
     public UserOrderJpaEntity insert(UserOrderJpaEntity userOrderJpaEntity);
 

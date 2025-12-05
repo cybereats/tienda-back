@@ -3,7 +3,6 @@ package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "pc")
@@ -15,20 +14,24 @@ public class PCJpaEntity implements Serializable {
     private String slug;
     private int runtime;
     private String specs;
-    private String working_since;
+    @Column(name = "working_since")
+    private String workingSince;
     @ManyToOne
     @JoinColumn(name = "category_pc_id")
     private CategoryPCJpaEntity category;
 
-    public PCJpaEntity() { }
+    public PCJpaEntity() {
+    }
 
-    public PCJpaEntity(Long id, String label, String slug, int runtime, String specs, String working_since) {
+    public PCJpaEntity(Long id, String label, String slug, int runtime, String specs, String workingSince,
+            CategoryPCJpaEntity category) {
         this.id = id;
         this.label = label;
         this.slug = slug;
         this.runtime = runtime;
         this.specs = specs;
-        this.working_since = working_since;
+        this.workingSince = workingSince;
+        this.category = category;
     }
 
     public Long getId() {
@@ -51,7 +54,11 @@ public class PCJpaEntity implements Serializable {
         return specs;
     }
 
-    public String getWorking_since() {
-        return working_since;
+    public String getWorkingSince() {
+        return workingSince;
+    }
+
+    public CategoryPCJpaEntity getCategory() {
+        return category;
     }
 }

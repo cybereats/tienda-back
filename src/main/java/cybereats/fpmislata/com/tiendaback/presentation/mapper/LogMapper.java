@@ -16,7 +16,7 @@ public class LogMapper {
         return INSTANCE;
     }
 
-    public LogDto logRequestToLogDto(LogRequest logRequest) {
+    public LogDto fromLogRequestToLogDto(LogRequest logRequest) {
         if (logRequest == null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class LogMapper {
         );
     }
 
-    public LogResponse logDtoToLogResponse(LogDto logDto) {
+    public LogResponse fromLogDtoToLogResponse(LogDto logDto) {
         if (logDto == null) {
             return null;
         }

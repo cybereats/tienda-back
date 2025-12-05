@@ -12,6 +12,8 @@ public record ProductRequest(
         String slug,
         @NotNull
         String desc,
-        BigDecimal price
+        BigDecimal price,
+        @NotNull
+        CategoryProductRequest category
 ) {
 }

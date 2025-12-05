@@ -26,10 +26,10 @@ public class BookingController {
     public ResponseEntity<Page<BookingResponse>> findAllBookings(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<BookingDto> bookingDtoPage = bookingService.getAll(page, size);
+        Page<BookingDto> bookingDtoPage = bookingService.findAll(page, size);
 
         List<BookingResponse> bookingResponses = bookingDtoPage.data().stream()
-                .map(bookingDto -> BookingMapper.getInstance().bookingDtoToBookingResponse(bookingDto))
+                .map(bookingDto -> BookingMapper.getInstance().fromBookingDtoToBookingResponse(bookingDto))
                 .toList();
 
         Page<BookingResponse> bookingPage = new Page<>(
@@ -44,16 +44,16 @@ public class BookingController {
     @GetMapping("/{id}")
     public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
         BookingResponse bookingResponse = BookingMapper.getInstance()
-                .bookingDtoToBookingResponse(bookingService.getById(id));
+                .fromBookingDtoToBookingResponse(bookingService.getById(id));
         return new ResponseEntity<>(bookingResponse, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
-        BookingDto bookingDto = BookingMapper.getInstance().bookingRequestToBookingDto(bookingRequest);
+        BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest);
         DtoValidator.validate(bookingDto);
         BookingDto createdBooking = bookingService.create(bookingDto);
-        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(createdBooking),
+        return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(createdBooking),
                 HttpStatus.CREATED);
     }
 
@@ -63,10 +63,10 @@ public class BookingController {
         if (!id.equals(bookingRequest.id())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
-        BookingDto bookingDto = BookingMapper.getInstance().bookingRequestToBookingDto(bookingRequest);
+        BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest);
         DtoValidator.validate(bookingDto);
         BookingDto updatedBooking = bookingService.update(bookingDto);
-        return new ResponseEntity<>(BookingMapper.getInstance().bookingDtoToBookingResponse(updatedBooking),
+        return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(updatedBooking),
                 HttpStatus.OK);
     }
 

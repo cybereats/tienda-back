@@ -6,7 +6,8 @@ public class PC {
     private String slug;
     private int runtime;
     private String specs;
-    private String working_since;
+    private String workingSince;
+    private CategoryPC categoryPC;
 
     private PC(Builder builder) {
         this.id = builder.id;
@@ -14,7 +15,8 @@ public class PC {
         this.slug = builder.slug;
         this.runtime = builder.runtime;
         this.specs = builder.specs;
-        this.working_since = builder.working_since;
+        this.workingSince = builder.workingSince;
+        this.categoryPC = builder.categoryPC;
     }
 
     public Long getId() {
@@ -37,8 +39,12 @@ public class PC {
         return specs;
     }
 
-    public String getWorking_since() {
-        return working_since;
+    public String getWorkingSince() {
+        return workingSince;
+    }
+
+    public CategoryPC getCategoryPC() {
+        return categoryPC;
     }
 
     public static class Builder {
@@ -47,7 +53,8 @@ public class PC {
         private String slug;
         private int runtime;
         private String specs;
-        private String working_since;
+        private String workingSince;
+        private CategoryPC categoryPC;
 
         public Builder id(Long id) {
             this.id = id;
@@ -74,8 +81,13 @@ public class PC {
             return this;
         }
 
-        public Builder working_since(String working_since) {
-            this.working_since = working_since;
+        public Builder workingSince(String workingSince) {
+            this.workingSince = workingSince;
+            return this;
+        }
+
+        public Builder categoryPC(CategoryPC categoryPC) {
+            this.categoryPC = categoryPC;
             return this;
         }
 

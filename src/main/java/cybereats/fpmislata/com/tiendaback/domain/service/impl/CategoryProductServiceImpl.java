@@ -17,8 +17,8 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     }
 
     @Override
-    public Page<CategoryProductDto> getAll(int page, int size) {
-        return categoryProductRepository.getAll(page, size);
+    public Page<CategoryProductDto> findAll(int page, int size) {
+        return categoryProductRepository.findAll(page, size);
     }
 
     @Override
@@ -36,6 +36,11 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     public CategoryProductDto getBySlug(String slug) {
         return categoryProductRepository.findBySlug(slug)
                 .orElseThrow(() -> new ResourceNotFoundException("CategoryProduct not found"));
+    }
+
+    @Override
+    public Optional<CategoryProductDto> findBySlug(String slug) {
+        return categoryProductRepository.findBySlug(slug);
     }
 
     @Override

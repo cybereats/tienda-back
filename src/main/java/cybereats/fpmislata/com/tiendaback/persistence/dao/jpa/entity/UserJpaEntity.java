@@ -1,10 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -15,18 +11,19 @@ public class UserJpaEntity {
     private Long id;
     private String name;
     private String surname;
-    private String born_date;
+    @Column(name = "born_date")
+    private String bornDate;
     private String username;
     private String password;
 
     public UserJpaEntity() {
     }
 
-    public UserJpaEntity(Long id, String name, String surname, String born_date, String username, String password) {
+    public UserJpaEntity(Long id, String name, String surname, String bornDate, String username, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.born_date = born_date;
+        this.bornDate = bornDate;
         this.username = username;
         this.password = password;
     }
@@ -43,8 +40,8 @@ public class UserJpaEntity {
         return surname;
     }
 
-    public String getBorn_date() {
-        return born_date;
+    public String getBornDate() {
+        return bornDate;
     }
 
     public String getUsername() {
@@ -67,8 +64,8 @@ public class UserJpaEntity {
         this.surname = surname;
     }
 
-    public void setBorn_date(String born_date) {
-        this.born_date = born_date;
+    public void setBornDate(String bornDate) {
+        this.bornDate = bornDate;
     }
 
     public void setUsername(String username) {

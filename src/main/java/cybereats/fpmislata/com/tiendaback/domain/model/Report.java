@@ -1,7 +1,5 @@
 package cybereats.fpmislata.com.tiendaback.domain.model;
 
-import java.lang.module.ModuleDescriptor.Builder;
-
 public class Report {
     private Long id;
     private String priority;

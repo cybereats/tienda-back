@@ -6,7 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
 import java.util.Optional;
 
 public interface BookingService {
-    Page<BookingDto> getAll(int page, int size);
+    Page<BookingDto> findAll(int page, int size);
     BookingDto getById(Long id);
     Optional<BookingDto> findById(Long id);
     BookingDto create(BookingDto bookingDto);

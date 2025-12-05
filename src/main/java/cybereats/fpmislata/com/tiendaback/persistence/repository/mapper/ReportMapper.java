@@ -4,21 +4,21 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
 
 public class ReportMapper {
-    public static ReportJpaEntity toReportJpaEntity(ReportDto reportDto) {
+    public static ReportJpaEntity fromReportDtotoReportJpaEntity(ReportDto reportDto) {
         return new ReportJpaEntity(
                 reportDto.id(),
                 reportDto.priority(),
                 reportDto.desc(),
-                UserMapper.getInstance().userDtoToUserJpaEntity(reportDto.user()),
-                PCMapper.getInstance().pcDtoToPCJpaEntity(reportDto.pc()));
+                UserMapper.getInstance().fromUserDtoToUserJpaEntity(reportDto.user()),
+                PCMapper.getInstance().fromPCDtoToPCJpaEntity(reportDto.pc()));
     }
 
-    public static ReportDto toReportDto(ReportJpaEntity reportJpaEntity) {
+    public static ReportDto fromReportJpaEntitytoReportDto(ReportJpaEntity reportJpaEntity) {
         return new ReportDto(
                 reportJpaEntity.getId(),
                 reportJpaEntity.getPriority(),
                 reportJpaEntity.getDesc(),
-                UserMapper.getInstance().userJpaEntityToUserDto(reportJpaEntity.getUser()),
-                PCMapper.getInstance().pcJpaEntityToPCDto(reportJpaEntity.getPC()));
+                UserMapper.getInstance().fromUserJpaEntityToUserDto(reportJpaEntity.getUser()),
+                PCMapper.getInstance().fromPCJpaEntityToPCDto(reportJpaEntity.getPC()));
     }
 }

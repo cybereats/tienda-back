@@ -8,16 +8,15 @@ public class CategoryProductJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "label")
-    private String name;
+    private String label;
     private String slug;
 
     public CategoryProductJpaEntity() {
     }
 
-    public CategoryProductJpaEntity(Long id, String name, String slug) {
+    public CategoryProductJpaEntity(Long id, String label, String slug) {
         this.id = id;
-        this.name = name;
+        this.label = label;
         this.slug = slug;
     }
 
@@ -25,8 +24,8 @@ public class CategoryProductJpaEntity {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
     public String getSlug() {

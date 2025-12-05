@@ -16,7 +16,7 @@ public class CategoryPCMapper {
         return INSTANCE;
     }
 
-    public CategoryPCDto categoryPCToCategoryPCDto(CategoryPC categoryPC) {
+    public CategoryPCDto fromCategoryPCToCategoryPCDto(CategoryPC categoryPC) {
         if (categoryPC == null) {
             return null;
         }
@@ -24,13 +24,10 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPC.getId(),
                 categoryPC.getLabel(),
-                categoryPC.getPrice(),
-                categoryPC.getPC_list().stream()
-                        .map(pc -> PCMapper.getInstance().pcToPCDto(pc))
-                        .toList());
+                categoryPC.getPrice());
     }
 
-    public CategoryPC categoryPCDtoToCategoryPC(CategoryPCDto categoryPCDto) {
+    public CategoryPC fromCategoryPCDtoToCategoryPC(CategoryPCDto categoryPCDto) {
         if (categoryPCDto == null) {
             return null;
         }
@@ -39,9 +36,6 @@ public class CategoryPCMapper {
                 .id(categoryPCDto.id())
                 .label(categoryPCDto.label())
                 .price(categoryPCDto.price())
-                .pc_list(categoryPCDto.pc_list().stream()
-                        .map(pcDto -> PCMapper.getInstance().pcDtoToPC(pcDto))
-                        .toList())
                 .build();
     }
 }

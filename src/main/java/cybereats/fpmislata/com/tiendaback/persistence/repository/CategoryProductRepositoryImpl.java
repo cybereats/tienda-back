@@ -19,9 +19,9 @@ public class CategoryProductRepositoryImpl implements CategoryProductRepository 
     }
 
     @Override
-    public Page<CategoryProductDto> getAll(int page, int size) {
+    public Page<CategoryProductDto> findAll(int page, int size) {
         List<CategoryProductDto> categoryProductDtoList = categoryProductJpaDao.findAll(page, size).stream()
-                .map(CategoryProductMapper.getInstance()::categoryProductJpaEntityToCategoryProductDto).toList();
+                .map(CategoryProductMapper.getInstance()::fromCategoryProductJpaEntityToCategoryProductDto).toList();
         Long totalElements = categoryProductJpaDao.count();
         return new Page<>(categoryProductDtoList, page, size, totalElements);
     }
@@ -30,27 +30,27 @@ public class CategoryProductRepositoryImpl implements CategoryProductRepository 
     public Optional<CategoryProductDto> findById(Long id) {
         Optional<CategoryProductJpaEntity> categoryProductJpaEntityOptional = categoryProductJpaDao.findById(id);
         return categoryProductJpaEntityOptional
-                .map(CategoryProductMapper.getInstance()::categoryProductJpaEntityToCategoryProductDto);
+                .map(CategoryProductMapper.getInstance()::fromCategoryProductJpaEntityToCategoryProductDto);
     }
 
     @Override
     public Optional<CategoryProductDto> findBySlug(String slug) {
         Optional<CategoryProductJpaEntity> categoryProductJpaEntityOptional = categoryProductJpaDao.findBySlug(slug);
         return categoryProductJpaEntityOptional
-                .map(CategoryProductMapper.getInstance()::categoryProductJpaEntityToCategoryProductDto);
+                .map(CategoryProductMapper.getInstance()::fromCategoryProductJpaEntityToCategoryProductDto);
     }
 
     @Override
     public CategoryProductDto save(CategoryProductDto categoryProductDto) {
         if (categoryProductDto.id() == null) {
             CategoryProductJpaEntity categoryProductJpaEntity = CategoryProductMapper.getInstance()
-                    .categoryProductDtoToCategoryProductJpaEntity(categoryProductDto);
-            return CategoryProductMapper.getInstance().categoryProductJpaEntityToCategoryProductDto(
+                    .fromCategoryProductDtoToCategoryProductJpaEntity(categoryProductDto);
+            return CategoryProductMapper.getInstance().fromCategoryProductJpaEntityToCategoryProductDto(
                     categoryProductJpaDao.insert(categoryProductJpaEntity));
         } else {
             CategoryProductJpaEntity categoryProductJpaEntity = CategoryProductMapper.getInstance()
-                    .categoryProductDtoToCategoryProductJpaEntity(categoryProductDto);
-            return CategoryProductMapper.getInstance().categoryProductJpaEntityToCategoryProductDto(
+                    .fromCategoryProductDtoToCategoryProductJpaEntity(categoryProductDto);
+            return CategoryProductMapper.getInstance().fromCategoryProductJpaEntityToCategoryProductDto(
                     categoryProductJpaDao.update(categoryProductJpaEntity));
         }
     }

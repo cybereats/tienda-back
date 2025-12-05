@@ -26,13 +26,15 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public Optional<UserJpaEntity> getById(Long id) {
+    public Optional<UserJpaEntity> findById(Long id) {
         return Optional.ofNullable(entityManager.find(UserJpaEntity.class, id));
     }
 
     @Override
-    public List<UserJpaEntity> getAll() {
+    public List<UserJpaEntity> findAll(int page, int size) {
         return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.id ASC", UserJpaEntity.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
                 .getResultList();
     }
 
@@ -44,4 +46,8 @@ public class UserJpaDaoImpl implements UserJpaDao {
         }
     }
 
+    @Override
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(u) FROM UserJpaEntity u", Long.class).getSingleResult();
+    }
 }

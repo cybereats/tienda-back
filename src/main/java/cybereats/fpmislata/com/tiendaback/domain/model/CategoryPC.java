@@ -7,13 +7,11 @@ public class CategoryPC {
     private Long id;
     private String label;
     private BigDecimal price;
-    private List<PC> pc_list;
 
     private CategoryPC(CategoryPC.Builder builder) {
         this.id = builder.id;
         this.label = builder.label;
         this.price = builder.price;
-        this.pc_list = builder.pc_list;
     }
 
     public Long getId() {
@@ -28,15 +26,10 @@ public class CategoryPC {
         return price;
     }
 
-    public List<PC> getPC_list() {
-        return pc_list;
-    }
-
     public static class Builder {
         private Long id;
         private String label;
         private BigDecimal price;
-        private List<PC> pc_list;
 
         public Builder id(Long id) {
             this.id = id;
@@ -50,11 +43,6 @@ public class CategoryPC {
 
         public Builder price(BigDecimal price) {
             this.price = price;
-            return this;
-        }
-
-        public Builder pc_list(List<PC> pc_list) {
-            this.pc_list = pc_list;
             return this;
         }
 

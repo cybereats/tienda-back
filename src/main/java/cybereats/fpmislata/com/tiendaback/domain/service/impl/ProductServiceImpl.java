@@ -4,7 +4,8 @@ import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ProductRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.ProductService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
-import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
+import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
+import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import java.util.Optional;
 
@@ -16,40 +17,53 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> getAll(int page, int size) {
+    public Page<ProductDto> findAll(int page, int size) {
         Page<ProductDto> productDtoPage = productRepository.findAll(page, size);
 
         return new Page<>(
                 productDtoPage.data(),
                 productDtoPage.pageNumber(),
                 productDtoPage.pageSize(),
-                productDtoPage.totalElements()
-        );
+                productDtoPage.totalElements());
     }
 
     @Override
     public ProductDto getBySlug(String slug) {
         return productRepository.findBySlug(slug)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     @Override
     public Optional<ProductDto> findBySlug(String slug) {
-        return Optional.ofNullable(productRepository.findBySlug(slug).orElseThrow(() -> new RuntimeException("Product not found")));
+        return Optional.ofNullable(
+                productRepository.findBySlug(slug)
+                        .orElseThrow(() -> new ResourceNotFoundException("Product not found")));
     }
 
     @Override
     public ProductDto create(ProductDto productDto) {
+        Optional<ProductDto> productDtoOptional = productRepository.findBySlug(productDto.slug());
+        if (productDtoOptional.isPresent()) {
+            throw new BusinessException("Product already exists");
+        }
         return productRepository.save(productDto);
     }
 
     @Override
     public ProductDto update(ProductDto productDto) {
+        Optional<ProductDto> productDtoOptional = productRepository.findBySlug(productDto.slug());
+        if (productDtoOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Product not found");
+        }
         return productRepository.save(productDto);
     }
 
     @Override
     public void deleteBySlug(String slug) {
+        Optional<ProductDto> productDtoOptional = productRepository.findBySlug(slug);
+        if (productDtoOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Product not found");
+        }
         productRepository.deleteBySlug(slug);
     }
 }

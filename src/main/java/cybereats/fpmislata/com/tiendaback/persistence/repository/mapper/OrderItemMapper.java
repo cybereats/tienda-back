@@ -16,26 +16,26 @@ public class OrderItemMapper {
         return INSTANCE;
     }
 
-    public OrderItemJpaEntity orderItemDtoToOrderItemJpaEntity(OrderItemDto orderItemDto) {
+    public OrderItemJpaEntity fromOrderItemDtoToOrderItemJpaEntity(OrderItemDto orderItemDto) {
         if (orderItemDto == null) {
             return null;
         }
 
         return new OrderItemJpaEntity(
                 orderItemDto.id(),
-                ProductMapper.getInstance().productDtoToProductJpaEntity(orderItemDto.product()),
-                orderItemDto.quantity());
+                orderItemDto.quantity(),
+                ProductMapper.getInstance().fromProductDtoToProductJpaEntity(orderItemDto.product()),
+                null);
     }
 
-    public OrderItemDto orderItemJpaEntityToOrderItemDto(OrderItemJpaEntity orderItemJpaEntity) {
+    public OrderItemDto fromOrderItemJpaEntityToOrderItemDto(OrderItemJpaEntity orderItemJpaEntity) {
         if (orderItemJpaEntity == null) {
             return null;
         }
 
         return new OrderItemDto(
                 orderItemJpaEntity.getId(),
-                ProductMapper.getInstance().productJpaEntityToProductDto(orderItemJpaEntity.getProduct()),
-                orderItemJpaEntity.getQuantity(),
-                null);
+                ProductMapper.getInstance().fromProductJpaEntityToProductDto(orderItemJpaEntity.getProduct()),
+                orderItemJpaEntity.getQuantity());
     }
 }

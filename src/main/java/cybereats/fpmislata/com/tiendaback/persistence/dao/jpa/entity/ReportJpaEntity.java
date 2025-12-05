@@ -11,14 +11,20 @@ public class ReportJpaEntity {
     private Long id;
     private String priority;
     private String desc;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserJpaEntity user;
-
     @ManyToOne
     @JoinColumn(name = "pc_id")
     private PCJpaEntity pc;
+
+    public PCJpaEntity getPc() {
+        return pc;
+    }
+
+    public void setPc(PCJpaEntity pc) {
+        this.pc = pc;
+    }
 
     public ReportJpaEntity() {
     }

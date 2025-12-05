@@ -16,7 +16,7 @@ public class UserMapper {
         return INSTANCE;
     }
 
-    public UserDto userToUserDto(User user) {
+    public UserDto fromUserToUserDto(User user) {
         if (user == null) {
             return null;
         }
@@ -25,12 +25,12 @@ public class UserMapper {
                 user.getId(),
                 user.getName(),
                 user.getSurname(),
-                user.getBorn_date(),
+                user.getBornDate(),
                 user.getUsername(),
                 user.getPassword());
     }
 
-    public User userDtoToUser(UserDto userDto) {
+    public User fromUserDtoToUser(UserDto userDto) {
         if (userDto == null) {
             return null;
         }
@@ -39,7 +39,7 @@ public class UserMapper {
                 .id(userDto.id())
                 .name(userDto.name())
                 .surname(userDto.surname())
-                .born_date(userDto.born_date())
+                .bornDate(userDto.bornDate())
                 .username(userDto.username())
                 .password(userDto.password())
                 .build();
