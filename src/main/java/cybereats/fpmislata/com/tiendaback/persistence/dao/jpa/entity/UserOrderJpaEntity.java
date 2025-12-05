@@ -27,19 +27,16 @@ public class UserOrderJpaEntity {
     @OneToMany(mappedBy = "userOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemJpaEntity> orderItems;
 
-    private BigDecimal totalPrice;
-
     private String status;
 
     public UserOrderJpaEntity() {
     }
 
-    public UserOrderJpaEntity(Long id, UserJpaEntity user, List<OrderItemJpaEntity> orderItems, BigDecimal totalPrice,
+    public UserOrderJpaEntity(Long id, UserJpaEntity user, List<OrderItemJpaEntity> orderItems,
             String status) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
-        this.totalPrice = totalPrice;
         this.status = status;
     }
 
@@ -65,14 +62,6 @@ public class UserOrderJpaEntity {
 
     public void setOrderItems(List<OrderItemJpaEntity> orderItems) {
         this.orderItems = orderItems;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public String getStatus() {

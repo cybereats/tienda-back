@@ -2,11 +2,7 @@ package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "order_item")
@@ -14,18 +10,23 @@ public class OrderItemJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ProductJpaEntity product;
+    @Column(name = "units")
     private Integer quantity;
-    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductJpaEntity product;
+
+    @ManyToOne
+    @JoinColumn(name = "user_order_id")
+    private UserOrderJpaEntity userOrder;
 
     public OrderItemJpaEntity() {
     }
 
-    public OrderItemJpaEntity(Long id, ProductJpaEntity product, Integer quantity, BigDecimal price) {
+    public OrderItemJpaEntity(Long id, ProductJpaEntity product, Integer quantity) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
-        this.price = price;
     }
 
     public Long getId() {
@@ -50,13 +51,5 @@ public class OrderItemJpaEntity {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 }

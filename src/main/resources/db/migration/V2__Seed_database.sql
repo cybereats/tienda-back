@@ -11,12 +11,12 @@ INSERT INTO user (name, surname, born_date, username, password) VALUES
 -- ============================
 -- TABLE: category_product
 -- ============================
-INSERT INTO category_product (label) VALUES
-    ('Hamburguesas'),
-    ('Acompañamientos'),
-    ('Bebidas'),
-    ('Postres'),
-    ('Desayunos');
+INSERT INTO category_product (label, slug) VALUES
+    ('Hamburguesas', 'hamburguesas'),
+    ('Acompañamientos', 'acompanamientos'),
+    ('Bebidas', 'bebidas'),
+    ('Postres', 'postres'),
+    ('Desayunos', 'desayunos');
 
 
 -- ============================
@@ -40,9 +40,9 @@ INSERT INTO user_order (status, user_id) VALUES
                                              ('pending', 5);
 
 -- ============================
--- TABLE: item_order
+-- TABLE: order_item
 -- ============================
-INSERT INTO item_order (units, product_id, user_order_id) VALUES
+INSERT INTO order_item (units, product_id, user_order_id) VALUES
                                                               (2, 1, 1),
                                                               (1, 3, 1),
                                                               (1, 2, 2),
@@ -75,11 +75,11 @@ INSERT INTO category_pc (label, price) VALUES
 -- TABLE: pc
 -- ============================
 INSERT INTO pc (label, slug, runtime, specs, working_since, category_pc_id) VALUES
-                                                                                ('PC Gamer 1', 'pc-gamer-1', '12h', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 2),
-                                                                                ('PC Gamer 2', 'pc-gamer-2', '8h', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 2),
-                                                                                ('PC Streaming 1', 'pc-stream-1', '5h', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 3),
-                                                                                ('PC Básico 1', 'pc-basic-1', '20h', 'i3, Integrada, 8GB RAM', '2021-08-10', 1),
-                                                                                ('PC Edición 1', 'pc-edit-1', '10h', 'Ryzen 9, 64GB RAM', '2023-07-15', 4);
+                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 2),
+                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 2),
+                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 3),
+                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 1),
+                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 4);
 
 -- ============================
 -- TABLE: booking

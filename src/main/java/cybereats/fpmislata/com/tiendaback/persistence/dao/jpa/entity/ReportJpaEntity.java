@@ -1,10 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "report")
@@ -15,7 +11,13 @@ public class ReportJpaEntity {
     private Long id;
     private String priority;
     private String desc;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserJpaEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "pc_id")
     private PCJpaEntity pc;
 
     public ReportJpaEntity() {

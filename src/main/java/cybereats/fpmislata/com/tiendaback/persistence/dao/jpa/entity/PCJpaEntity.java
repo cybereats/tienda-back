@@ -17,7 +17,7 @@ public class PCJpaEntity implements Serializable {
     private String specs;
     private String working_since;
     @ManyToOne
-    @JoinColumn(name = "category__pc_id")
+    @JoinColumn(name = "category_pc_id")
     private CategoryPCJpaEntity category;
 
     public PCJpaEntity() { }

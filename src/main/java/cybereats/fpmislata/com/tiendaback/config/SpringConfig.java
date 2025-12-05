@@ -28,6 +28,31 @@ public class SpringConfig {
     }
 
     @Bean
+    public CategoryProductJpaDao categoryProductJpaDao() {
+        return new CategoryProductJpaDaoImpl();
+    }
+
+    @Bean
+    public OrderItemJpaDao orderItemJpaDao() {
+        return new OrderItemJpaDaoImpl();
+    }
+
+    @Bean
+    public ReportJpaDao reportJpaDao() {
+        return new ReportJpaDaoImpl();
+    }
+
+    @Bean
+    public UserJpaDao userJpaDao() {
+        return new UserJpaDaoImpl();
+    }
+
+    @Bean
+    public UserOrderJpaDao userOrderJpaDao() {
+        return new UserOrderJpaDaoImpl();
+    }
+
+    @Bean
     public LogJpaDao logJpaDao() {
         return new LogJpaDaoImpl();
     }
@@ -72,6 +97,56 @@ public class SpringConfig {
     @Bean
     public CategoryPCService categoryPCService(CategoryPCRepository categoryPCRepository) {
         return new CategoryPCServiceImpl(categoryPCRepository);
+    }
+
+    @Bean
+    public CategoryProductRepository categoryProductRepository(CategoryProductJpaDao categoryProductJpaDao) {
+        return new CategoryProductRepositoryImpl(categoryProductJpaDao);
+    }
+
+    @Bean
+    public CategoryProductService categoryProductService(CategoryProductRepository categoryProductRepository) {
+        return new CategoryProductServiceImpl(categoryProductRepository);
+    }
+
+    @Bean
+    public OrderItemRepository orderItemRepository(OrderItemJpaDao orderItemJpaDao) {
+        return new OrderItemRepositoryImpl(orderItemJpaDao);
+    }
+
+    @Bean
+    public OrderItemService orderItemService(OrderItemRepository orderItemRepository) {
+        return new OrderItemServiceImpl(orderItemRepository);
+    }
+
+    @Bean
+    public ReportRepository reportRepository(ReportJpaDao reportJpaDao) {
+        return new ReportRepositoryImpl(reportJpaDao);
+    }
+
+    @Bean
+    public ReportService reportService(ReportRepository reportRepository) {
+        return new ReportServiceImpl(reportRepository);
+    }
+
+    @Bean
+    public UserRepository userRepository(UserJpaDao userJpaDao) {
+        return new UserRepositoryImpl(userJpaDao);
+    }
+
+    @Bean
+    public UserService userService(UserRepository userRepository) {
+        return new UserServiceImpl(userRepository);
+    }
+
+    @Bean
+    public UserOrderRepository userOrderRepository(UserOrderJpaDao userOrderJpaDao) {
+        return new UserOrderRepositoryImpl(userOrderJpaDao);
+    }
+
+    @Bean
+    public UserOrderService userOrderService(UserOrderRepository userOrderRepository) {
+        return new UserOrderServiceImpl(userOrderRepository);
     }
 
     @Bean

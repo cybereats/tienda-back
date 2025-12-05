@@ -1,25 +1,26 @@
 CREATE TABLE category_product (
                                   id INT PRIMARY KEY AUTO_INCREMENT,
-                                  label VARCHAR(255)
+                                  label VARCHAR(255),
+                                    slug VARCHAR(255)
 );
 
 CREATE TABLE product (
-                          id INT PRIMARY KEY AUTO_INCREMENT,
-                          label VARCHAR(255),
-                          slug VARCHAR(255),
-                          `desc` TEXT,
-                          price DECIMAL(10,2),
-                          category_product_id INT,
-                          FOREIGN KEY (category_product_id) REFERENCES category_product(id)
+                         id INT PRIMARY KEY AUTO_INCREMENT,
+                         label VARCHAR(255),
+                         slug VARCHAR(255),
+                         `desc` TEXT,
+                         price DECIMAL(10,2),
+                         category_product_id INT,
+                         FOREIGN KEY (category_product_id) REFERENCES category_product(id)
 );
 
-CREATE TABLE item_order (
-                            id INT PRIMARY KEY AUTO_INCREMENT,
-                            units INT,
-                            product_id INT,
-                            user_order_id INT,
-                            FOREIGN KEY (product_id) REFERENCES product(id),
-                            FOREIGN KEY (user_order_id) REFERENCES user_order(id)
+CREATE TABLE user (
+                      id INT PRIMARY KEY AUTO_INCREMENT,
+                      name VARCHAR(255),
+                      surname VARCHAR(255),
+                      born_date DATE,
+                      username VARCHAR(255),
+                      password VARCHAR(255)
 );
 
 CREATE TABLE user_order (
@@ -29,10 +30,19 @@ CREATE TABLE user_order (
                             FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE order_item (
+                            id INT PRIMARY KEY AUTO_INCREMENT,
+                            units INT,
+                            product_id INT,
+                            user_order_id INT,
+                            FOREIGN KEY (product_id) REFERENCES product(id),
+                            FOREIGN KEY (user_order_id) REFERENCES user_order(id)
+);
+
 CREATE TABLE log (
-                      id INT PRIMARY KEY AUTO_INCREMENT,
-                      info TEXT,
-                      timestamp DATETIME
+                     id INT PRIMARY KEY AUTO_INCREMENT,
+                     info TEXT,
+                     timestamp DATETIME
 );
 
 CREATE TABLE category_pc (
@@ -62,20 +72,11 @@ CREATE TABLE booking (
 );
 
 CREATE TABLE report (
-                         id INT PRIMARY KEY AUTO_INCREMENT,
-                         priority INT,
-                         `desc` TEXT,
-                         pc_id INT,
-                         user_id INT,
-                         FOREIGN KEY (pc_id) REFERENCES pc(id),
-                         FOREIGN KEY (user_id) REFERENCES user(id)
-);
-
-CREATE TABLE user (
-                      id INT PRIMARY KEY AUTO_INCREMENT,
-                      name VARCHAR(255),
-                      surname VARCHAR(255),
-                      born_date DATE,
-                      username VARCHAR(255),
-                      password VARCHAR(255)
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        priority INT,
+                        `desc` TEXT,
+                        pc_id INT,
+                        user_id INT,
+                        FOREIGN KEY (pc_id) REFERENCES pc(id),
+                        FOREIGN KEY (user_id) REFERENCES user(id)
 );

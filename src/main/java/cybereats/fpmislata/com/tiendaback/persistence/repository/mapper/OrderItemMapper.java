@@ -24,8 +24,7 @@ public class OrderItemMapper {
         return new OrderItemJpaEntity(
                 orderItemDto.id(),
                 ProductMapper.getInstance().productDtoToProductJpaEntity(orderItemDto.product()),
-                orderItemDto.quantity(),
-                orderItemDto.price());
+                orderItemDto.quantity());
     }
 
     public OrderItemDto orderItemJpaEntityToOrderItemDto(OrderItemJpaEntity orderItemJpaEntity) {
@@ -37,6 +36,6 @@ public class OrderItemMapper {
                 orderItemJpaEntity.getId(),
                 ProductMapper.getInstance().productJpaEntityToProductDto(orderItemJpaEntity.getProduct()),
                 orderItemJpaEntity.getQuantity(),
-                orderItemJpaEntity.getPrice());
+                null);
     }
 }

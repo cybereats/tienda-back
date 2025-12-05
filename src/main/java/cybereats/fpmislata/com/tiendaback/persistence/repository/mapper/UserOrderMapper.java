@@ -27,7 +27,6 @@ public class UserOrderMapper {
                 userOrderDto.orderItems().stream()
                         .map(item -> OrderItemMapper.getInstance().orderItemDtoToOrderItemJpaEntity(item))
                         .toList(),
-                userOrderDto.totalPrice(),
                 userOrderDto.status());
     }
 
@@ -42,7 +41,7 @@ public class UserOrderMapper {
                 userOrderJpaEntity.getOrderItems().stream()
                         .map(item -> OrderItemMapper.getInstance().orderItemJpaEntityToOrderItemDto(item))
                         .toList(),
-                userOrderJpaEntity.getTotalPrice(),
+                null,
                 userOrderJpaEntity.getStatus());
     }
 }
