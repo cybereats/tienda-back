@@ -18,9 +18,11 @@ CREATE TABLE user (
                       id INT PRIMARY KEY AUTO_INCREMENT,
                       name VARCHAR(255),
                       surname VARCHAR(255),
+                      email VARCHAR(255),
                       born_date DATE,
                       username VARCHAR(255),
-                      password VARCHAR(255)
+                      password VARCHAR(255),
+                      role VARCHAR(255)
 );
 CREATE TABLE user_order (
                             id INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,6 +59,7 @@ CREATE TABLE pc (
                     runtime VARCHAR(255),
                     specs TEXT,
                     working_since DATE,
+                    image VARCHAR(255),
                     category_pc_id INT,
                     FOREIGN KEY (category_pc_id) REFERENCES category_pc(id)
 );

@@ -28,6 +28,7 @@ public class PCMapper {
                 pcJpaEntity.getRuntime(),
                 pcJpaEntity.getSpecs(),
                 pcJpaEntity.getWorkingSince(),
+                pcJpaEntity.getImage(),
                 CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(pcJpaEntity.getCategory()));
     }
 
@@ -43,6 +44,7 @@ public class PCMapper {
                 pcDto.runtime(),
                 pcDto.specs(),
                 pcDto.workingSince(),
+                pcDto.image(),
                 CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCJpaEntity(pcDto.categoryPCDto()));
     }
 }

@@ -10,6 +10,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.OrderItemService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 
 public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
@@ -19,6 +20,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    @Transactional
     public OrderItemDto insert(OrderItemDto orderItemDto) {
         Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(orderItemDto.id());
         if (orderItemDtoOptional.isPresent()) {
@@ -29,6 +31,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    @Transactional
     public OrderItemDto update(OrderItemDto orderItemDto) {
         Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(orderItemDto.id());
         if (orderItemDtoOptional.isEmpty()) {
@@ -64,6 +67,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<OrderItemDto> orderItemDtoOptional = orderItemRepository.findById(id);
         if (orderItemDtoOptional.isEmpty()) {

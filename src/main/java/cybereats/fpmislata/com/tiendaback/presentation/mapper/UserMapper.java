@@ -22,9 +22,11 @@ public class UserMapper {
                 userDto.id(),
                 userDto.name(),
                 userDto.surname(),
+                userDto.email(),
                 userDto.bornDate(),
                 userDto.username(),
-                userDto.password());
+                userDto.password(),
+                userDto.role());
     }
 
     public UserDto fromUserRequestToUserDto(UserRequest userRequest) {
@@ -32,8 +34,10 @@ public class UserMapper {
                 userRequest.id(),
                 userRequest.name(),
                 userRequest.surname(),
+                userRequest.email(),
                 userRequest.born_date(),
                 userRequest.username(),
-                userRequest.password());
+                userRequest.password(),
+                userRequest.role());
     }
 }

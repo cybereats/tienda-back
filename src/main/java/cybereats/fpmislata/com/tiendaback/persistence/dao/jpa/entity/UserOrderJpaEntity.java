@@ -13,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 
 @Entity
 @Table(name = "user_order")
@@ -25,15 +28,17 @@ public class UserOrderJpaEntity {
     @JoinColumn(name = "user_id")
     private UserJpaEntity user;
 
-    @OneToMany(mappedBy = "user_order_id")
+    @OneToMany(mappedBy = "user_order_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemJpaEntity> orderItems;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     public UserOrderJpaEntity() {
     }
 
     public UserOrderJpaEntity(Long id, UserJpaEntity user, List<OrderItemJpaEntity> orderItems,
-            String status) {
+            OrderStatus status) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
@@ -64,11 +69,11 @@ public class UserOrderJpaEntity {
         this.orderItems = orderItems;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 }

@@ -37,7 +37,7 @@ public class UserOrderMapper {
     }
 
     public UserDto mapUser(Long id) {
-        return new UserDto(id, null, null, null, null, null);
+        return new UserDto(id, null, null, null, null, null, null, null);
     }
 
     public OrderItemDto mapOrderItem(Long id) {

@@ -8,9 +8,9 @@ import cybereats.fpmislata.com.tiendaback.domain.service.ReportService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 
 public class ReportServiceImpl implements ReportService {
-
     private final ReportRepository reportRepository;
 
     public ReportServiceImpl(ReportRepository reportRepository) {
@@ -18,6 +18,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Transactional
     public ReportDto insert(ReportDto reportDto) {
         Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
         if (reportDtoOptional.isPresent()) {
@@ -27,6 +28,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Transactional
     public ReportDto update(ReportDto reportDto) {
         Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
         if (reportDtoOptional.isEmpty()) {
@@ -61,6 +63,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<ReportDto> reportDtoOptional = reportRepository.findById(id);
         if (reportDtoOptional.isEmpty()) {

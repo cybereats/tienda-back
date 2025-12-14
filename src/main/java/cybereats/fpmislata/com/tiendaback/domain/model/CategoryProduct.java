@@ -5,7 +5,7 @@ public class CategoryProduct {
     private String name;
     private String slug;
 
-    private CategoryProduct(CategoryProduct.Builder builder) {
+    private CategoryProduct(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.slug = builder.slug;

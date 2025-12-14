@@ -26,10 +26,10 @@ public class ReportMapper {
     }
 
     private static UserDto mapUser(Long id) {
-        return new UserDto(id, null, null, null, null, null);
+        return new UserDto(id, null, null, null, null, null, null, null);
     }
 
     private static PCDto mapPC(Long id) {
-        return new PCDto(id, null, null, 0, null, null, null);
+        return new PCDto(id, null, null, 0, null, null, null, null);
     }
 }

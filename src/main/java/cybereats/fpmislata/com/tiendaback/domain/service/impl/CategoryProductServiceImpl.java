@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class CategoryProductServiceImpl implements CategoryProductService {
@@ -44,6 +45,7 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     }
 
     @Override
+    @Transactional
     public CategoryProductDto insert(CategoryProductDto categoryProductDto) {
         if (categoryProductRepository.findById(categoryProductDto.id()).isPresent()) {
             throw new BusinessException("CategoryProduct already exists");
@@ -52,6 +54,7 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     }
 
     @Override
+    @Transactional
     public CategoryProductDto update(CategoryProductDto categoryProductDto) {
         if (!categoryProductRepository.findById(categoryProductDto.id()).isPresent()) {
             throw new ResourceNotFoundException("CategoryProduct not found");
@@ -60,6 +63,7 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     }
 
     @Override
+    @Transactional
     public void deleteBySlug(String slug) {
         if (!categoryProductRepository.findBySlug(slug).isPresent()) {
             throw new ResourceNotFoundException("CategoryProduct not found");

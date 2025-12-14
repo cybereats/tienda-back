@@ -6,7 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.ProductService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
-
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
@@ -41,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductDto create(ProductDto productDto) {
         Optional<ProductDto> productDtoOptional = productRepository.findBySlug(productDto.slug());
         if (productDtoOptional.isPresent()) {
@@ -50,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductDto update(ProductDto productDto) {
         Optional<ProductDto> productDtoOptional = productRepository.findBySlug(productDto.slug());
         if (productDtoOptional.isEmpty()) {
@@ -59,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteBySlug(String slug) {
         Optional<ProductDto> productDtoOptional = productRepository.findBySlug(slug);
         if (productDtoOptional.isEmpty()) {

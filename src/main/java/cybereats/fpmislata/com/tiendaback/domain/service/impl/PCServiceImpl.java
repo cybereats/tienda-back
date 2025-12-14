@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class PCServiceImpl implements PCService {
@@ -40,6 +41,7 @@ public class PCServiceImpl implements PCService {
     }
 
     @Override
+    @Transactional
     public PCDto create(PCDto pcDto) {
         Optional<PCDto> pcDtoOptional = pcRepository.findBySlug(pcDto.slug());
         if (pcDtoOptional.isPresent()) {
@@ -49,6 +51,7 @@ public class PCServiceImpl implements PCService {
     }
 
     @Override
+    @Transactional
     public PCDto update(PCDto pcDto) {
         Optional<PCDto> pcDtoOptional = pcRepository.findBySlug(pcDto.slug());
         if (pcDtoOptional.isEmpty()) {
@@ -58,6 +61,7 @@ public class PCServiceImpl implements PCService {
     }
 
     @Override
+    @Transactional
     public void deleteBySlug(String slug) {
         Optional<PCDto> pcDtoOptional = pcRepository.findBySlug(slug);
         if (pcDtoOptional.isEmpty()) {

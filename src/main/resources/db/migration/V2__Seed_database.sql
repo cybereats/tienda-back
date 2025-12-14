@@ -1,12 +1,12 @@
 -- ============================
 -- TABLE: user
 -- ============================
-INSERT INTO user (name, surname, born_date, username, password) VALUES
-                                                                    ('Juan', 'Pérez', '1990-05-12', 'jperez', '1234'),
-                                                                    ('María', 'López', '1985-07-22', 'mlopez', 'abcd'),
-                                                                    ('Carlos', 'García', '1998-01-15', 'cgarcia', 'pass'),
-                                                                    ('Laura', 'Martín', '1992-03-10', 'lmartin', 'qwerty'),
-                                                                    ('Ana', 'Ruiz', '2000-10-08', 'aruiz', 'admin');
+INSERT INTO user (name, surname, email, born_date, username, password, role) VALUES
+                                                                    ('Juan', 'Pérez', 'juan.perez@example.com', '1990-05-12', 'jperez', '1234', 'CLIENT'),
+                                                                    ('María', 'López', 'maria.lopez@example.com', '1985-07-22', 'mlopez', 'abcd', 'CLIENT'),
+                                                                    ('Carlos', 'García', 'carlos.garcia@example.com', '1998-01-15', 'cgarcia', 'pass', 'CLIENT'),
+                                                                    ('Laura', 'Martín', 'laura.martin@example.com', '1992-03-10', 'lmartin', 'qwerty', 'CLIENT'),
+                                                                    ('Ana', 'Ruiz', 'ana.ruiz@example.com', '2000-10-08', 'aruiz', 'admin', 'ADMIN');
 
 -- ============================
 -- TABLE: category_product
@@ -74,12 +74,12 @@ INSERT INTO category_pc (label, price) VALUES
 -- ============================
 -- TABLE: pc
 -- ============================
-INSERT INTO pc (label, slug, runtime, specs, working_since, category_pc_id) VALUES
-                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 2),
-                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 2),
-                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 3),
-                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 1),
-                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 4);
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, category_pc_id) VALUES
+                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 'pc-gamer-1.jpg', 2),
+                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 'pc-gamer-2.jpg', 2),
+                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 'pc-stream-1.jpg', 3),
+                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 'pc-basic-1.jpg', 1),
+                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 'pc-edit-1.jpg', 4);
 
 -- ============================
 -- TABLE: booking

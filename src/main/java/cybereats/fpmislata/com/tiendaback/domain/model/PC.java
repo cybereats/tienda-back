@@ -7,6 +7,7 @@ public class PC {
     private int runtime;
     private String specs;
     private String workingSince;
+    private String image;
     private CategoryPC categoryPC;
 
     private PC(Builder builder) {
@@ -16,6 +17,7 @@ public class PC {
         this.runtime = builder.runtime;
         this.specs = builder.specs;
         this.workingSince = builder.workingSince;
+        this.image = builder.image;
         this.categoryPC = builder.categoryPC;
     }
 
@@ -43,6 +45,10 @@ public class PC {
         return workingSince;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public CategoryPC getCategoryPC() {
         return categoryPC;
     }
@@ -54,6 +60,7 @@ public class PC {
         private int runtime;
         private String specs;
         private String workingSince;
+        private String image;
         private CategoryPC categoryPC;
 
         public Builder id(Long id) {
@@ -83,6 +90,11 @@ public class PC {
 
         public Builder workingSince(String workingSince) {
             this.workingSince = workingSince;
+            return this;
+        }
+
+        public Builder image(String image) {
+            this.image = image;
             return this;
         }
 

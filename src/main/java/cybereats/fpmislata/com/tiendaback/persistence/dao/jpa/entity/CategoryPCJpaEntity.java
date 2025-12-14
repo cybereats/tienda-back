@@ -15,6 +15,8 @@ public class CategoryPCJpaEntity implements Serializable {
     private Long id;
     private String label;
     private BigDecimal price;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PCJpaEntity> pcs = new ArrayList<>();
 
     public CategoryPCJpaEntity() {
     }

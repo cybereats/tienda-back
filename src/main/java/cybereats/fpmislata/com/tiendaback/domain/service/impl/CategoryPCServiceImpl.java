@@ -6,7 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.CategoryPCService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
-
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class CategoryPCServiceImpl implements CategoryPCService {
@@ -40,6 +40,7 @@ public class CategoryPCServiceImpl implements CategoryPCService {
     }
 
     @Override
+    @Transactional
     public CategoryPCDto create(CategoryPCDto categoryPCDto) {
         Optional<CategoryPCDto> categoryPCDtoOptional = categoryPCRepository.findById(categoryPCDto.id());
         if (categoryPCDtoOptional.isPresent()) {
@@ -49,6 +50,7 @@ public class CategoryPCServiceImpl implements CategoryPCService {
     }
 
     @Override
+    @Transactional
     public CategoryPCDto update(CategoryPCDto categoryPCDto) {
         Optional<CategoryPCDto> categoryPCDtoOptional = categoryPCRepository.findById(categoryPCDto.id());
         if (categoryPCDtoOptional.isEmpty()) {
@@ -58,6 +60,7 @@ public class CategoryPCServiceImpl implements CategoryPCService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<CategoryPCDto> categoryPCDtoOptional = categoryPCRepository.findById(id);
         if (categoryPCDtoOptional.isEmpty()) {

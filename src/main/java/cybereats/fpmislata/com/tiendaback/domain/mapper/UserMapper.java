@@ -25,9 +25,11 @@ public class UserMapper {
                 user.getId(),
                 user.getName(),
                 user.getSurname(),
+                user.getEmail(),
                 user.getBornDate(),
                 user.getUsername(),
-                user.getPassword());
+                user.getPassword(),
+                user.getRole());
     }
 
     public User fromUserDtoToUser(UserDto userDto) {
@@ -39,9 +41,11 @@ public class UserMapper {
                 .id(userDto.id())
                 .name(userDto.name())
                 .surname(userDto.surname())
+                .email(userDto.email())
                 .bornDate(userDto.bornDate())
                 .username(userDto.username())
                 .password(userDto.password())
+                .role(userDto.role())
                 .build();
     }
 }

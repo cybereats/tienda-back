@@ -28,6 +28,7 @@ public class PCMapper {
                 pc.getRuntime(),
                 pc.getSpecs(),
                 pc.getWorkingSince(),
+                pc.getImage(),
                 CategoryPCMapper.getInstance().fromCategoryPCToCategoryPCDto(pc.getCategoryPC()));
     }
 
@@ -43,6 +44,7 @@ public class PCMapper {
                 .runtime(pcDto.runtime())
                 .specs(pcDto.specs())
                 .workingSince(pcDto.workingSince())
+                .image(pcDto.image())
                 .build();
     }
 }

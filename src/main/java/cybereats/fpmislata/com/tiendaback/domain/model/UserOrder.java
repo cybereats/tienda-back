@@ -7,7 +7,7 @@ public class UserOrder {
     private Long id;
     private User user;
     private List<OrderItem> orderItems;
-    private String status;
+    private OrderStatus status;
 
     private UserOrder(Builder builder) {
         this.id = builder.id;
@@ -28,7 +28,7 @@ public class UserOrder {
         return orderItems;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
@@ -36,7 +36,7 @@ public class UserOrder {
         private Long id;
         private User user;
         private List<OrderItem> orderItems;
-        private String status;
+        private OrderStatus status;
 
         public Builder id(Long id) {
             this.id = id;
@@ -53,7 +53,7 @@ public class UserOrder {
             return this;
         }
 
-        public Builder status(String status) {
+        public Builder status(OrderStatus status) {
             this.status = status;
             return this;
         }

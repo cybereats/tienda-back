@@ -10,6 +10,7 @@ import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 import cybereats.fpmislata.com.tiendaback.domain.mapper.UserOrderMapper;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserOrder;
+import jakarta.transaction.Transactional;
 
 public class UserOrderServiceImpl implements UserOrderService {
     private final UserOrderRepository userOrderRepository;
@@ -42,6 +43,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    @Transactional
     public UserOrderDto insert(UserOrderDto userOrderDto) {
         Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(userOrderDto.id());
         if (userOrderDtoOptional.isPresent()) {
@@ -52,6 +54,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    @Transactional
     public UserOrderDto update(UserOrderDto userOrderDto) {
         Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(userOrderDto.id());
         if (userOrderDtoOptional.isEmpty()) {
@@ -62,6 +65,7 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<UserOrderDto> userOrderDtoOptional = userOrderRepository.findById(id);
         if (userOrderDtoOptional.isEmpty()) {

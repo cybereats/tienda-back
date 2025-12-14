@@ -10,7 +10,7 @@ public class Product {
     private BigDecimal price;
     private CategoryProduct categoryProduct;
 
-    private Product(Product.Builder builder) {
+    private Product(Builder builder) {
         this.id = builder.id;
         this.label = builder.label;
         this.slug = builder.slug;

@@ -1,5 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
+import java.util.List;
+import java.util.ArrayList;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +12,8 @@ public class CategoryProductJpaEntity {
     private Long id;
     private String label;
     private String slug;
+    @OneToMany(mappedBy = "categoryProductJpaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductJpaEntity> products = new ArrayList<>();
 
     public CategoryProductJpaEntity() {
     }

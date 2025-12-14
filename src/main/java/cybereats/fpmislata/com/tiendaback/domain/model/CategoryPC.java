@@ -8,7 +8,7 @@ public class CategoryPC {
     private String label;
     private BigDecimal price;
 
-    private CategoryPC(CategoryPC.Builder builder) {
+    private CategoryPC(Builder builder) {
         this.id = builder.id;
         this.label = builder.label;
         this.price = builder.price;

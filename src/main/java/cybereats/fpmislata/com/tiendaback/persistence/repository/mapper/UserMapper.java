@@ -25,9 +25,11 @@ public class UserMapper {
                 userDto.id(),
                 userDto.name(),
                 userDto.surname(),
+                userDto.email(),
                 userDto.bornDate(),
                 userDto.username(),
-                userDto.password());
+                userDto.password(),
+                userDto.role());
     }
 
     public UserDto fromUserJpaEntityToUserDto(UserJpaEntity userJpaEntity) {
@@ -39,8 +41,10 @@ public class UserMapper {
                 userJpaEntity.getId(),
                 userJpaEntity.getName(),
                 userJpaEntity.getSurname(),
+                userJpaEntity.getEmail(),
                 userJpaEntity.getBornDate(),
                 userJpaEntity.getUsername(),
-                userJpaEntity.getPassword());
+                userJpaEntity.getPassword(),
+                userJpaEntity.getRole());
     }
 }

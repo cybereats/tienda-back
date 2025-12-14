@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import java.util.List;
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto insert(UserDto user) {
         Optional<UserDto> userDto = userRepository.findById(user.id());
         if (userDto.isPresent()) {
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto update(UserDto user) {
         Optional<UserDto> userDto = userRepository.findById(user.id());
         if (userDto.isEmpty()) {
@@ -51,6 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<UserDto> userDto = userRepository.findById(id);
         if (userDto.isEmpty()) {

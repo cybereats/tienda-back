@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class BookingServiceImpl implements BookingService {
@@ -40,6 +41,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public BookingDto create(BookingDto bookingDto) {
         Optional<BookingDto> bookingDtoOptional = bookingRepository.findById(bookingDto.id());
         if (bookingDtoOptional.isPresent()) {
@@ -49,6 +51,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public BookingDto update(BookingDto bookingDto) {
         Optional<BookingDto> bookingDtoOptional = bookingRepository.findById(bookingDto.id());
         if (bookingDtoOptional.isEmpty()) {
@@ -58,6 +61,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<BookingDto> bookingDtoOptional = bookingRepository.findById(id);
         if (bookingDtoOptional.isEmpty()) {

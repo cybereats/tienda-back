@@ -29,6 +29,7 @@ public class PCMapper {
                 pcRequest.runtime(),
                 pcRequest.specs(),
                 pcRequest.workingSince(),
+                pcRequest.image(),
                 CategoryPCMapper.getInstance().fromCategoryPCRequestToCategoryPCDto(pcRequest.categoryPCRequest()));
     }
 
@@ -44,6 +45,7 @@ public class PCMapper {
                 pcDto.runtime(),
                 pcDto.specs(),
                 pcDto.workingSince(),
+                pcDto.image(),
                 CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCResponse(pcDto.categoryPCDto()));
     }
 }

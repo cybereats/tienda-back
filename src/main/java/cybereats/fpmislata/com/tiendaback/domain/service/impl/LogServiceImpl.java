@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.LogDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
+import jakarta.transaction.Transactional;
 import java.util.Optional;
 
 public class LogServiceImpl implements LogService {
@@ -40,6 +41,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public LogDto create(LogDto logDto) {
         Optional<LogDto> logDtoOptional = logRepository.findById(logDto.id());
         if (logDtoOptional.isPresent()) {
@@ -49,6 +51,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public LogDto update(LogDto logDto) {
         Optional<LogDto> logDtoOptional = logRepository.findById(logDto.id());
         if (logDtoOptional.isEmpty()) {
@@ -58,6 +61,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         Optional<LogDto> logDtoOptional = logRepository.findById(id);
         if (logDtoOptional.isEmpty()) {

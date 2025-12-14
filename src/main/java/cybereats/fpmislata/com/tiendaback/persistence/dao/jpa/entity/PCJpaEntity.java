@@ -3,6 +3,8 @@ package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "pc")
@@ -16,14 +18,21 @@ public class PCJpaEntity implements Serializable {
     private String specs;
     @Column(name = "working_since")
     private String workingSince;
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_pc_id")
     private CategoryPCJpaEntity category;
 
+    @OneToMany(mappedBy = "pcJpaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingJpaEntity> bookings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "pc", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReportJpaEntity> reports = new ArrayList<>();
+
     public PCJpaEntity() {
     }
 
-    public PCJpaEntity(Long id, String label, String slug, int runtime, String specs, String workingSince,
+    public PCJpaEntity(Long id, String label, String slug, int runtime, String specs, String workingSince, String image,
             CategoryPCJpaEntity category) {
         this.id = id;
         this.label = label;
@@ -31,6 +40,7 @@ public class PCJpaEntity implements Serializable {
         this.runtime = runtime;
         this.specs = specs;
         this.workingSince = workingSince;
+        this.image = image;
         this.category = category;
     }
 
@@ -58,7 +68,15 @@ public class PCJpaEntity implements Serializable {
         return workingSince;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public CategoryPCJpaEntity getCategory() {
         return category;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

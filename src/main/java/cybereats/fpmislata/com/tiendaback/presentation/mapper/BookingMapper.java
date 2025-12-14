@@ -44,11 +44,11 @@ public class BookingMapper {
     }
 
     public UserDto mapUser(Long id) {
-        return new UserDto(id, null, null, null, null, null);
+        return new UserDto(id, null, null, null, null, null, null, null);
     }
 
     public PCDto mapPC(Long id) {
-        return new PCDto(id, null, null, 0, null, null, null);
+        return new PCDto(id, null, null, 0, null, null, null, null);
     }
 
 }
