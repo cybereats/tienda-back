@@ -50,4 +50,17 @@ public class UserJpaDaoImpl implements UserJpaDao {
     public long count() {
         return entityManager.createQuery("SELECT COUNT(u) FROM UserJpaEntity u", Long.class).getSingleResult();
     }
+
+    @Override
+    public Optional<UserJpaEntity> findByUsername(String username) {
+        try {
+            UserJpaEntity user = entityManager.createQuery(
+                    "SELECT u FROM UserJpaEntity u WHERE u.username = :username", UserJpaEntity.class)
+                    .setParameter("username", username)
+                    .getSingleResult();
+            return Optional.of(user);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
 }

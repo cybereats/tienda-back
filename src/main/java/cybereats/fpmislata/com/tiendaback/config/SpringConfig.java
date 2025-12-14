@@ -168,4 +168,14 @@ public class SpringConfig {
     public PCService pcService(PCRepository pcRepository) {
         return new PCServiceImpl(pcRepository);
     }
+
+    @Bean
+    public AuthRepository authRepository(UserJpaDao userJpaDao) {
+        return new AuthRepositoryImpl(userJpaDao);
+    }
+
+    @Bean
+    public AuthService authService(AuthRepository authRepository) {
+        return new AuthServiceImpl(authRepository);
+    }
 }
