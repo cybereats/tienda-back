@@ -33,9 +33,11 @@ public class AuthRepositoryImpl implements AuthRepository {
                 user.id(),
                 user.name(),
                 user.surname(),
+                user.email(),
                 user.bornDate(),
                 user.username(),
-                passwordEncoder.encode(user.password())
+                passwordEncoder.encode(user.password()),
+                user.role()
         );
 
         UserJpaEntity userJpaEntity = UserMapper.getInstance().fromUserDtoToUserJpaEntity(userWithHashedPassword);

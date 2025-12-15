@@ -75,9 +75,11 @@ public class AuthServiceImpl implements AuthService {
                 userDto.id(),
                 userDto.name(),
                 userDto.surname(),
+                userDto.email(),
                 userDto.bornDate(),
                 userDto.username(),
-                null
+                null,
+                userDto.role()
         );
 
         return new AuthResponseDto(
@@ -97,9 +99,11 @@ public class AuthServiceImpl implements AuthService {
                 null,
                 request.name(),
                 request.surname(),
+                request.email(),
                 request.bornDate(),
                 request.username(),
-                request.password()
+                request.password(),
+                request.role()
         );
 
         UserDto savedUser = authRepository.register(newUser);
@@ -119,9 +123,11 @@ public class AuthServiceImpl implements AuthService {
                 savedUser.id(),
                 savedUser.name(),
                 savedUser.surname(),
+                savedUser.email(),
                 savedUser.bornDate(),
                 savedUser.username(),
-                null
+                null,
+                savedUser.role()
         );
 
         return new AuthResponseDto(
