@@ -13,8 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import cybereats.fpmislata.com.tiendaback.security.AllowedRoles;
+import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
+
 @RestController
 @RequestMapping("/api/users")
+@AllowedRoles(UserRole.ADMIN)
 public class UserController {
     private final UserService userService;
 

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import cybereats.fpmislata.com.tiendaback.security.AllowedRoles;
+import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
+
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -23,6 +26,7 @@ public class BookingController {
     }
 
     @GetMapping
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<Page<BookingResponse>> findAllBookings(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
@@ -42,6 +46,7 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
+    @AllowedRoles({UserRole.ADMIN, UserRole.CLIENT})
     public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
         BookingResponse bookingResponse = BookingMapper.getInstance()
                 .fromBookingDtoToBookingResponse(bookingService.getById(id));
@@ -49,6 +54,7 @@ public class BookingController {
     }
 
     @PostMapping
+    @AllowedRoles(UserRole.CLIENT)
     public ResponseEntity<BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
         BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest);
         DtoValidator.validate(bookingDto);
@@ -58,6 +64,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
+    @AllowedRoles(UserRole.CLIENT)
     public ResponseEntity<BookingResponse> updateBooking(@PathVariable("id") Long id,
             @RequestBody BookingRequest bookingRequest) {
         if (!id.equals(bookingRequest.id())) {
@@ -71,6 +78,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
+    @AllowedRoles({UserRole.ADMIN, UserRole.CLIENT})
     public ResponseEntity<Void> deleteBooking(@PathVariable("id") Long id) {
         bookingService.deleteById(id);
         return ResponseEntity.noContent().build();

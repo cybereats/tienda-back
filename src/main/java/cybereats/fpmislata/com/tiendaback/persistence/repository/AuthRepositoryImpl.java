@@ -27,6 +27,12 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
+    public Optional<UserDto> findById(Long id) {
+        Optional<UserJpaEntity> userJpaEntity = userJpaDao.findById(id);
+        return userJpaEntity.map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserDto(entity));
+    }
+
+    @Override
     @Transactional
     public UserDto register(UserDto user) {
         UserDto userWithHashedPassword = new UserDto(

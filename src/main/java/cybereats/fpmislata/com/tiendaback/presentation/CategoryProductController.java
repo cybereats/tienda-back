@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import cybereats.fpmislata.com.tiendaback.security.AllowedRoles;
+import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
+
 @RestController
 @RequestMapping("/api/category-products")
 public class CategoryProductController {
@@ -58,6 +61,7 @@ public class CategoryProductController {
     }
 
     @PostMapping
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<CategoryProductResponse> createCategoryProduct(
             @RequestBody CategoryProductRequest categoryProductRequest) {
         CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
@@ -69,6 +73,7 @@ public class CategoryProductController {
     }
 
     @PutMapping("/{slug}")
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<CategoryProductResponse> updateCategoryProduct(@PathVariable("slug") String slug,
             @RequestBody CategoryProductRequest categoryProductRequest) {
         if (!slug.equals(categoryProductRequest.slug())) {
@@ -83,6 +88,7 @@ public class CategoryProductController {
     }
 
     @DeleteMapping("/{slug}")
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<Void> deleteCategoryProduct(@PathVariable("slug") String slug) {
         categoryProductService.deleteBySlug(slug);
         return ResponseEntity.noContent().build();

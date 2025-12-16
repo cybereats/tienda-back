@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import cybereats.fpmislata.com.tiendaback.security.AllowedRoles;
+import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -48,6 +51,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = ProductMapper.getInstance().fromProductRequestToProductDto(productRequest);
         DtoValidator.validate(productDto);
@@ -56,6 +60,7 @@ public class ProductController {
     }
 
     @PutMapping("/{slug}")
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable("slug") String slug, @RequestBody ProductRequest productRequest) {
         if (!slug.equals(productRequest.slug())) {
             throw new IllegalArgumentException("SLUG in path and request body must match");
@@ -67,6 +72,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{slug}")
+    @AllowedRoles(UserRole.ADMIN)
     public ResponseEntity<Void> deleteProduct(@PathVariable("slug") String slug) {
         productService.deleteBySlug(slug);
         return ResponseEntity.noContent().build();

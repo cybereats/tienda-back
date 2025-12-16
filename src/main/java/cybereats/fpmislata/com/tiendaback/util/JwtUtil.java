@@ -23,12 +23,11 @@ public class JwtUtil {
     public static String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
-        claims.put("name", user.getName());
-        claims.put("username", user.getUsername());
+        claims.put("role", user.getRole().name());
 
         return Jwts.builder()
                 .claims(claims)
-                .subject(user.getUsername())
+                .claims(claims)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key)
@@ -47,8 +46,8 @@ public class JwtUtil {
         }
     }
 
-    public static String extractUsername(String token) {
-        return extractAllClaims(token).getSubject();
+    public static String extractRole(String token) {
+        return extractAllClaims(token).get("role", String.class);
     }
 
     public static Long extractUserId(String token) {
@@ -62,9 +61,7 @@ public class JwtUtil {
                 .toLocalDateTime();
     }
 
-    public static String extractName(String token) {
-        return extractAllClaims(token).get("name", String.class);
-    }
+
 
     private static Claims extractAllClaims(String token) {
         return Jwts.parser()

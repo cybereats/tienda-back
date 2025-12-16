@@ -33,14 +33,15 @@ public class AuthServiceImpl implements AuthService {
         }
 
         Long userId = JwtUtil.extractUserId(token.getToken());
-        String username = JwtUtil.extractUsername(token.getToken());
-        String name = JwtUtil.extractName(token.getToken());
 
-        return new User.Builder()
-                .id(userId)
-                .username(username)
-                .name(name)
-                .build();
+        return authRepository.findById(userId)
+                .map(userDto -> new User.Builder()
+                        .id(userDto.id())
+                        .name(userDto.name())
+                        .username(userDto.username())
+                        .role(userDto.role())
+                        .build())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
@@ -67,6 +68,7 @@ public class AuthServiceImpl implements AuthService {
                 .bornDate(userDto.bornDate())
                 .username(userDto.username())
                 .password(userDto.password())
+                .role(userDto.role())
                 .build();
 
         Token token = createTokenFromUser(user);
@@ -115,6 +117,7 @@ public class AuthServiceImpl implements AuthService {
                 .bornDate(savedUser.bornDate())
                 .username(savedUser.username())
                 .password(savedUser.password())
+                .role(savedUser.role())
                 .build();
 
         Token token = createTokenFromUser(user);
