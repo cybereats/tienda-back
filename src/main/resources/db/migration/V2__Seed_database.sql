@@ -2,11 +2,8 @@
 -- TABLE: user
 -- ============================
 INSERT INTO user (name, surname, email, born_date, username, password, role) VALUES
-                                                                    ('Juan', 'Pérez', 'juan.perez@example.com', '1990-05-12', 'jperez', '1234', 'CLIENT'),
-                                                                    ('María', 'López', 'maria.lopez@example.com', '1985-07-22', 'mlopez', 'abcd', 'CLIENT'),
-                                                                    ('Carlos', 'García', 'carlos.garcia@example.com', '1998-01-15', 'cgarcia', 'pass', 'CLIENT'),
-                                                                    ('Laura', 'Martín', 'laura.martin@example.com', '1992-03-10', 'lmartin', 'qwerty', 'CLIENT'),
-                                                                    ('Ana', 'Ruiz', 'ana.ruiz@example.com', '2000-10-08', 'aruiz', 'admin', 'ADMIN');
+                                                                    ('Juan', 'Pérez', 'juan.perez@example.com', '1990-05-12', 'user', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
+                                                                    ('Ana', 'Ruiz', 'ana.ruiz@example.com', '2000-10-08', 'admin', '$2a$12$VDY8aHe0tZHYLniEJilwLuFKK9EFZE04JCrRltJRXurBmvc/eEn56', 'ADMIN');
 
 -- ============================
 -- TABLE: category_product
@@ -34,10 +31,7 @@ INSERT INTO product (label, slug, `desc`, price, category_product_id) VALUES
 -- ============================
 INSERT INTO user_order (status, user_id) VALUES
                                              ('pending', 1),
-                                             ('completed', 2),
-                                             ('cancelled', 3),
-                                             ('shipped', 4),
-                                             ('pending', 5);
+                                             ('completed', 2);
 
 -- ============================
 -- TABLE: order_item
@@ -46,11 +40,7 @@ INSERT INTO order_item (quantity, product_id, user_order_id) VALUES
                                                               (2, 1, 1),
                                                               (1, 3, 1),
                                                               (1, 2, 2),
-                                                              (4, 5, 2),
-                                                              (1, 4, 3),
-                                                              (3, 1, 4),
-                                                              (2, 2, 4),
-                                                              (1, 5, 5);
+                                                              (4, 5, 2);
 
 -- ============================
 -- TABLE: log
@@ -86,17 +76,11 @@ INSERT INTO pc (label, slug, runtime, specs, working_since, image, category_pc_i
 -- ============================
 INSERT INTO booking (hours, pc_id, user_id) VALUES
                                                 (2, 1, 1),
-                                                (4, 3, 2),
-                                                (1, 4, 3),
-                                                (3, 2, 4),
-                                                (5, 5, 5);
+                                                (4, 3, 2);
 
 -- ============================
 -- TABLE: report
 -- ============================
 INSERT INTO report (priority, `desc`, pc_id, user_id) VALUES
                                                           (1, 'La GPU está fallando', 1, 1),
-                                                          (3, 'Problemas de audio', 4, 3),
-                                                          (2, 'Ventiladores ruidosos', 2, 2),
-                                                          (5, 'Pantalla azul recurrente', 3, 4),
-                                                          (4, 'El PC no arranca', 5, 5);
+                                                          (2, 'Ventiladores ruidosos', 2, 2);
