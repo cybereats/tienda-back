@@ -8,6 +8,6 @@ public record UserOrderRequest(
         Long id,
         Long userId,
         List<Long> orderItemIds,
-        OrderStatus status) {
+        String status) {
 
 }

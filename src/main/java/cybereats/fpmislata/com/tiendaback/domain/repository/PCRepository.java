@@ -12,4 +12,5 @@ public interface PCRepository {
     PCDto save(PCDto pcDto);
     void deleteById(Long id);
     void deleteBySlug(String slug);
+    long count();
 }

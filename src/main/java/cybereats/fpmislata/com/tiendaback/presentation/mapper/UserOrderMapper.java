@@ -33,7 +33,8 @@ public class UserOrderMapper {
                 userOrderRequest.id(),
                 mapUser(userOrderRequest.userId()),
                 userOrderRequest.orderItemIds().stream().map(id -> mapOrderItem(id)).toList(),
-                userOrderRequest.status());
+                cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus.valueOf(userOrderRequest.status().toUpperCase()),
+                null);
     }
 
     public UserDto mapUser(Long id) {

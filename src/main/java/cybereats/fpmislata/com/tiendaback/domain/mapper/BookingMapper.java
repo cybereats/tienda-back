@@ -25,7 +25,8 @@ public class BookingMapper {
                 booking.getId(),
                 booking.getHours(),
                 UserMapper.getInstance().fromUserToUserDto(booking.getUser()),
-                PCMapper.getInstance().fromPCToPCDto(booking.getPc()));
+                PCMapper.getInstance().fromPCToPCDto(booking.getPc()),
+                booking.getCreatedAt());
     }
 
     public Booking fromBookingDtoToBooking(BookingDto bookingDto) {
@@ -38,6 +39,7 @@ public class BookingMapper {
                 .hours(bookingDto.hours())
                 .user(UserMapper.getInstance().fromUserDtoToUser(bookingDto.user()))
                 .pc(PCMapper.getInstance().fromPCDtoToPC(bookingDto.pc()))
+                .createdAt(bookingDto.createdAt())
                 .build();
     }
 }

@@ -25,7 +25,8 @@ public class BookingMapper {
                 bookingJpaEntity.getId(),
                 bookingJpaEntity.getHours(),
                 UserMapper.getInstance().fromUserJpaEntityToUserDto(bookingJpaEntity.getUserJpaEntity()),
-                PCMapper.getInstance().fromPCJpaEntityToPCDto(bookingJpaEntity.getPcJpaEntity()));
+                PCMapper.getInstance().fromPCJpaEntityToPCDto(bookingJpaEntity.getPcJpaEntity()),
+                bookingJpaEntity.getCreatedAt());
     }
 
     public BookingJpaEntity fromBookingDtoToBookingJpaEntity(BookingDto bookingDto) {
@@ -37,6 +38,7 @@ public class BookingMapper {
                 bookingDto.id(),
                 bookingDto.hours(),
                 UserMapper.getInstance().fromUserDtoToUserJpaEntity(bookingDto.user()),
-                PCMapper.getInstance().fromPCDtoToPCJpaEntity(bookingDto.pc()));
+                PCMapper.getInstance().fromPCDtoToPCJpaEntity(bookingDto.pc()),
+                bookingDto.createdAt());
     }
 }

@@ -2,6 +2,7 @@ package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.UserRequest;
+import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.UserProfileResponse;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.UserResponse;
 
 public class UserMapper {
@@ -26,6 +27,17 @@ public class UserMapper {
                 userDto.bornDate(),
                 userDto.username(),
                 userDto.password(),
+                userDto.role());
+    }
+
+    public UserProfileResponse fromUserDtoToUserProfileResponse(UserDto userDto) {
+        return new UserProfileResponse(
+                userDto.id(),
+                userDto.name(),
+                userDto.surname(),
+                userDto.email(),
+                userDto.bornDate(),
+                userDto.username(),
                 userDto.role());
     }
 

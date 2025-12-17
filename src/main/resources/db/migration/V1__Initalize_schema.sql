@@ -28,6 +28,7 @@ CREATE TABLE user_order (
                             id INT PRIMARY KEY AUTO_INCREMENT,
                             status VARCHAR(255),
                             user_id INT UNIQUE,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
@@ -69,6 +70,7 @@ CREATE TABLE booking (
                          hours INT,
                          pc_id INT,
                          user_id INT,
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                          FOREIGN KEY (pc_id) REFERENCES pc(id),
                          FOREIGN KEY (user_id) REFERENCES user(id)
 );

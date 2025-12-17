@@ -7,5 +7,6 @@ public record BookingDto(
                 Long id,
                 @Min(1) int hours,
                 @NonNull UserDto user,
-                @NonNull PCDto pc) {
+                @NonNull PCDto pc,
+                java.time.LocalDateTime createdAt) {
 }

@@ -178,4 +178,11 @@ public class SpringConfig {
     public AuthService authService(AuthRepository authRepository) {
         return new AuthServiceImpl(authRepository);
     }
+
+    @Bean
+    public StatsService statsService(UserOrderRepository userOrderRepository, BookingRepository bookingRepository,
+            PCRepository pcRepository, UserRepository userRepository, ReportRepository reportRepository) {
+        return new StatsServiceImpl(userOrderRepository, bookingRepository, pcRepository, userRepository,
+                reportRepository);
+    }
 }

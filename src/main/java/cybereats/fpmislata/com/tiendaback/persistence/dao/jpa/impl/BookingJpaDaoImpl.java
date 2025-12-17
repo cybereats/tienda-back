@@ -28,6 +28,11 @@ public class BookingJpaDaoImpl implements BookingJpaDao {
     }
 
     @Override
+    public List<BookingJpaEntity> findAll() {
+        return entityManager.createQuery("SELECT b FROM BookingJpaEntity b", BookingJpaEntity.class).getResultList();
+    }
+
+    @Override
     public Optional<BookingJpaEntity> findById(Long id) {
         return Optional.ofNullable(entityManager.find(BookingJpaEntity.class, id));
     }

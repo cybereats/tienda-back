@@ -1,6 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 
@@ -18,14 +19,19 @@ public class BookingJpaEntity implements Serializable {
     @JoinColumn(name = "user_id")
     private UserJpaEntity userJpaEntity;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private java.time.LocalDateTime createdAt;
+
     public BookingJpaEntity() {
     }
 
-    public BookingJpaEntity(Long id, int hours, UserJpaEntity userJpaEntity, PCJpaEntity pcJpaEntity) {
+    public BookingJpaEntity(Long id, int hours, UserJpaEntity userJpaEntity, PCJpaEntity pcJpaEntity, java.time.LocalDateTime createdAt) {
         this.id = id;
         this.hours = hours;
         this.pcJpaEntity = pcJpaEntity;
         this.userJpaEntity = userJpaEntity;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -42,5 +48,13 @@ public class BookingJpaEntity implements Serializable {
 
     public UserJpaEntity getUserJpaEntity() {
         return userJpaEntity;
+    }
+
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

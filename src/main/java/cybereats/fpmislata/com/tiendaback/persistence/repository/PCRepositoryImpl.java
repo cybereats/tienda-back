@@ -58,4 +58,9 @@ public class PCRepositoryImpl implements PCRepository {
         return pcJpaDao.findBySlug(slug)
                 .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity));
     }
+
+    @Override
+    public long count() {
+        return pcJpaDao.count();
+    }
 }

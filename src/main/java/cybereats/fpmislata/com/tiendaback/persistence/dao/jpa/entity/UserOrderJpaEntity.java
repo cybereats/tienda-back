@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "user_order")
@@ -34,15 +35,20 @@ public class UserOrderJpaEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private java.time.LocalDateTime createdAt;
+
     public UserOrderJpaEntity() {
     }
 
     public UserOrderJpaEntity(Long id, UserJpaEntity user, List<OrderItemJpaEntity> orderItems,
-            OrderStatus status) {
+            OrderStatus status, java.time.LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
         this.status = status;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -75,5 +81,13 @@ public class UserOrderJpaEntity {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

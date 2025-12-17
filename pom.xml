@@ -125,6 +125,16 @@
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${org.flywaydb.version}</version>
+                <configuration>
+                    <url>jdbc:mariadb://localhost:3306/cybereats</url>
+                    <user>root</user>
+                    <password>root</password>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

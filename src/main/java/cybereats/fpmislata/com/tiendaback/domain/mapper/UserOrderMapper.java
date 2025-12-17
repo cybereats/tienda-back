@@ -27,7 +27,8 @@ public class UserOrderMapper {
                 userOrder.getOrderItems().stream()
                         .map(orderItem -> OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem))
                         .toList(),
-                userOrder.getStatus());
+                userOrder.getStatus(),
+                userOrder.getCreatedAt());
     }
 
     public UserOrder fromUserOrderDtoToUserOrder(UserOrderDto userOrderDto) {
@@ -42,6 +43,7 @@ public class UserOrderMapper {
                         .map(orderItemDto -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(orderItemDto))
                         .toList())
                 .status(userOrderDto.status())
+                .createdAt(userOrderDto.createdAt())
                 .build();
     }
 }

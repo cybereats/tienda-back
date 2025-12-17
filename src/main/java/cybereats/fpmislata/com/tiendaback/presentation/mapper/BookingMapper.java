@@ -28,7 +28,8 @@ public class BookingMapper {
                 bookingRequest.id(),
                 bookingRequest.hours(),
                 mapUser(bookingRequest.userId()),
-                mapPC(bookingRequest.pcId()));
+                mapPC(bookingRequest.pcId()),
+                null);
     }
 
     public BookingResponse fromBookingDtoToBookingResponse(BookingDto bookingDto) {

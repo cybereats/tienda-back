@@ -27,7 +27,8 @@ public class UserOrderMapper {
                 userOrderDto.orderItems().stream()
                         .map(item -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItemJpaEntity(item))
                         .toList(),
-                userOrderDto.status());
+                userOrderDto.status(),
+                userOrderDto.createdAt());
     }
 
     public UserOrderDto fromUserOrderJpaEntityToUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
@@ -41,6 +42,7 @@ public class UserOrderMapper {
                 userOrderJpaEntity.getOrderItems().stream()
                         .map(item -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(item))
                         .toList(),
-                userOrderJpaEntity.getStatus());
+                userOrderJpaEntity.getStatus(),
+                userOrderJpaEntity.getCreatedAt());
     }
 }

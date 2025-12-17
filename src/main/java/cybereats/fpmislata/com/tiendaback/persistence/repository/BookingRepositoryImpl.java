@@ -27,6 +27,13 @@ public class BookingRepositoryImpl implements BookingRepository {
     }
 
     @Override
+    public List<BookingDto> findAll() {
+        return bookingJpaDao.findAll().stream()
+                .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity))
+                .toList();
+    }
+
+    @Override
     public Optional<BookingDto> findById(Long id) {
         return bookingJpaDao.findById(id)
                 .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity));

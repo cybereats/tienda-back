@@ -10,5 +10,6 @@ public record UserOrderDto(
                 Long id,
                 @NotNull UserDto user,
                 List<OrderItemDto> orderItems,
-                OrderStatus status) {
+                OrderStatus status,
+                java.time.LocalDateTime createdAt) {
 }
