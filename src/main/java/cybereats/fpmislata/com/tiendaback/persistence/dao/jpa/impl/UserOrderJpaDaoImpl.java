@@ -15,7 +15,7 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
 
     @Override
     public Optional<UserOrderJpaEntity> findById(Long id) {
-        return Optional.of(entityManager.find(UserOrderJpaEntity.class, id));
+        return Optional.ofNullable(entityManager.find(UserOrderJpaEntity.class, id));
     }
 
     @Override

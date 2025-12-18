@@ -3,6 +3,8 @@ package cybereats.fpmislata.com.tiendaback.persistence.repository.mapper;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserOrderJpaEntity;
 
+import java.util.Collections;
+
 public class UserOrderMapper {
     private static UserOrderMapper INSTANCE;
 
@@ -24,9 +26,10 @@ public class UserOrderMapper {
         return new UserOrderJpaEntity(
                 userOrderDto.id(),
                 UserMapper.getInstance().fromUserDtoToUserJpaEntity(userOrderDto.user()),
-                userOrderDto.orderItems().stream()
-                        .map(item -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItemJpaEntity(item))
-                        .toList(),
+                userOrderDto.orderItems() == null ? Collections.emptyList()
+                        : userOrderDto.orderItems().stream()
+                                .map(item -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItemJpaEntity(item))
+                                .toList(),
                 userOrderDto.status(),
                 userOrderDto.createdAt());
     }
@@ -39,9 +42,10 @@ public class UserOrderMapper {
         return new UserOrderDto(
                 userOrderJpaEntity.getId(),
                 UserMapper.getInstance().fromUserJpaEntityToUserDto(userOrderJpaEntity.getUser()),
-                userOrderJpaEntity.getOrderItems().stream()
-                        .map(item -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(item))
-                        .toList(),
+                userOrderJpaEntity.getOrderItems() == null ? Collections.emptyList()
+                        : userOrderJpaEntity.getOrderItems().stream()
+                                .map(item -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(item))
+                                .toList(),
                 userOrderJpaEntity.getStatus(),
                 userOrderJpaEntity.getCreatedAt());
     }
