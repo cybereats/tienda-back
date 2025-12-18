@@ -6,7 +6,7 @@ public class Product {
     private Long id;
     private String label;
     private String slug;
-    private String desc;
+    private String description;
     private BigDecimal price;
     private CategoryProduct categoryProduct;
 
@@ -14,7 +14,7 @@ public class Product {
         this.id = builder.id;
         this.label = builder.label;
         this.slug = builder.slug;
-        this.desc = builder.desc;
+        this.description = builder.description;
         this.price = builder.price;
         this.categoryProduct = builder.categoryProduct;
     }
@@ -31,8 +31,8 @@ public class Product {
         return slug;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     public BigDecimal getPrice() {
@@ -47,7 +47,7 @@ public class Product {
         private Long id;
         private String label;
         private String slug;
-        private String desc;
+        private String description;
         private BigDecimal price;
         private CategoryProduct categoryProduct;
 
@@ -66,8 +66,8 @@ public class Product {
             return this;
         }
 
-        public Builder desc(String desc) {
-            this.desc = desc;
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
 

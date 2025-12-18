@@ -23,7 +23,7 @@ public class ReportMapper {
         return new ReportResponse(
                 reportDto.id(),
                 reportDto.priority(),
-                reportDto.desc(),
+                reportDto.description(),
                 reportDto.subject(),
                 reportDto.status(),
                 reportDto.createdAt(),

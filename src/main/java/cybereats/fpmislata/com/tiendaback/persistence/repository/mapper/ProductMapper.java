@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ProductJpaE
 public class ProductMapper {
     private static ProductMapper INSTANCE;
 
-    private ProductMapper() {}
+    private ProductMapper() {
+    }
 
     public static ProductMapper getInstance() {
         if (INSTANCE == null) {
@@ -24,11 +25,10 @@ public class ProductMapper {
                 productJpaEntity.getId(),
                 productJpaEntity.getLabel(),
                 productJpaEntity.getSlug(),
-                productJpaEntity.getDesc(),
+                productJpaEntity.getDescription(),
                 productJpaEntity.getPrice(),
                 CategoryProductMapper.getInstance().fromCategoryProductJpaEntityToCategoryProductDto(
-                productJpaEntity.getCategoryProductJpaEntity())
-        );
+                        productJpaEntity.getCategoryProductJpaEntity()));
     }
 
     public ProductJpaEntity fromProductDtoToProductJpaEntity(ProductDto productDto) {
@@ -40,10 +40,9 @@ public class ProductMapper {
                 productDto.id(),
                 productDto.label(),
                 productDto.slug(),
-                productDto.desc(),
+                productDto.description(),
                 productDto.price(),
                 CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductJpaEntity(
-                        productDto.category())
-        );
+                        productDto.category()));
     }
 }

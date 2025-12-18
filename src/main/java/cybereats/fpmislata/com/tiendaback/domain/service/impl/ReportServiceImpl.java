@@ -33,7 +33,7 @@ public class ReportServiceImpl implements ReportService {
         ReportDto reportToSave = new ReportDto(
                 reportDto.id(),
                 reportDto.priority(),
-                reportDto.desc(),
+                reportDto.description(),
                 reportDto.subject(),
                 status,
                 createdAt,
@@ -52,7 +52,7 @@ public class ReportServiceImpl implements ReportService {
         ReportDto reportToSave = new ReportDto(
                 existingReportDto.id(),
                 reportDto.priority() != null ? reportDto.priority() : existingReportDto.priority(),
-                reportDto.desc() != null ? reportDto.desc() : existingReportDto.desc(),
+                reportDto.description() != null ? reportDto.description() : existingReportDto.description(),
                 reportDto.subject() != null ? reportDto.subject() : existingReportDto.subject(),
                 reportDto.status() != null ? reportDto.status() : existingReportDto.status(),
                 existingReportDto.createdAt(),

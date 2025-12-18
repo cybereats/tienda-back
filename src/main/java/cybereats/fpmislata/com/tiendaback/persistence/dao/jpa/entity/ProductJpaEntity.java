@@ -13,8 +13,8 @@ public class ProductJpaEntity implements Serializable {
     private Long id;
     private String label;
     private String slug;
-    @Column(name = "`desc`")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "category_product_id")
@@ -26,12 +26,12 @@ public class ProductJpaEntity implements Serializable {
     public ProductJpaEntity() {
     }
 
-    public ProductJpaEntity(Long id, String label, String slug, String desc, BigDecimal price,
+    public ProductJpaEntity(Long id, String label, String slug, String description, BigDecimal price,
             CategoryProductJpaEntity categoryProductJpaEntity) {
         this.id = id;
         this.label = label;
         this.slug = slug;
-        this.desc = desc;
+        this.description = description;
         this.price = price;
         this.categoryProductJpaEntity = categoryProductJpaEntity;
     }
@@ -48,8 +48,8 @@ public class ProductJpaEntity implements Serializable {
         return slug;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     public BigDecimal getPrice() {

@@ -19,7 +19,7 @@ INSERT IGNORE INTO category_product (label, slug) VALUES
 -- ============================
 -- TABLE: product
 -- ============================
-INSERT IGNORE INTO product (label, slug, `desc`, price, category_product_id) VALUES
+INSERT IGNORE INTO product (label, slug, description, price, category_product_id) VALUES
                                                                           ('Teclado Mecánico', 'teclado-mecanico', 'Teclado con switches rojos.', 49.90, 1),
                                                                           ('Ratón Gaming', 'raton-gaming', 'Ratón RGB de alta precisión.', 29.90, 1),
                                                                           ('Tarjeta Gráfica GTX 1660', 'gtx-1660', 'GeForce GTX 1660 6GB.', 229.00, 2),
@@ -93,7 +93,7 @@ INSERT IGNORE INTO user_order (status, user_id, created_at) VALUES
 
 -- Más reportes
 -- Más reportes
-INSERT IGNORE INTO report (priority, `subject`, `desc`, pc_id, user_id, created_at, `status`) VALUES
+INSERT IGNORE INTO report (priority, `subject`, description, pc_id, user_id, created_at, `status`) VALUES
 (3, 'Pantalla parpadeando', 'Pantalla parpadeando, la pantalla parpadea constantemente.', 3, 3, '2025-01-15 10:00:00', 'PENDING'),
 (1, 'No enciende', 'No enciende, la computadora no enciende.', 4, 4, '2025-01-20 14:00:00', 'PENDING'),
 (2, 'Lento rendimiento', 'Lento rendimiento, la computadora es muy lenta.', 5, 5, '2025-02-10 09:00:00', 'IN_PROGRESS'),
@@ -218,7 +218,7 @@ INSERT IGNORE INTO category_product (label, slug) VALUES
 -- ============================
 -- 50 Additional Products
 -- ============================
-INSERT IGNORE INTO product (label, slug, `desc`, price, category_product_id) VALUES
+INSERT IGNORE INTO product (label, slug, description, price, category_product_id) VALUES
 ('Product 6', 'product-6', 'Desc 6', 99.99, 1), ('Product 7', 'product-7', 'Desc 7', 89.99, 2), ('Product 8', 'product-8', 'Desc 8', 79.99, 3), ('Product 9', 'product-9', 'Desc 9', 69.99, 4), ('Product 10', 'product-10', 'Desc 10', 59.99, 5),
 ('Product 11', 'product-11', 'Desc 11', 49.99, 1), ('Product 12', 'product-12', 'Desc 12', 39.99, 2), ('Product 13', 'product-13', 'Desc 13', 29.99, 3), ('Product 14', 'product-14', 'Desc 14', 19.99, 4), ('Product 15', 'product-15', 'Desc 15', 109.99, 5),
 ('Product 16', 'product-16', 'Desc 16', 119.99, 1), ('Product 17', 'product-17', 'Desc 17', 129.99, 2), ('Product 18', 'product-18', 'Desc 18', 139.99, 3), ('Product 19', 'product-19', 'Desc 19', 149.99, 4), ('Product 20', 'product-20', 'Desc 20', 159.99, 5),
@@ -319,7 +319,7 @@ INSERT IGNORE INTO booking (hours, pc_id, user_id) VALUES
 -- ============================
 -- 50 Additional Reports
 -- ============================
-INSERT IGNORE INTO report (priority, `subject`, `desc`, pc_id, user_id, created_at, `status`) VALUES
+INSERT IGNORE INTO report (priority, `subject`, description, pc_id, user_id, created_at, `status`) VALUES
 (1, 'Issue 6', 'Detail 6', 6, 11, '2025-07-01 10:00:00', 'PENDING'), (2, 'Issue 7', 'Detail 7', 7, 12, '2025-07-02 11:00:00', 'IN_PROGRESS'), (3, 'Issue 8', 'Detail 8', 8, 13, '2025-07-03 12:00:00', 'RESOLVED'), (1, 'Issue 9', 'Detail 9', 9, 14, '2025-07-04 13:00:00', 'PENDING'), (2, 'Issue 10', 'Detail 10', 10, 15, '2025-07-05 14:00:00', 'IN_PROGRESS'),
 (3, 'Issue 11', 'Detail 11', 11, 16, '2025-07-06 15:00:00', 'RESOLVED'), (1, 'Issue 12', 'Detail 12', 12, 17, '2025-07-07 16:00:00', 'PENDING'), (2, 'Issue 13', 'Detail 13', 13, 18, '2025-07-08 17:00:00', 'IN_PROGRESS'), (3, 'Issue 14', 'Detail 14', 14, 19, '2025-07-09 18:00:00', 'RESOLVED'), (1, 'Issue 15', 'Detail 15', 15, 20, '2025-07-10 19:00:00', 'PENDING'),
 (2, 'Issue 16', 'Detail 16', 16, 21, '2025-07-11 20:00:00', 'IN_PROGRESS'), (3, 'Issue 17', 'Detail 17', 17, 22, '2025-07-12 21:00:00', 'RESOLVED'), (1, 'Issue 18', 'Detail 18', 18, 23, '2025-07-13 22:00:00', 'PENDING'), (2, 'Issue 19', 'Detail 19', 19, 24, '2025-07-14 23:00:00', 'IN_PROGRESS'), (3, 'Issue 20', 'Detail 20', 20, 25, '2025-07-15 00:00:00', 'RESOLVED'),

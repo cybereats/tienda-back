@@ -8,7 +8,7 @@ public class ReportMapper {
         return new ReportJpaEntity(
                 reportDto.id(),
                 reportDto.priority(),
-                reportDto.desc(),
+                reportDto.description(),
                 reportDto.subject(),
                 reportDto.status(),
                 reportDto.createdAt(),
@@ -20,7 +20,7 @@ public class ReportMapper {
         return new ReportDto(
                 reportJpaEntity.getId(),
                 reportJpaEntity.getPriority(),
-                reportJpaEntity.getDesc(),
+                reportJpaEntity.getDescription(),
                 reportJpaEntity.getSubject(),
                 reportJpaEntity.getStatus(),
                 reportJpaEntity.getCreatedAt(),

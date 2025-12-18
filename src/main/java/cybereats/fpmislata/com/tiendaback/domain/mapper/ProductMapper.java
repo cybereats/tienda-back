@@ -6,7 +6,8 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
 public class ProductMapper {
     private static ProductMapper INSTANCE;
 
-    private ProductMapper() {}
+    private ProductMapper() {
+    }
 
     public static ProductMapper getInstance() {
         if (INSTANCE == null) {
@@ -21,8 +22,8 @@ public class ProductMapper {
         }
 
         return new ProductDto(
-                product.getId(), product.getLabel(), product.getSlug(), product.getDesc(), product.getPrice(), null
-        );
+                product.getId(), product.getLabel(), product.getSlug(), product.getDescription(), product.getPrice(),
+                null);
     }
 
     public Product fromProductDtoToProduct(ProductDto productDto) {
@@ -34,7 +35,7 @@ public class ProductMapper {
                 .id(productDto.id())
                 .label(productDto.label())
                 .slug(productDto.slug())
-                .desc(productDto.desc())
+                .description(productDto.description())
                 .price(productDto.price())
                 .build();
     }

@@ -9,7 +9,7 @@ public record ProductDto(
                 Long id,
                 @NotNull String label,
                 @NotNull @Pattern(regexp = "^[a-z0-9-]+$", message = "El slug debe ser en minúsculas y con guiones en lugar de espacios") String slug,
-                @NotNull String desc,
+                @NotNull String description,
                 BigDecimal price,
                 @NotNull CategoryProductDto category) {
 }

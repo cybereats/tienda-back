@@ -3,7 +3,7 @@ package cybereats.fpmislata.com.tiendaback.domain.model;
 public class Report {
     private Long id;
     private String priority;
-    private String desc;
+    private String description;
     private String subject;
     private String status;
     private String createdAt;
@@ -13,7 +13,7 @@ public class Report {
     private Report(Builder builder) {
         this.id = builder.id;
         this.priority = builder.priority;
-        this.desc = builder.desc;
+        this.description = builder.description;
         this.subject = builder.subject;
         this.status = builder.status;
         this.createdAt = builder.createdAt;
@@ -29,8 +29,8 @@ public class Report {
         return priority;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     public String getSubject() {
@@ -56,7 +56,7 @@ public class Report {
     public static class Builder {
         private Long id;
         private String priority;
-        private String desc;
+        private String description;
         private String subject;
         private String status;
         private String createdAt;
@@ -73,8 +73,8 @@ public class Report {
             return this;
         }
 
-        public Builder desc(String desc) {
-            this.desc = desc;
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
 

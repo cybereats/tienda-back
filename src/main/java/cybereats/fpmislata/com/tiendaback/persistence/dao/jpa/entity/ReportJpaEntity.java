@@ -10,8 +10,8 @@ public class ReportJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String priority;
-    @Column(name = "`desc`")
-    private String desc;
+    @Column(name = "description")
+    private String description;
     private String subject;
     private String status;
     @Column(name = "created_at")
@@ -34,11 +34,12 @@ public class ReportJpaEntity {
     public ReportJpaEntity() {
     }
 
-    public ReportJpaEntity(Long id, String priority, String desc, String subject, String status, String createdAt,
+    public ReportJpaEntity(Long id, String priority, String description, String subject, String status,
+            String createdAt,
             UserJpaEntity user, PCJpaEntity pc) {
         this.id = id;
         this.priority = priority;
-        this.desc = desc;
+        this.description = description;
         this.subject = subject;
         this.status = status;
         this.createdAt = createdAt;
@@ -62,12 +63,12 @@ public class ReportJpaEntity {
         this.priority = priority;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSubject() {

@@ -6,8 +6,7 @@ public record ProductResponse(
         Long id,
         String label,
         String slug,
-        String desc,
+        String description,
         BigDecimal price,
-        CategoryProductResponse category
-) {
+        CategoryProductResponse category) {
 }

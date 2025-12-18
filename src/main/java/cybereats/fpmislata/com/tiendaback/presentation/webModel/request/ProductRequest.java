@@ -6,14 +6,9 @@ import java.math.BigDecimal;
 
 public record ProductRequest(
         Long id,
-        @NotNull
-        String label,
-        @NotNull
-        String slug,
-        @NotNull
-        String desc,
+        @NotNull String label,
+        @NotNull String slug,
+        @NotNull String description,
         BigDecimal price,
-        @NotNull
-        CategoryProductRequest category
-) {
+        @NotNull CategoryProductRequest category) {
 }

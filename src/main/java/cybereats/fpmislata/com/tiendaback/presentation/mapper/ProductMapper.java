@@ -7,7 +7,8 @@ import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.Product
 public class ProductMapper {
     private static ProductMapper INSTANCE;
 
-    private ProductMapper() {}
+    private ProductMapper() {
+    }
 
     public static ProductMapper getInstance() {
         if (INSTANCE == null) {
@@ -25,10 +26,10 @@ public class ProductMapper {
                 productRequest.id(),
                 productRequest.label(),
                 productRequest.slug(),
-                productRequest.desc(),
+                productRequest.description(),
                 productRequest.price(),
-                CategoryProductMapper.getInstance().fromCategoryProductRequestToCategoryProductDto(productRequest.category())
-        );
+                CategoryProductMapper.getInstance()
+                        .fromCategoryProductRequestToCategoryProductDto(productRequest.category()));
     }
 
     public ProductResponse fromProductDtoToProductResponse(ProductDto productDto) {
@@ -40,9 +41,9 @@ public class ProductMapper {
                 productDto.id(),
                 productDto.label(),
                 productDto.slug(),
-                productDto.desc(),
+                productDto.description(),
                 productDto.price(),
-                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(productDto.category())
-        );
+                CategoryProductMapper.getInstance()
+                        .fromCategoryProductDtoToCategoryProductResponse(productDto.category()));
     }
 }

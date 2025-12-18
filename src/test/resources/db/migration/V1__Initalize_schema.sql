@@ -8,7 +8,7 @@ CREATE TABLE product (
                          id INT PRIMARY KEY AUTO_INCREMENT,
                          label VARCHAR(255),
                          slug VARCHAR(255),
-                         `desc` TEXT,
+                         description TEXT,
                          price DECIMAL(10,2),
                          category_product_id INT,
                          FOREIGN KEY (category_product_id) REFERENCES category_product(id)
@@ -79,7 +79,7 @@ CREATE TABLE booking (
 CREATE TABLE report (
                         id INT PRIMARY KEY AUTO_INCREMENT,
                         priority INT,
-                        `desc` TEXT,
+                        description TEXT,
                         subject VARCHAR(255),
                         status VARCHAR(255),
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
