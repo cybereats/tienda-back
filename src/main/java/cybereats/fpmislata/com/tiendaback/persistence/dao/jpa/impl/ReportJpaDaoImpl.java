@@ -44,7 +44,7 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
     @Override
     public List<ReportJpaEntity> findByUserId(Long userId) {
         return entityManager
-                .createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user_id = :userId", ReportJpaEntity.class)
+                .createQuery("SELECT r FROM ReportJpaEntity r WHERE r.user.id = :userId", ReportJpaEntity.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
