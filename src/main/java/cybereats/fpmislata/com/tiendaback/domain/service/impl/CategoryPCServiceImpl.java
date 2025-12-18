@@ -35,8 +35,7 @@ public class CategoryPCServiceImpl implements CategoryPCService {
 
     @Override
     public Optional<CategoryPCDto> findById(Long id) {
-        return Optional.ofNullable(categoryPCRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Booking not found")));
+        return categoryPCRepository.findById(id);
     }
 
     @Override

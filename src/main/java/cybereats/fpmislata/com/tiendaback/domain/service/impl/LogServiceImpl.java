@@ -36,8 +36,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public Optional<LogDto> findById(Long id) {
-        return Optional.ofNullable(
-                logRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Log not found")));
+        return logRepository.findById(id);
     }
 
     @Override

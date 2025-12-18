@@ -44,4 +44,16 @@ public class CategoryPCJpaEntity implements Serializable {
     public BigDecimal getPrice() {
         return price;
     }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

@@ -35,4 +35,12 @@ public class CategoryProductJpaEntity {
     public String getSlug() {
         return slug;
     }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 }

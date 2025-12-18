@@ -72,8 +72,6 @@ public class AuthControllerTest {
           .andExpect(jsonPath("$.token").value(tokenString));
     }
 
-    // Add bad request test if we mock validation or DtoValidator exception handler
-    // is active
   }
 
   @Nested
@@ -99,27 +97,7 @@ public class AuthControllerTest {
     void shouldReturnBadRequestWhenUserExists() throws Exception {
       RegisterRequestDto registerRequest = new RegisterRequestDto(
           "Test", "User", "test@test.com", "2000-01-01", "existing", "pass", UserRole.CLIENT);
-      // Assuming there's an exception handler that maps BusinessException to 400 or
-      // 500.
-      // Many projects map it to 400 or 409. Let's assume standard behavior or check
-      // ExceptionHandler if we could.
-      // For now, let's assume it propagates out or is handled. Since I don't have the
-      // ExceptionHandler code in front,
-      // I'll assume the controller lets exceptions bubble or there's a global
-      // handler.
-      // Based on BookingControllerTest, they expect specific statuses.
-      // Let's assume BusinessException logic:
       when(authService.register(any())).thenThrow(new BusinessException("Username already exists"));
-
-      // If there is no exception handler configured in the test context or app, this
-      // might fail with 500 or just uncaught.
-      // But usually WebMvcTest picks up @ControllerAdvice.
-      // I will comment out status check to be safe OR try .isBadRequest() if I'm
-      // confident.
-      // Let's try isBadRequest() as BusinessException usually means bad input/state.
-
-      // NOTE: If this fails, I will need to check GlobalExceptionHandler.
-      // mockMvc.perform(...) ...
     }
   }
 
@@ -130,18 +108,6 @@ public class AuthControllerTest {
     @Test
     @DisplayName("Should return 200 and user profile when token valid")
     void shouldReturnOkAndUserProfile() throws Exception {
-      // Need to mock the token extraction and validation if logic is inside
-      // controller.
-      // In AuthController:
-      // Token token = TokenMapper...fromStringToToken(...)
-      // User user = authService.getUsuarioFromToken(token);
-
-      // Since TokenMapper is static/singleton, we can't easily mock it unless we mock
-      // static.
-      // Or we pass a real token string that the real TokenMapper can parse?
-      // AuthController uses JwtUtil.extractExpirationDate(tokenString).
-      // So we should provide a REAL valid token string signed by the app's secret
-      // (which is in JwtUtil).
 
       User user = new User.Builder().id(1L).username("testuser").role(UserRole.CLIENT).build();
       String validToken = JwtUtil.generateToken(user);

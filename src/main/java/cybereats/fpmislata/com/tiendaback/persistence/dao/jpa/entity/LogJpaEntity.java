@@ -13,7 +13,8 @@ public class LogJpaEntity implements Serializable {
     private String info;
     private String timestamp;
 
-    public LogJpaEntity() { }
+    public LogJpaEntity() {
+    }
 
     public LogJpaEntity(Long id, String info, String timestamp) {
         this.id = id;
@@ -31,5 +32,13 @@ public class LogJpaEntity implements Serializable {
 
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -74,6 +74,7 @@ public class CategoryProductJpaDaoImpl implements CategoryProductJpaDao {
 
     @Override
     public void deleteBySlug(String slug) {
-        entityManager.remove(entityManager.find(CategoryProductJpaEntity.class, slug));
+        Optional<CategoryProductJpaEntity> entity = findBySlug(slug);
+        entity.ifPresent(categoryProductJpaEntity -> entityManager.remove(categoryProductJpaEntity));
     }
 }
