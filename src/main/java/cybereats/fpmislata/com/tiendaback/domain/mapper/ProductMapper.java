@@ -22,8 +22,13 @@ public class ProductMapper {
         }
 
         return new ProductDto(
-                product.getId(), product.getLabel(), product.getSlug(), product.getDescription(), product.getPrice(),
-                null);
+                product.getId(),
+                product.getLabel(),
+                product.getSlug(),
+                product.getDescription(),
+                product.getPrice(),
+                CategoryProductMapper.getInstance()
+                        .fromCategoryProductToCategoryProductDto(product.getCategoryProduct()));
     }
 
     public Product fromProductDtoToProduct(ProductDto productDto) {
@@ -37,6 +42,8 @@ public class ProductMapper {
                 .slug(productDto.slug())
                 .description(productDto.description())
                 .price(productDto.price())
+                .categoryProduct(CategoryProductMapper.getInstance()
+                        .fromCategoryProductDtoToCategoryProduct(productDto.category()))
                 .build();
     }
 }

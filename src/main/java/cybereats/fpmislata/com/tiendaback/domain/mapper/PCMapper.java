@@ -45,6 +45,7 @@ public class PCMapper {
                 .specs(pcDto.specs())
                 .workingSince(pcDto.workingSince())
                 .image(pcDto.image())
+                .categoryPC(CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPC(pcDto.categoryPCDto()))
                 .build();
     }
 }
