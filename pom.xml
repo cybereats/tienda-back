@@ -66,6 +66,12 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${org.mockito.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
