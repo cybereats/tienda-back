@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserJpaEntity {
 
     @Id

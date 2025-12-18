@@ -2,6 +2,7 @@ package cybereats.fpmislata.com.tiendaback.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,7 +19,8 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({ ValidationException.class, IllegalArgumentException.class })
+    @ExceptionHandler({ ValidationException.class, IllegalArgumentException.class,
+            HttpMessageNotReadableException.class })
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ErrorMessage handleValidationException(Exception ex) {
         return new ErrorMessage(ex);

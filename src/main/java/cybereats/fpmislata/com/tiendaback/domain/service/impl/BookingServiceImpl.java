@@ -19,6 +19,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Page<BookingDto> findAll(int page, int size) {
+        if (page < 1) {
+            throw new BusinessException("Page number cannot be less than 1");
+        }
+        if (size <= 0) {
+            throw new BusinessException("Page size must be greater than 0");
+        }
+
         Page<BookingDto> bookingDtoPage = bookingRepository.findAll(page, size);
 
         return new Page<>(
@@ -36,8 +43,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Optional<BookingDto> findById(Long id) {
-        return Optional.ofNullable(
-                bookingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Booking not found")));
+        return bookingRepository.findById(id);
     }
 
     @Override
