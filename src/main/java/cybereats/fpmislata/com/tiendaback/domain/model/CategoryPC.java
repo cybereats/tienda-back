@@ -6,11 +6,13 @@ import java.util.List;
 public class CategoryPC {
     private Long id;
     private String label;
+    private String slug;
     private BigDecimal price;
 
     private CategoryPC(Builder builder) {
         this.id = builder.id;
         this.label = builder.label;
+        this.slug = builder.slug;
         this.price = builder.price;
     }
 
@@ -22,6 +24,10 @@ public class CategoryPC {
         return label;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -29,6 +35,7 @@ public class CategoryPC {
     public static class Builder {
         private Long id;
         private String label;
+        private String slug;
         private BigDecimal price;
 
         public Builder id(Long id) {
@@ -38,6 +45,11 @@ public class CategoryPC {
 
         public Builder label(String label) {
             this.label = label;
+            return this;
+        }
+
+        public Builder slug(String slug) {
+            this.slug = slug;
             return this;
         }
 

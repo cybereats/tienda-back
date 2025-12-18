@@ -31,9 +31,14 @@ public class UserOrderMapper {
     public UserOrderDto fromUserOrderRequestToUserOrderDto(UserOrderRequest userOrderRequest) {
         return new UserOrderDto(
                 userOrderRequest.id(),
-                mapUser(userOrderRequest.userId()),
-                userOrderRequest.orderItemIds().stream().map(id -> mapOrderItem(id)).toList(),
-                cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus.valueOf(userOrderRequest.status().toUpperCase()),
+                userOrderRequest.userId() != null ? mapUser(userOrderRequest.userId()) : null,
+                userOrderRequest.orderItemIds() != null
+                        ? userOrderRequest.orderItemIds().stream().map(id -> mapOrderItem(id)).toList()
+                        : null,
+                userOrderRequest.status() != null
+                        ? cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus
+                                .valueOf(userOrderRequest.status().toUpperCase())
+                        : null,
                 null);
     }
 

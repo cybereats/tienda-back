@@ -24,6 +24,7 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPC.getId(),
                 categoryPC.getLabel(),
+                categoryPC.getSlug(),
                 categoryPC.getPrice());
     }
 
@@ -35,6 +36,7 @@ public class CategoryPCMapper {
         return new CategoryPC.Builder()
                 .id(categoryPCDto.id())
                 .label(categoryPCDto.label())
+                .slug(categoryPCDto.slug())
                 .price(categoryPCDto.price())
                 .build();
     }

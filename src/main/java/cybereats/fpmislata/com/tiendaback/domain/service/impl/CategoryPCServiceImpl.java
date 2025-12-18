@@ -50,6 +50,17 @@ public class CategoryPCServiceImpl implements CategoryPCService {
     }
 
     @Override
+    public CategoryPCDto getBySlug(String slug) {
+        return categoryPCRepository.findBySlug(slug)
+                .orElseThrow(() -> new ResourceNotFoundException("CategoryPC not found"));
+    }
+
+    @Override
+    public Optional<CategoryPCDto> findBySlug(String slug) {
+        return categoryPCRepository.findBySlug(slug);
+    }
+
+    @Override
     @Transactional
     public CategoryPCDto update(CategoryPCDto categoryPCDto) {
         Optional<CategoryPCDto> categoryPCDtoOptional = categoryPCRepository.findById(categoryPCDto.id());

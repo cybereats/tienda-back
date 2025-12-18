@@ -61,8 +61,6 @@ public class JwtUtil {
                 .toLocalDateTime();
     }
 
-
-
     private static Claims extractAllClaims(String token) {
         return Jwts.parser()
                 .verifyWith(key)
@@ -74,4 +72,5 @@ public class JwtUtil {
     public static LocalDateTime getExpirationTime() {
         return LocalDateTime.now().plusSeconds(EXPIRATION_TIME / 1000);
     }
+
 }

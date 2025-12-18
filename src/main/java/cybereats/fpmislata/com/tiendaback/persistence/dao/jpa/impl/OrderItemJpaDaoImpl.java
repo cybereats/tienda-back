@@ -48,4 +48,12 @@ public class OrderItemJpaDaoImpl implements OrderItemJpaDao {
                 .getResultList();
     }
 
+    @Override
+    public List<OrderItemJpaEntity> findAll(int page, int size) {
+        return entityManager
+                .createQuery("SELECT e FROM OrderItemJpaEntity e ORDER BY e.id ASC", OrderItemJpaEntity.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+    }
 }

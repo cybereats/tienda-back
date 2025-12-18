@@ -10,9 +10,13 @@ public interface UserOrderJpaDao {
 
     public List<UserOrderJpaEntity> findAll();
 
+    public List<UserOrderJpaEntity> findAll(int page, int size);
+
     public UserOrderJpaEntity insert(UserOrderJpaEntity userOrderJpaEntity);
 
     public UserOrderJpaEntity update(UserOrderJpaEntity userOrderJpaEntity);
 
     public void deleteById(Long id);
+
+    public long count();
 }

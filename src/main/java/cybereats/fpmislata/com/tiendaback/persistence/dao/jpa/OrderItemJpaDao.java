@@ -14,6 +14,8 @@ public interface OrderItemJpaDao {
 
     List<OrderItemJpaEntity> findAll();
 
+    List<OrderItemJpaEntity> findAll(int page, int size);
+
     void deleteById(Long id);
 
     long count();

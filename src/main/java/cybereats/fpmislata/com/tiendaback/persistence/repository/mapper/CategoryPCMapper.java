@@ -24,6 +24,7 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPCJpaEntity.getId(),
                 categoryPCJpaEntity.getLabel(),
+                categoryPCJpaEntity.getSlug(),
                 categoryPCJpaEntity.getPrice());
     }
 
@@ -35,6 +36,7 @@ public class CategoryPCMapper {
         return new CategoryPCJpaEntity(
                 categoryPCDto.id(),
                 categoryPCDto.label(),
+                categoryPCDto.slug(),
                 categoryPCDto.price());
     }
 }

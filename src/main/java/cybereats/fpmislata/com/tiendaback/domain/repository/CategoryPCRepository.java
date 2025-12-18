@@ -7,7 +7,12 @@ import java.util.Optional;
 
 public interface CategoryPCRepository {
     Page<CategoryPCDto> findAll(int page, int size);
+
     Optional<CategoryPCDto> findById(Long id);
+
+    Optional<CategoryPCDto> findBySlug(String slug);
+
     CategoryPCDto save(CategoryPCDto categoryPCDto);
+
     void deleteById(Long id);
 }

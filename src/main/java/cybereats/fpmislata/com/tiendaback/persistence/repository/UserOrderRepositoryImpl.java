@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.persistence.repository;
 import java.util.List;
 import java.util.Optional;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.UserOrderRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.UserOrderJpaDao;
@@ -20,14 +21,17 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     @Override
     public Optional<UserOrderDto> findById(Long id) {
         Optional<UserOrderJpaEntity> userOrderJpaEntity = userOrderJpaDao.findById(id);
-        return userOrderJpaEntity.map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity));
+        return userOrderJpaEntity
+                .map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity));
     }
 
     @Override
-    public List<UserOrderDto> findAll() {
-        return userOrderJpaDao.findAll().stream()
+    public Page<UserOrderDto> findAll(int page, int size) {
+        List<UserOrderDto> content = userOrderJpaDao.findAll(page, size).stream()
                 .map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity))
                 .toList();
+        long totalElements = userOrderJpaDao.count();
+        return new Page<>(content, page, size, totalElements);
     }
 
     @Override
@@ -48,6 +52,13 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     @Override
     public void deleteById(Long id) {
         userOrderJpaDao.deleteById(id);
+    }
+
+    @Override
+    public List<UserOrderDto> findAll() {
+        return userOrderJpaDao.findAll().stream()
+                .map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity))
+                .toList();
     }
 
 }

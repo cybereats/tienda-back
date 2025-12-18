@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.UserRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.UserService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAll(int page, int size) {
+    public Page<UserDto> findAll(int page, int size) {
         return userRepository.findAll(page, size);
     }
 

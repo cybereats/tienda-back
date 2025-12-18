@@ -51,8 +51,25 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
 
     @Override
     public List<ReportJpaEntity> findByPCId(Long pcId) {
-        return entityManager.createQuery("SELECT r FROM ReportJpaEntity r WHERE r.pc_id = :pcId", ReportJpaEntity.class)
+        String jpql = "SELECT r FROM ReportJpaEntity r WHERE r.pc.id = :pcId";
+        return entityManager.createQuery(jpql, ReportJpaEntity.class)
                 .setParameter("pcId", pcId)
+                .getResultList();
+    }
+
+    @Override
+    public List<ReportJpaEntity> findByStatus(String status) {
+        String jpql = "SELECT r FROM ReportJpaEntity r WHERE r.status = :status";
+        return entityManager.createQuery(jpql, ReportJpaEntity.class)
+                .setParameter("status", status)
+                .getResultList();
+    }
+
+    @Override
+    public List<ReportJpaEntity> findByCreatedAt(String createdAt) {
+        String jpql = "SELECT r FROM ReportJpaEntity r WHERE r.createdAt = :createdAt";
+        return entityManager.createQuery(jpql, ReportJpaEntity.class)
+                .setParameter("createdAt", createdAt)
                 .getResultList();
     }
 

@@ -25,6 +25,7 @@ public class CategoryPCMapper {
         return new CategoryPCDto(
                 categoryPCRequest.id(),
                 categoryPCRequest.label(),
+                categoryPCRequest.slug(),
                 categoryPCRequest.price());
     }
 
@@ -36,6 +37,7 @@ public class CategoryPCMapper {
         return new CategoryPCResponse(
                 categoryPCDto.id(),
                 categoryPCDto.label(),
+                categoryPCDto.slug(),
                 categoryPCDto.price());
     }
 }

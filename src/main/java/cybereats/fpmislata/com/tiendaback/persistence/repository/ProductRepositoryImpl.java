@@ -29,14 +29,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<ProductDto> findById(Long id) {
         return productJpaDao.findById(id)
-                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity));
+                .map(productJpaEntity -> ProductMapper.getInstance()
+                        .fromProductJpaEntityToProductDto(productJpaEntity));
     }
 
     @Override
     public ProductDto save(ProductDto productDto) {
         ProductJpaEntity productJpaEntity = ProductMapper.getInstance().fromProductDtoToProductJpaEntity(productDto);
 
-        if(productDto.id() == null) {
+        if (productDto.id() == null) {
             return ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaDao.insert(productJpaEntity));
         }
 
@@ -56,6 +57,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<ProductDto> findBySlug(String slug) {
         return productJpaDao.findBySlug(slug)
-                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity));
+                .map(productJpaEntity -> ProductMapper.getInstance()
+                        .fromProductJpaEntityToProductDto(productJpaEntity));
     }
 }

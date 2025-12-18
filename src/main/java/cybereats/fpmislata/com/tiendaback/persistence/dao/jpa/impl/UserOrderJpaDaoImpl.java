@@ -19,10 +19,17 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
     }
 
     @Override
-    public List<UserOrderJpaEntity> findAll() {
+    public List<UserOrderJpaEntity> findAll(int page, int size) {
         return entityManager
                 .createQuery("SELECT u FROM UserOrderJpaEntity u ORDER BY u.id ASC", UserOrderJpaEntity.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
                 .getResultList();
+    }
+
+    @Override
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(u) FROM UserOrderJpaEntity u", Long.class).getSingleResult();
     }
 
     @Override
@@ -40,5 +47,11 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
     public void deleteById(Long id) {
         UserOrderJpaEntity userOrderJpaEntity = entityManager.find(UserOrderJpaEntity.class, id);
         entityManager.remove(userOrderJpaEntity);
+    }
+
+    @Override
+    public List<UserOrderJpaEntity> findAll() {
+        return entityManager.createQuery("SELECT u FROM UserOrderJpaEntity u", UserOrderJpaEntity.class)
+                .getResultList();
     }
 }

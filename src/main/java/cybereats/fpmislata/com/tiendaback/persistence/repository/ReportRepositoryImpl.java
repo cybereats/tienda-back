@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ReportRepository;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ReportJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
@@ -29,8 +30,12 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
-    public List<ReportDto> findAll(int page, int size) {
-        return reportJpaDao.findAll(page, size).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
+    public Page<ReportDto> findAll(int page, int size) {
+        List<ReportDto> content = reportJpaDao.findAll(page, size).stream()
+                .map(ReportMapper::fromReportJpaEntitytoReportDto)
+                .toList();
+        long totalElements = reportJpaDao.count();
+        return new Page<>(content, page, size, totalElements);
     }
 
     @Override
@@ -41,6 +46,17 @@ public class ReportRepositoryImpl implements ReportRepository {
     @Override
     public List<ReportDto> findByPCId(Long pcId) {
         return reportJpaDao.findByPCId(pcId).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
+    }
+
+    @Override
+    public List<ReportDto> findByStatus(String status) {
+        return reportJpaDao.findByStatus(status).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
+    }
+
+    @Override
+    public List<ReportDto> findByCreatedAt(String createdAt) {
+        return reportJpaDao.findByCreatedAt(createdAt).stream().map(ReportMapper::fromReportJpaEntitytoReportDto)
+                .toList();
     }
 
     @Override

@@ -12,8 +12,11 @@ public class ReportMapper {
                 reportRequest.id(),
                 reportRequest.priority(),
                 reportRequest.description(),
-                mapUser(reportRequest.userId()),
-                mapPC(reportRequest.pcId()));
+                reportRequest.subject(),
+                reportRequest.status(),
+                reportRequest.createdAt(),
+                reportRequest.userId() != null ? mapUser(reportRequest.userId()) : null,
+                reportRequest.pcId() != null ? mapPC(reportRequest.pcId()) : null);
     }
 
     public static ReportResponse fromReportDtoToReportResponse(ReportDto reportDto) {
@@ -21,6 +24,9 @@ public class ReportMapper {
                 reportDto.id(),
                 reportDto.priority(),
                 reportDto.desc(),
+                reportDto.subject(),
+                reportDto.status(),
+                reportDto.createdAt(),
                 UserMapper.getInstance().fromUserDtoToUserResponse(reportDto.user()),
                 PCMapper.getInstance().fromPCDtoToPCResponse(reportDto.pc()));
     }

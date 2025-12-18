@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import cybereats.fpmislata.com.tiendaback.domain.mapper.OrderItemMapper;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderItem;
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.OrderItemRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.OrderItemService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
@@ -57,13 +58,13 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItemDto> findAll() {
-        List<OrderItem> orderItemList = orderItemRepository.findAll().stream()
+    public Page<OrderItemDto> findAll(int page, int size) {
+        Page<OrderItemDto> orderItemDtoPage = orderItemRepository.findAll(page, size);
+        List<OrderItemDto> content = orderItemDtoPage.data().stream()
                 .map(dto -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItem(dto))
-                .toList();
-        return orderItemList.stream()
                 .map(item -> OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(item))
                 .toList();
+        return new Page<>(content, page, size, orderItemDtoPage.totalElements());
     }
 
     @Override

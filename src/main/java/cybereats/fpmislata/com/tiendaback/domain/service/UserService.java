@@ -1,8 +1,8 @@
 package cybereats.fpmislata.com.tiendaback.domain.service;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -14,7 +14,7 @@ public interface UserService {
 
     Optional<UserDto> findById(Long id);
 
-    List<UserDto> findAll(int page, int size);
+    Page<UserDto> findAll(int page, int size);
 
     void deleteById(Long id);
 }

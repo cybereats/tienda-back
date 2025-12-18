@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.UserMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.UserRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.UserResponse;
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.UserService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
@@ -31,7 +32,8 @@ public class UserController {
         DtoValidator.validate(userRequest);
         UserDto userDto = UserMapper.getInstance().fromUserRequestToUserDto(userRequest);
         UserDto createdUserDto = userService.insert(userDto);
-        return new ResponseEntity<>(UserMapper.getInstance().fromUserDtoToUserResponse(createdUserDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(UserMapper.getInstance().fromUserDtoToUserResponse(createdUserDto),
+                HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -41,10 +43,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
+    public ResponseEntity<Page<UserResponse>> getAllUsers(@RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        List<UserDto> userDtoList = userService.findAll(page, size);
-        return new ResponseEntity<>(userDtoList.stream().map(UserMapper.getInstance()::fromUserDtoToUserResponse).toList(),
+        Page<UserDto> userDtoPage = userService.findAll(page, size);
+        List<UserResponse> content = userDtoPage.data().stream()
+                .map(UserMapper.getInstance()::fromUserDtoToUserResponse)
+                .toList();
+        return new ResponseEntity<>(new Page<>(content, page, size, userDtoPage.totalElements()),
                 HttpStatus.OK);
     }
 

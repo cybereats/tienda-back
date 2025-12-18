@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.UserOrderService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
@@ -21,7 +23,7 @@ import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.UserOrde
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.UserOrderResponse;
 
 @RestController
-@RequestMapping("/api/user-orders")
+@RequestMapping("/api/orders")
 public class UserOrderController {
     private final UserOrderService userOrderService;
 
@@ -40,11 +42,14 @@ public class UserOrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserOrderResponse>> getAllUserOrders() {
-        List<UserOrderDto> userOrderDtoList = userOrderService.findAll();
-        return new ResponseEntity<>(
-                userOrderDtoList.stream().map(UserOrderMapper.getInstance()::fromUserOrderDtoToUserOrderResponse)
-                        .toList(),
+    public ResponseEntity<Page<UserOrderResponse>> getAllUserOrders(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserOrderDto> userOrderDtoPage = userOrderService.findAll(page, size);
+        List<UserOrderResponse> content = userOrderDtoPage.data().stream()
+                .map(UserOrderMapper.getInstance()::fromUserOrderDtoToUserOrderResponse)
+                .toList();
+        return new ResponseEntity<>(new Page<>(content, page, size, userOrderDtoPage.totalElements()),
                 HttpStatus.OK);
     }
 

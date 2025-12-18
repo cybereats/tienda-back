@@ -1,8 +1,8 @@
 package cybereats.fpmislata.com.tiendaback.domain.service;
 
-import java.util.List;
 import java.util.Optional;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 
 public interface OrderItemService {
@@ -14,7 +14,7 @@ public interface OrderItemService {
 
     OrderItemDto getById(Long id);
 
-    List<OrderItemDto> findAll();
+    Page<OrderItemDto> findAll(int page, int size);
 
     void deleteById(Long id);
 }

@@ -33,6 +33,18 @@ public class CategoryPCJpaDaoImpl implements CategoryPCJpaDao {
     }
 
     @Override
+    public Optional<CategoryPCJpaEntity> findBySlug(String slug) {
+        try {
+            String sql = "SELECT c FROM CategoryPCJpaEntity c WHERE c.slug = :slug";
+            return Optional.of(entityManager.createQuery(sql, CategoryPCJpaEntity.class)
+                    .setParameter("slug", slug)
+                    .getSingleResult());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public CategoryPCJpaEntity insert(CategoryPCJpaEntity jpaEntity) {
         entityManager.persist(jpaEntity);
         return jpaEntity;

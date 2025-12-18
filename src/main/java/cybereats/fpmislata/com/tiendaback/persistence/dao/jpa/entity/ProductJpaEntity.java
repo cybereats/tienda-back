@@ -13,15 +13,21 @@ public class ProductJpaEntity implements Serializable {
     private Long id;
     private String label;
     private String slug;
+    @Column(name = "`desc`")
     private String desc;
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "category_product_id")
     private CategoryProductJpaEntity categoryProductJpaEntity;
 
-    public ProductJpaEntity() { }
+    @OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<OrderItemJpaEntity> orderItems = new java.util.ArrayList<>();
 
-    public ProductJpaEntity(Long id, String label, String slug, String desc, BigDecimal price, CategoryProductJpaEntity categoryProductJpaEntity) {
+    public ProductJpaEntity() {
+    }
+
+    public ProductJpaEntity(Long id, String label, String slug, String desc, BigDecimal price,
+            CategoryProductJpaEntity categoryProductJpaEntity) {
         this.id = id;
         this.label = label;
         this.slug = slug;

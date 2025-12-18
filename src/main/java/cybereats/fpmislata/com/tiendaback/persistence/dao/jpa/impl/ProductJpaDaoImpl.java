@@ -41,7 +41,7 @@ public class ProductJpaDaoImpl implements ProductJpaDao {
     @Override
     public ProductJpaEntity update(ProductJpaEntity jpaEntity) {
         ProductJpaEntity managed = entityManager.find(ProductJpaEntity.class, jpaEntity.getId());
-        if(managed == null) {
+        if (managed == null) {
             throw new ResourceNotFoundException("Product with id " + jpaEntity.getId() + " not found");
         }
         entityManager.flush();
@@ -73,8 +73,6 @@ public class ProductJpaDaoImpl implements ProductJpaDao {
 
     @Override
     public void deleteBySlug(String slug) {
-        entityManager.createQuery("DELETE FROM ProductJpaEntity b WHERE b.slug = :slug")
-                .setParameter("slug", slug)
-                .executeUpdate();
+        findBySlug(slug).ifPresent(entityManager::remove);
     }
 }

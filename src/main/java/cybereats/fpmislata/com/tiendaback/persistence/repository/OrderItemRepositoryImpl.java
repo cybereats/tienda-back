@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.persistence.repository;
 import java.util.List;
 import java.util.Optional;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.OrderItemRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.OrderItemJpaDao;
@@ -18,10 +19,12 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     }
 
     @Override
-    public List<OrderItemDto> findAll() {
-        return orderItemJpaDao.findAll().stream()
+    public Page<OrderItemDto> findAll(int page, int size) {
+        List<OrderItemDto> content = orderItemJpaDao.findAll(page, size).stream()
                 .map(entity -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(entity))
                 .toList();
+        long totalElements = orderItemJpaDao.count();
+        return new Page<>(content, page, size, totalElements);
     }
 
     @Override

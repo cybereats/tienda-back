@@ -4,6 +4,9 @@ public class Report {
     private Long id;
     private String priority;
     private String desc;
+    private String subject;
+    private String status;
+    private String createdAt;
     private User user;
     private PC pc;
 
@@ -11,6 +14,9 @@ public class Report {
         this.id = builder.id;
         this.priority = builder.priority;
         this.desc = builder.desc;
+        this.subject = builder.subject;
+        this.status = builder.status;
+        this.createdAt = builder.createdAt;
         this.user = builder.user;
         this.pc = builder.pc;
     }
@@ -27,6 +33,18 @@ public class Report {
         return desc;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
     public User getUser() {
         return user;
     }
@@ -39,6 +57,9 @@ public class Report {
         private Long id;
         private String priority;
         private String desc;
+        private String subject;
+        private String status;
+        private String createdAt;
         private User user;
         private PC pc;
 
@@ -54,6 +75,21 @@ public class Report {
 
         public Builder desc(String desc) {
             this.desc = desc;
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            this.subject = subject;
+            return this;
+        }
+
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
 

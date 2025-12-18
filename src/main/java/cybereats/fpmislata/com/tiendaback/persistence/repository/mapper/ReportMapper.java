@@ -9,6 +9,9 @@ public class ReportMapper {
                 reportDto.id(),
                 reportDto.priority(),
                 reportDto.desc(),
+                reportDto.subject(),
+                reportDto.status(),
+                reportDto.createdAt(),
                 UserMapper.getInstance().fromUserDtoToUserJpaEntity(reportDto.user()),
                 PCMapper.getInstance().fromPCDtoToPCJpaEntity(reportDto.pc()));
     }
@@ -18,7 +21,10 @@ public class ReportMapper {
                 reportJpaEntity.getId(),
                 reportJpaEntity.getPriority(),
                 reportJpaEntity.getDesc(),
+                reportJpaEntity.getSubject(),
+                reportJpaEntity.getStatus(),
+                reportJpaEntity.getCreatedAt(),
                 UserMapper.getInstance().fromUserJpaEntityToUserDto(reportJpaEntity.getUser()),
-                PCMapper.getInstance().fromPCJpaEntityToPCDto(reportJpaEntity.getPC()));
+                PCMapper.getInstance().fromPCJpaEntityToPCDto(reportJpaEntity.getPc()));
     }
 }

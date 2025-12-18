@@ -50,6 +50,7 @@ CREATE TABLE log (
 CREATE TABLE category_pc (
                              id INT PRIMARY KEY AUTO_INCREMENT,
                              label VARCHAR(255),
+                             slug VARCHAR(255) UNIQUE,
                              price DECIMAL(10,2)
 );
 
@@ -79,6 +80,9 @@ CREATE TABLE report (
                         id INT PRIMARY KEY AUTO_INCREMENT,
                         priority INT,
                         `desc` TEXT,
+                        subject VARCHAR(255),
+                        status VARCHAR(255),
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         pc_id INT,
                         user_id INT,
                         FOREIGN KEY (pc_id) REFERENCES pc(id),

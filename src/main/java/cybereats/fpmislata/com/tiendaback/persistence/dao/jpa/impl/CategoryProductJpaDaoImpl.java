@@ -35,7 +35,14 @@ public class CategoryProductJpaDaoImpl implements CategoryProductJpaDao {
 
     @Override
     public Optional<CategoryProductJpaEntity> findBySlug(String slug) {
-        return Optional.ofNullable(entityManager.find(CategoryProductJpaEntity.class, slug));
+        try {
+            String sql = "SELECT c FROM CategoryProductJpaEntity c WHERE c.slug = :slug";
+            return Optional.of(entityManager.createQuery(sql, CategoryProductJpaEntity.class)
+                    .setParameter("slug", slug)
+                    .getSingleResult());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override

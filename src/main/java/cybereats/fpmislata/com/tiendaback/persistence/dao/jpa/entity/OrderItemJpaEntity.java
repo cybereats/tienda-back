@@ -21,7 +21,8 @@ public class OrderItemJpaEntity {
     public OrderItemJpaEntity() {
     }
 
-    public OrderItemJpaEntity(Long id, Integer quantity, ProductJpaEntity product_id, UserOrderJpaEntity user_order_id) {
+    public OrderItemJpaEntity(Long id, Integer quantity, ProductJpaEntity product_id,
+            UserOrderJpaEntity user_order_id) {
         this.id = id;
         this.product_id = product_id;
         this.quantity = quantity;

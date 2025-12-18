@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.OrderItemService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.OrderItemDto;
 import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,10 +42,14 @@ public class OrderItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderItemResponse>> getAllOrderItems() {
-        List<OrderItemDto> orderItemDtoList = orderItemService.findAll();
-        return new ResponseEntity<>(
-                orderItemDtoList.stream().map(OrderItemMapper::fromOrderItemDtoToOrderItemResponse).toList(),
+    public ResponseEntity<Page<OrderItemResponse>> getAllOrderItems(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<OrderItemDto> orderItemDtoPage = orderItemService.findAll(page, size);
+        List<OrderItemResponse> content = orderItemDtoPage.data().stream()
+                .map(OrderItemMapper::fromOrderItemDtoToOrderItemResponse)
+                .toList();
+        return new ResponseEntity<>(new Page<>(content, page, size, orderItemDtoPage.totalElements()),
                 HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.UserRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.persistence.repository.mapper.UserMapper;
@@ -35,10 +36,12 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         @Override
-        public List<UserDto> findAll(int page, int size) {
-                return userJpaDao.findAll(page, size).stream()
+        public Page<UserDto> findAll(int page, int size) {
+                List<UserDto> content = userJpaDao.findAll(page, size).stream()
                                 .map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserDto(entity))
                                 .toList();
+                long totalElements = userJpaDao.count();
+                return new Page<>(content, page, size, totalElements);
         }
 
         @Override

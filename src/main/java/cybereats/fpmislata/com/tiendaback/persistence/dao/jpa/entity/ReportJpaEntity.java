@@ -10,7 +10,12 @@ public class ReportJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String priority;
+    @Column(name = "`desc`")
     private String desc;
+    private String subject;
+    private String status;
+    @Column(name = "created_at")
+    private String createdAt;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserJpaEntity user;
@@ -29,10 +34,14 @@ public class ReportJpaEntity {
     public ReportJpaEntity() {
     }
 
-    public ReportJpaEntity(Long id, String priority, String desc, UserJpaEntity user, PCJpaEntity pc) {
+    public ReportJpaEntity(Long id, String priority, String desc, String subject, String status, String createdAt,
+            UserJpaEntity user, PCJpaEntity pc) {
         this.id = id;
         this.priority = priority;
         this.desc = desc;
+        this.subject = subject;
+        this.status = status;
+        this.createdAt = createdAt;
         this.user = user;
         this.pc = pc;
     }
@@ -61,20 +70,36 @@ public class ReportJpaEntity {
         this.desc = desc;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public UserJpaEntity getUser() {
         return user;
     }
 
     public void setUser(UserJpaEntity user) {
         this.user = user;
-    }
-
-    public PCJpaEntity getPC() {
-        return pc;
-    }
-
-    public void setPC(PCJpaEntity pc) {
-        this.pc = pc;
     }
 
 }

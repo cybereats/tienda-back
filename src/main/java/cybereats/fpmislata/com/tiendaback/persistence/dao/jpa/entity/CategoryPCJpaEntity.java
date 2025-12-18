@@ -14,6 +14,7 @@ public class CategoryPCJpaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String label;
+    private String slug;
     private BigDecimal price;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PCJpaEntity> pcs = new ArrayList<>();
@@ -21,9 +22,10 @@ public class CategoryPCJpaEntity implements Serializable {
     public CategoryPCJpaEntity() {
     }
 
-    public CategoryPCJpaEntity(Long id, String label, BigDecimal price) {
+    public CategoryPCJpaEntity(Long id, String label, String slug, BigDecimal price) {
         this.id = id;
         this.label = label;
+        this.slug = slug;
         this.price = price;
     }
 
@@ -33,6 +35,10 @@ public class CategoryPCJpaEntity implements Serializable {
 
     public String getLabel() {
         return label;
+    }
+
+    public String getSlug() {
+        return slug;
     }
 
     public BigDecimal getPrice() {
