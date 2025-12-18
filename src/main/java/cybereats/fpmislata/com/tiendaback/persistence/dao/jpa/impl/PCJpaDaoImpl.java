@@ -41,7 +41,7 @@ public class PCJpaDaoImpl implements PCJpaDao {
     @Override
     public PCJpaEntity update(PCJpaEntity jpaEntity) {
         PCJpaEntity managed = entityManager.find(PCJpaEntity.class, jpaEntity.getId());
-        if(managed == null) {
+        if (managed == null) {
             throw new ResourceNotFoundException("PC with id " + jpaEntity.getId() + " not found");
         }
         entityManager.flush();
@@ -73,8 +73,6 @@ public class PCJpaDaoImpl implements PCJpaDao {
 
     @Override
     public void deleteBySlug(String slug) {
-        entityManager.createQuery("DELETE FROM PCJpaEntity b WHERE b.slug = :slug")
-                .setParameter("slug", slug)
-                .executeUpdate();
+        findBySlug(slug).ifPresent(entityManager::remove);
     }
 }
