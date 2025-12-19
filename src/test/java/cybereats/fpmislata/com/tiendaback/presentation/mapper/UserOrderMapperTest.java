@@ -41,6 +41,7 @@ class UserOrderMapperTest {
         assertEquals(dto.user().id(), response.user().id());
         assertEquals(dto.orderItems().size(), response.orderItems().size());
         assertEquals(dto.status(), response.status());
+        assertEquals(dto.createdAt(), response.createdAt());
     }
 
     @Test

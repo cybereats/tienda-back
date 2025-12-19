@@ -26,8 +26,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductResponse>> findAllProducts(@RequestParam(required = false, defaultValue = "1") int page,
-                                                       @RequestParam(required = false, defaultValue = "10") int size) {
+    public ResponseEntity<Page<ProductResponse>> findAllProducts(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
         Page<ProductDto> productDtoPage = productService.findAll(page, size);
 
         List<ProductResponse> productResponses = productDtoPage.data().stream()
@@ -38,15 +39,15 @@ public class ProductController {
                 productResponses,
                 productDtoPage.pageNumber(),
                 productDtoPage.pageSize(),
-                productDtoPage.totalElements()
-        );
+                productDtoPage.totalElements());
 
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
     @GetMapping("/{slug}")
     public ResponseEntity<ProductResponse> getProductBySlug(@PathVariable String slug) {
-        ProductResponse productResponse = ProductMapper.getInstance().fromProductDtoToProductResponse(productService.getBySlug(slug));
+        ProductResponse productResponse = ProductMapper.getInstance()
+                .fromProductDtoToProductResponse(productService.getBySlug(slug));
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
@@ -56,19 +57,22 @@ public class ProductController {
         ProductDto productDto = ProductMapper.getInstance().fromProductRequestToProductDto(productRequest);
         DtoValidator.validate(productDto);
         ProductDto createdProduct = productService.create(productDto);
-        return new ResponseEntity<>(ProductMapper.getInstance().fromProductDtoToProductResponse(createdProduct), HttpStatus.CREATED);
+        return new ResponseEntity<>(ProductMapper.getInstance().fromProductDtoToProductResponse(createdProduct),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/{slug}")
     @AllowedRoles(UserRole.ADMIN)
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable("slug") String slug, @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable("slug") String slug,
+            @RequestBody ProductRequest productRequest) {
         if (!slug.equals(productRequest.slug())) {
             throw new IllegalArgumentException("SLUG in path and request body must match");
         }
         ProductDto productDto = ProductMapper.getInstance().fromProductRequestToProductDto(productRequest);
         DtoValidator.validate(productDto);
         ProductDto updatedProduct = productService.update(productDto);
-        return new ResponseEntity<>(ProductMapper.getInstance().fromProductDtoToProductResponse(updatedProduct), HttpStatus.OK);
+        return new ResponseEntity<>(ProductMapper.getInstance().fromProductDtoToProductResponse(updatedProduct),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{slug}")

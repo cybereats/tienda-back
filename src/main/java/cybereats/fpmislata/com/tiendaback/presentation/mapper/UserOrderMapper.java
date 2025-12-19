@@ -25,7 +25,8 @@ public class UserOrderMapper {
                 userOrderDto.id(),
                 UserMapper.getInstance().fromUserDtoToUserResponse(userOrderDto.user()),
                 userOrderDto.orderItems().stream().map(OrderItemMapper::fromOrderItemDtoToOrderItemResponse).toList(),
-                userOrderDto.status());
+                userOrderDto.status(),
+                userOrderDto.createdAt());
     }
 
     public UserOrderDto fromUserOrderRequestToUserOrderDto(UserOrderRequest userOrderRequest) {
