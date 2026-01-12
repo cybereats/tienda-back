@@ -35,6 +35,15 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
     }
 
     @Override
+    public Page<UserOrderDto> search(String text, String status, String date, int page, int size) {
+        List<UserOrderDto> content = userOrderJpaDao.search(text, status, date, page, size).stream()
+                .map(UserOrderMapper.getInstance()::fromUserOrderJpaEntityToUserOrderDto)
+                .toList();
+        long totalElements = userOrderJpaDao.countSearch(text, status, date);
+        return new Page<>(content, page, size, totalElements);
+    }
+
+    @Override
     public UserOrderDto save(UserOrderDto userOrderDto) {
         if (userOrderDto.id() == null) {
             UserOrderJpaEntity userOrderJpaEntity = UserOrderMapper.getInstance()

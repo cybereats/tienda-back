@@ -12,6 +12,8 @@ public interface UserOrderRepository {
 
     Page<UserOrderDto> findAll(int page, int size);
 
+    public Page<UserOrderDto> search(String text, String status, String date, int page, int size);
+
     Optional<UserOrderDto> findById(Long id);
 
     UserOrderDto save(UserOrderDto userOrderDto);

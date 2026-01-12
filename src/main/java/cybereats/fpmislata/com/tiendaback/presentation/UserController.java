@@ -53,6 +53,20 @@ public class UserController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<UserResponse>> searchUsers(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserDto> userDtoPage = userService.search(text, role, page, size);
+        List<UserResponse> content = userDtoPage.data().stream()
+                .map(UserMapper.getInstance()::fromUserDtoToUserResponse)
+                .toList();
+        Page<UserResponse> responsePage = new Page<>(content, page, size, userDtoPage.totalElements());
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
         if (!id.equals(userRequest.id())) {

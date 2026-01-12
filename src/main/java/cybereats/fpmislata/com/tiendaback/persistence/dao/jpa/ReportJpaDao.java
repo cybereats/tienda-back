@@ -13,4 +13,10 @@ public interface ReportJpaDao extends GenericJpaDao<ReportJpaEntity> {
     List<ReportJpaEntity> findByStatus(String status);
 
     List<ReportJpaEntity> findByCreatedAt(String createdAt);
+
+    List<Object[]> countReportsByStatus();
+
+    List<ReportJpaEntity> search(String text, String status, String date, int page, int size);
+
+    long countSearch(String text, String status, String date);
 }

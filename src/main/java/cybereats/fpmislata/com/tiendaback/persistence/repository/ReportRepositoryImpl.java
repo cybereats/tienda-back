@@ -8,7 +8,9 @@ import cybereats.fpmislata.com.tiendaback.persistence.repository.mapper.ReportMa
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ReportRepositoryImpl implements ReportRepository {
 
@@ -35,6 +37,23 @@ public class ReportRepositoryImpl implements ReportRepository {
                 .map(ReportMapper::fromReportJpaEntitytoReportDto)
                 .toList();
         long totalElements = reportJpaDao.count();
+        return new Page<>(content, page, size, totalElements);
+    }
+
+    @Override
+    public Map<String, Long> countReportsByStatus() {
+        return reportJpaDao.countReportsByStatus().stream()
+                .collect(Collectors.toMap(
+                        row -> (String) row[0],
+                        row -> (Long) row[1]));
+    }
+
+    @Override
+    public Page<ReportDto> search(String text, String status, String date, int page, int size) {
+        List<ReportDto> content = reportJpaDao.search(text, status, date, page, size).stream()
+                .map(ReportMapper::fromReportJpaEntitytoReportDto)
+                .toList();
+        long totalElements = reportJpaDao.countSearch(text, status, date);
         return new Page<>(content, page, size, totalElements);
     }
 

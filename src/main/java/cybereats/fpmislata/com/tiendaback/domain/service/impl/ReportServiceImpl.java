@@ -1,6 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
@@ -65,6 +66,16 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Page<ReportDto> findAll(int page, int size) {
         return reportRepository.findAll(page, size);
+    }
+
+    @Override
+    public Map<String, Long> countReportsByStatus() {
+        return reportRepository.countReportsByStatus();
+    }
+
+    @Override
+    public Page<ReportDto> search(String text, String status, String date, int page, int size) {
+        return reportRepository.search(text, status, date, page, size);
     }
 
     @Override

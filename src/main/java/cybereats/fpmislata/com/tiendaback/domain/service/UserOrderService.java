@@ -13,6 +13,8 @@ public interface UserOrderService {
 
     Optional<UserOrderDto> findById(Long id);
 
+    public Page<UserOrderDto> search(String text, String status, String date, int page, int size);
+
     UserOrderDto insert(UserOrderDto userOrderDto);
 
     UserOrderDto update(UserOrderDto userOrderDto);

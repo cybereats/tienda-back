@@ -44,6 +44,20 @@ public class ProductController {
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<ProductResponse>> searchProducts(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<ProductDto> productDtoPage = productService.search(text, category, page, size);
+        List<ProductResponse> content = productDtoPage.data().stream()
+                .map(productDto -> ProductMapper.getInstance().fromProductDtoToProductResponse(productDto))
+                .toList();
+        Page<ProductResponse> responsePage = new Page<>(content, page, size, productDtoPage.totalElements());
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+    }
+
     @GetMapping("/{slug}")
     public ResponseEntity<ProductResponse> getProductBySlug(@PathVariable String slug) {
         ProductResponse productResponse = ProductMapper.getInstance()

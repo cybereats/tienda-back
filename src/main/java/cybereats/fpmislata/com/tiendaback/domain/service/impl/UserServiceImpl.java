@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<UserDto> search(String text, String role, int page, int size) {
+        return userRepository.search(text, role, page, size);
+    }
+
+    @Override
     @Transactional
     public void deleteById(Long id) {
         Optional<UserDto> userDto = userRepository.findById(id);

@@ -53,6 +53,21 @@ public class UserOrderController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<UserOrderResponse>> searchUserOrders(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<UserOrderDto> userOrderDtoPage = userOrderService.search(text, status, date, page, size);
+        List<UserOrderResponse> content = userOrderDtoPage.data().stream()
+                .map(UserOrderMapper.getInstance()::fromUserOrderDtoToUserOrderResponse)
+                .toList();
+        Page<UserOrderResponse> responsePage = new Page<>(content, page, size, userOrderDtoPage.totalElements());
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserOrderResponse> getUserOrderById(@PathVariable Long id) {
         UserOrderDto userOrderDto = userOrderService.getById(id);

@@ -18,6 +18,14 @@ public class CategoryPCRepositoryImpl implements CategoryPCRepository {
     }
 
     @Override
+    public List<CategoryPCDto> findAll() {
+        return categoryPCJpaDao.findAll().stream()
+                .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance()
+                        .fromCategoryPCJpaEntityToCategoryPCDto(categoryPCJpaEntity))
+                .toList();
+    }
+
+    @Override
     public Page<CategoryPCDto> findAll(int page, int size) {
         List<CategoryPCDto> content = categoryPCJpaDao.findAll(page, size).stream()
                 .map(categoryPCJpaEntity -> CategoryPCMapper.getInstance()

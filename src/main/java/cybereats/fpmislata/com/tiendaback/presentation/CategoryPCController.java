@@ -42,6 +42,15 @@ public class CategoryPCController {
                 return new ResponseEntity<>(categoryPCPage, HttpStatus.OK);
         }
 
+        @GetMapping("/all")
+        public ResponseEntity<List<CategoryPCResponse>> findAll() {
+                List<CategoryPCResponse> categoryPCResponses = categoryPCService.findAll().stream()
+                                .map(CategoryPCMapper.getInstance()::fromCategoryPCDtoToCategoryPCResponse)
+                                .toList();
+
+                return new ResponseEntity<>(categoryPCResponses, HttpStatus.OK);
+        }
+
         @GetMapping("/{id:\\d+}")
         public ResponseEntity<CategoryPCResponse> getCategoryPCById(@PathVariable Long id) {
                 CategoryPCResponse categoryPCResponse = CategoryPCMapper.getInstance()

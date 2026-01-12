@@ -19,6 +19,12 @@ public class CategoryProductRepositoryImpl implements CategoryProductRepository 
     }
 
     @Override
+    public List<CategoryProductDto> findAll() {
+        return categoryProductJpaDao.findAll().stream()
+                .map(CategoryProductMapper.getInstance()::fromCategoryProductJpaEntityToCategoryProductDto).toList();
+    }
+
+    @Override
     public Page<CategoryProductDto> findAll(int page, int size) {
         List<CategoryProductDto> categoryProductDtoList = categoryProductJpaDao.findAll(page, size).stream()
                 .map(CategoryProductMapper.getInstance()::fromCategoryProductJpaEntityToCategoryProductDto).toList();

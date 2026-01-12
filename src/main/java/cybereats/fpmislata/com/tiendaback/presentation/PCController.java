@@ -40,6 +40,20 @@ public class PCController {
         return new ResponseEntity<>(pcPage, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<PCResponse>> searchPCs(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<PCDto> pcDtoPage = pcService.search(text, category, page, size);
+        List<PCResponse> content = pcDtoPage.data().stream()
+                .map(pcDto -> PCMapper.getInstance().fromPCDtoToPCResponse(pcDto))
+                .toList();
+        Page<PCResponse> responsePage = new Page<>(content, page, size, pcDtoPage.totalElements());
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+    }
+
     @GetMapping("/{slug}")
     public ResponseEntity<PCResponse> getPCBySlug(@PathVariable String slug) {
         PCResponse pcResponse = PCMapper.getInstance().fromPCDtoToPCResponse(pcService.getBySlug(slug));

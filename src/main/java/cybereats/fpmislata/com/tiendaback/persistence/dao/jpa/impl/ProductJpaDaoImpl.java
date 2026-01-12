@@ -6,7 +6,12 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ProductJpaE
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,5 +79,62 @@ public class ProductJpaDaoImpl implements ProductJpaDao {
     @Override
     public void deleteBySlug(String slug) {
         findBySlug(slug).ifPresent(entityManager::remove);
+    }
+
+    @Override
+    public List<ProductJpaEntity> search(String text, String category, int page, int size) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductJpaEntity> cq = cb.createQuery(ProductJpaEntity.class);
+        Root<ProductJpaEntity> product = cq.from(ProductJpaEntity.class);
+
+        Predicate[] predicates = getSearchPredicates(cb, product, text, category);
+        if (predicates.length > 0) {
+            cq.where(cb.and(predicates));
+        }
+        cq.orderBy(cb.asc(product.get("id")));
+
+        return entityManager.createQuery(cq)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+    }
+
+    @Override
+    public long countSearch(String text, String category) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<ProductJpaEntity> product = cq.from(ProductJpaEntity.class);
+
+        cq.select(cb.count(product));
+        Predicate[] predicates = getSearchPredicates(cb, product, text, category);
+        if (predicates.length > 0) {
+            cq.where(cb.and(predicates));
+        }
+
+        return entityManager.createQuery(cq).getSingleResult();
+    }
+
+    private Predicate[] getSearchPredicates(CriteriaBuilder cb, Root<ProductJpaEntity> root, String text,
+            String category) {
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (text != null && !text.isBlank() && !text.equalsIgnoreCase("null")) {
+            String pattern = "%" + text.toLowerCase() + "%";
+            predicates.add(cb.or(
+                    cb.like(cb.lower(root.get("id").as(String.class)), pattern),
+                    cb.like(cb.lower(root.get("label")), pattern),
+                    cb.like(cb.lower(root.get("slug")), pattern),
+                    cb.like(cb.lower(root.get("description")), pattern),
+                    cb.like(cb.lower(root.get("categoryProductJpaEntity").get("label")), pattern)));
+        }
+
+        if (category != null && !category.isBlank() && !category.equalsIgnoreCase("Todas las categorías")
+                && !category.equalsIgnoreCase("null")) {
+            predicates.add(cb.or(
+                    cb.equal(cb.lower(root.get("categoryProductJpaEntity").get("label")), category.toLowerCase()),
+                    cb.equal(cb.lower(root.get("categoryProductJpaEntity").get("slug")), category.toLowerCase())));
+        }
+
+        return predicates.toArray(new Predicate[0]);
     }
 }

@@ -45,6 +45,15 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         @Override
+        public Page<UserDto> search(String text, String role, int page, int size) {
+                List<UserDto> content = userJpaDao.search(text, role, page, size).stream()
+                                .map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserDto(entity))
+                                .toList();
+                long totalElements = userJpaDao.countSearch(text, role);
+                return new Page<>(content, page, size, totalElements);
+        }
+
+        @Override
         public void deleteById(Long id) {
                 userJpaDao.deleteById(id);
         }

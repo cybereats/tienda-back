@@ -9,6 +9,7 @@ import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.ReportRe
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.ReportResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,27 @@ public class ReportController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/status-count")
+    public ResponseEntity<Map<String, Long>> getReportsStatusCount() {
+        return new ResponseEntity<>(reportService.countReportsByStatus(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<ReportResponse>> searchReports(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size) {
+        Page<ReportDto> reportDtoPage = reportService.search(text, status, date, page, size);
+        List<ReportResponse> content = reportDtoPage.data().stream()
+                .map(ReportMapper::fromReportDtoToReportResponse)
+                .toList();
+        Page<ReportResponse> responsePage = new Page<>(content, page, size, reportDtoPage.totalElements());
+        return new ResponseEntity<>(responsePage, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id:[0-9]+}")
     public ResponseEntity<ReportResponse> getReportById(@PathVariable Long id) {
         ReportDto reportDto = reportService.findById(id).get();
         return new ResponseEntity<>(ReportMapper.fromReportDtoToReportResponse(reportDto), HttpStatus.OK);

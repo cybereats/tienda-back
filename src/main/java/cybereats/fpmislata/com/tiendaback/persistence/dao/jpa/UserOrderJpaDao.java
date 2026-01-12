@@ -19,4 +19,8 @@ public interface UserOrderJpaDao {
     public void deleteById(Long id);
 
     public long count();
+
+    public List<UserOrderJpaEntity> search(String text, String status, String date, int page, int size);
+
+    public long countSearch(String text, String status, String date);
 }

@@ -41,6 +41,11 @@ public class PCServiceImpl implements PCService {
     }
 
     @Override
+    public Page<PCDto> search(String text, String category, int page, int size) {
+        return pcRepository.search(text, category, page, size);
+    }
+
+    @Override
     @Transactional
     public PCDto create(PCDto pcDto) {
         Optional<PCDto> pcDtoOptional = pcRepository.findBySlug(pcDto.slug());

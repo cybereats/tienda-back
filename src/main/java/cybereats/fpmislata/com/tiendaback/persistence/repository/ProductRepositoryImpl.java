@@ -60,4 +60,13 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .map(productJpaEntity -> ProductMapper.getInstance()
                         .fromProductJpaEntityToProductDto(productJpaEntity));
     }
+
+    @Override
+    public Page<ProductDto> search(String text, String category, int page, int size) {
+        List<ProductDto> content = productJpaDao.search(text, category, page, size).stream()
+                .map(productJpaEntity -> ProductMapper.getInstance().fromProductJpaEntityToProductDto(productJpaEntity))
+                .toList();
+        long totalElements = productJpaDao.countSearch(text, category);
+        return new Page<>(content, page, size, totalElements);
+    }
 }

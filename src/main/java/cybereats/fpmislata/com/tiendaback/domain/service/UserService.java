@@ -16,5 +16,7 @@ public interface UserService {
 
     Page<UserDto> findAll(int page, int size);
 
+    Page<UserDto> search(String text, String role, int page, int size);
+
     void deleteById(Long id);
 }

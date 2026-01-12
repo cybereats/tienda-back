@@ -3,6 +3,8 @@ package cybereats.fpmislata.com.tiendaback.domain.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
+
 public class CategoryPC {
     private Long id;
     private String label;
@@ -54,6 +56,9 @@ public class CategoryPC {
         }
 
         public Builder price(BigDecimal price) {
+            if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+                throw new BusinessException("Price must be a positive number");
+            }
             this.price = price;
             return this;
         }

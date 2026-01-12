@@ -27,70 +27,83 @@ import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 @RestController
 @RequestMapping("/api/category-products")
 public class CategoryProductController {
-    private final CategoryProductService categoryProductService;
+        private final CategoryProductService categoryProductService;
 
-    public CategoryProductController(CategoryProductService categoryProductService) {
-        this.categoryProductService = categoryProductService;
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<CategoryProductResponse>> findAllCategoryProducts(
-            @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<CategoryProductDto> categoryProductDtoPage = categoryProductService.findAll(page, size);
-
-        List<CategoryProductResponse> categoryProductResponses = categoryProductDtoPage.data().stream()
-                .map(categoryProductDto -> CategoryProductMapper.getInstance()
-                        .fromCategoryProductDtoToCategoryProductResponse(categoryProductDto))
-                .toList();
-
-        Page<CategoryProductResponse> categoryProductPage = new Page<>(
-                categoryProductResponses,
-                categoryProductDtoPage.pageNumber(),
-                categoryProductDtoPage.pageSize(),
-                categoryProductDtoPage.totalElements());
-
-        return new ResponseEntity<>(categoryProductPage, HttpStatus.OK);
-    }
-
-    @GetMapping("/{slug}")
-    public ResponseEntity<CategoryProductResponse> getCategoryProductBySlug(@PathVariable String slug) {
-        CategoryProductResponse categoryProductResponse = CategoryProductMapper.getInstance()
-                .fromCategoryProductDtoToCategoryProductResponse(categoryProductService.getBySlug(slug));
-        return new ResponseEntity<>(categoryProductResponse, HttpStatus.OK);
-    }
-
-    @PostMapping
-    @AllowedRoles(UserRole.ADMIN)
-    public ResponseEntity<CategoryProductResponse> createCategoryProduct(
-            @RequestBody CategoryProductRequest categoryProductRequest) {
-        CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
-                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
-        CategoryProductDto createdCategoryProduct = categoryProductService.insert(categoryProductDto);
-        return new ResponseEntity<>(
-                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(createdCategoryProduct),
-                HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{slug}")
-    @AllowedRoles(UserRole.ADMIN)
-    public ResponseEntity<CategoryProductResponse> updateCategoryProduct(@PathVariable("slug") String slug,
-            @RequestBody CategoryProductRequest categoryProductRequest) {
-        if (!slug.equals(categoryProductRequest.slug())) {
-            throw new IllegalArgumentException("SLUG in path and request body must match");
+        public CategoryProductController(CategoryProductService categoryProductService) {
+                this.categoryProductService = categoryProductService;
         }
-        CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
-                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
-        CategoryProductDto updatedCategoryProduct = categoryProductService.update(categoryProductDto);
-        return new ResponseEntity<>(
-                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(updatedCategoryProduct),
-                HttpStatus.OK);
-    }
 
-    @DeleteMapping("/{slug}")
-    @AllowedRoles(UserRole.ADMIN)
-    public ResponseEntity<Void> deleteCategoryProduct(@PathVariable("slug") String slug) {
-        categoryProductService.deleteBySlug(slug);
-        return ResponseEntity.noContent().build();
-    }
+        @GetMapping
+        public ResponseEntity<Page<CategoryProductResponse>> findAllCategoryProducts(
+                        @RequestParam(required = false, defaultValue = "1") int page,
+                        @RequestParam(required = false, defaultValue = "10") int size) {
+                Page<CategoryProductDto> categoryProductDtoPage = categoryProductService.findAll(page, size);
+
+                List<CategoryProductResponse> categoryProductResponses = categoryProductDtoPage.data().stream()
+                                .map(categoryProductDto -> CategoryProductMapper.getInstance()
+                                                .fromCategoryProductDtoToCategoryProductResponse(categoryProductDto))
+                                .toList();
+
+                Page<CategoryProductResponse> categoryProductPage = new Page<>(
+                                categoryProductResponses,
+                                categoryProductDtoPage.pageNumber(),
+                                categoryProductDtoPage.pageSize(),
+                                categoryProductDtoPage.totalElements());
+
+                return new ResponseEntity<>(categoryProductPage, HttpStatus.OK);
+        }
+
+        @GetMapping("/all")
+        public ResponseEntity<List<CategoryProductResponse>> findAll() {
+                List<CategoryProductResponse> categoryProductResponses = categoryProductService.findAll().stream()
+                                .map(categoryProductDto -> CategoryProductMapper.getInstance()
+                                                .fromCategoryProductDtoToCategoryProductResponse(categoryProductDto))
+                                .toList();
+
+                return new ResponseEntity<>(categoryProductResponses, HttpStatus.OK);
+        }
+
+        @GetMapping("/{slug}")
+        public ResponseEntity<CategoryProductResponse> getCategoryProductBySlug(@PathVariable String slug) {
+                CategoryProductResponse categoryProductResponse = CategoryProductMapper.getInstance()
+                                .fromCategoryProductDtoToCategoryProductResponse(
+                                                categoryProductService.getBySlug(slug));
+                return new ResponseEntity<>(categoryProductResponse, HttpStatus.OK);
+        }
+
+        @PostMapping
+        @AllowedRoles(UserRole.ADMIN)
+        public ResponseEntity<CategoryProductResponse> createCategoryProduct(
+                        @RequestBody CategoryProductRequest categoryProductRequest) {
+                CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
+                                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
+                CategoryProductDto createdCategoryProduct = categoryProductService.insert(categoryProductDto);
+                return new ResponseEntity<>(
+                                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(
+                                                createdCategoryProduct),
+                                HttpStatus.CREATED);
+        }
+
+        @PutMapping("/{slug}")
+        @AllowedRoles(UserRole.ADMIN)
+        public ResponseEntity<CategoryProductResponse> updateCategoryProduct(@PathVariable("slug") String slug,
+                        @RequestBody CategoryProductRequest categoryProductRequest) {
+                if (!slug.equals(categoryProductRequest.slug())) {
+                        throw new IllegalArgumentException("SLUG in path and request body must match");
+                }
+                CategoryProductDto categoryProductDto = CategoryProductMapper.getInstance()
+                                .fromCategoryProductRequestToCategoryProductDto(categoryProductRequest);
+                CategoryProductDto updatedCategoryProduct = categoryProductService.update(categoryProductDto);
+                return new ResponseEntity<>(
+                                CategoryProductMapper.getInstance().fromCategoryProductDtoToCategoryProductResponse(
+                                                updatedCategoryProduct),
+                                HttpStatus.OK);
+        }
+
+        @DeleteMapping("/{slug}")
+        @AllowedRoles(UserRole.ADMIN)
+        public ResponseEntity<Void> deleteCategoryProduct(@PathVariable("slug") String slug) {
+                categoryProductService.deleteBySlug(slug);
+                return ResponseEntity.noContent().build();
+        }
 }

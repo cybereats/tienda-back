@@ -33,6 +33,11 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    public Page<UserOrderDto> search(String text, String status, String date, int page, int size) {
+        return userOrderRepository.search(text, status, date, page, size);
+    }
+
+    @Override
     public UserOrderDto getById(Long id) {
         UserOrderDto userOrderDto = userOrderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("UserOrder not found"));

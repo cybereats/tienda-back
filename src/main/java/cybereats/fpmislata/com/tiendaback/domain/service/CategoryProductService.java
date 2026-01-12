@@ -2,11 +2,14 @@ package cybereats.fpmislata.com.tiendaback.domain.service;
 
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryProductDto;
 
+import java.util.List;
 import java.util.Optional;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 
 public interface CategoryProductService {
+
+    List<CategoryProductDto> findAll();
 
     Page<CategoryProductDto> findAll(int page, int size);
 

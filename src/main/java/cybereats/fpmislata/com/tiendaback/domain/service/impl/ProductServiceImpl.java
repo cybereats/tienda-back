@@ -1,6 +1,8 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.mapper.ProductMapper;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
+import cybereats.fpmislata.com.tiendaback.domain.model.Product;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ProductRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.ProductService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ProductDto;
@@ -41,13 +43,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<ProductDto> search(String text, String category, int page, int size) {
+        return productRepository.search(text, category, page, size);
+    }
+
+    @Override
     @Transactional
     public ProductDto create(ProductDto productDto) {
         Optional<ProductDto> productDtoOptional = productRepository.findBySlug(productDto.slug());
         if (productDtoOptional.isPresent()) {
             throw new BusinessException("Product already exists");
         }
-        return productRepository.save(productDto);
+        Product product = ProductMapper.getInstance().fromProductDtoToProduct(productDto);
+        return productRepository.save(ProductMapper.getInstance().fromProductToProductDto(product));
     }
 
     @Override
@@ -57,7 +65,8 @@ public class ProductServiceImpl implements ProductService {
         if (productDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("Product not found");
         }
-        return productRepository.save(productDto);
+        Product product = ProductMapper.getInstance().fromProductDtoToProduct(productDto);
+        return productRepository.save(ProductMapper.getInstance().fromProductToProductDto(product));
     }
 
     @Override

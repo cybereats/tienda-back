@@ -16,6 +16,12 @@ public class CategoryProductJpaDaoImpl implements CategoryProductJpaDao {
     private EntityManager entityManager;
 
     @Override
+    public List<CategoryProductJpaEntity> findAll() {
+        String sql = "SELECT c FROM CategoryProductJpaEntity c ORDER BY c.id";
+        return entityManager.createQuery(sql, CategoryProductJpaEntity.class).getResultList();
+    }
+
+    @Override
     public List<CategoryProductJpaEntity> findAll(int page, int size) {
         int pageIndex = Math.max(page - 1, 0);
 

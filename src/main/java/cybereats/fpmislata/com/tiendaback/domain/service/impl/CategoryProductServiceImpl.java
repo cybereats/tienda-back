@@ -8,6 +8,7 @@ import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public class CategoryProductServiceImpl implements CategoryProductService {
@@ -15,6 +16,11 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 
     public CategoryProductServiceImpl(CategoryProductRepository categoryProductRepository) {
         this.categoryProductRepository = categoryProductRepository;
+    }
+
+    @Override
+    public List<CategoryProductDto> findAll() {
+        return categoryProductRepository.findAll();
     }
 
     @Override

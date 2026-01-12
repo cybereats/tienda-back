@@ -36,7 +36,7 @@ public class PCRepositoryImpl implements PCRepository {
     public PCDto save(PCDto pcDto) {
         PCJpaEntity pcJpaEntity = PCMapper.getInstance().fromPCDtoToPCJpaEntity(pcDto);
 
-        if(pcDto.id() == null) {
+        if (pcDto.id() == null) {
             return PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaDao.insert(pcJpaEntity));
         }
 
@@ -57,6 +57,15 @@ public class PCRepositoryImpl implements PCRepository {
     public Optional<PCDto> findBySlug(String slug) {
         return pcJpaDao.findBySlug(slug)
                 .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity));
+    }
+
+    @Override
+    public Page<PCDto> search(String text, String category, int page, int size) {
+        List<PCDto> content = pcJpaDao.search(text, category, page, size).stream()
+                .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity))
+                .toList();
+        long totalElements = pcJpaDao.countSearch(text, category);
+        return new Page<>(content, page, size, totalElements);
     }
 
     @Override

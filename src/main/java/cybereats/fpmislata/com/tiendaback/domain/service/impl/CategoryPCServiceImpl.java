@@ -1,5 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.mapper.CategoryPCMapper;
+import cybereats.fpmislata.com.tiendaback.domain.model.CategoryPC;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.CategoryPCRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.CategoryPCService;
@@ -7,6 +9,8 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 public class CategoryPCServiceImpl implements CategoryPCService {
@@ -14,6 +18,11 @@ public class CategoryPCServiceImpl implements CategoryPCService {
 
     public CategoryPCServiceImpl(CategoryPCRepository categoryPCRepository) {
         this.categoryPCRepository = categoryPCRepository;
+    }
+
+    @Override
+    public List<CategoryPCDto> findAll() {
+        return categoryPCRepository.findAll();
     }
 
     @Override
@@ -45,7 +54,9 @@ public class CategoryPCServiceImpl implements CategoryPCService {
         if (categoryPCDtoOptional.isPresent()) {
             throw new BusinessException("CategoryPC already exists");
         }
-        return categoryPCRepository.save(categoryPCDto);
+
+        CategoryPC categoryPC = CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPC(categoryPCDto);
+        return categoryPCRepository.save(CategoryPCMapper.getInstance().fromCategoryPCToCategoryPCDto(categoryPC));
     }
 
     @Override
@@ -66,7 +77,9 @@ public class CategoryPCServiceImpl implements CategoryPCService {
         if (categoryPCDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("CategoryPC not found");
         }
-        return categoryPCRepository.save(categoryPCDto);
+
+        CategoryPC categoryPC = CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPC(categoryPCDto);
+        return categoryPCRepository.save(CategoryPCMapper.getInstance().fromCategoryPCToCategoryPCDto(categoryPC));
     }
 
     @Override

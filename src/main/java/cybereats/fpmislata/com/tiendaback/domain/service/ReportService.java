@@ -1,6 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.domain.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
@@ -12,6 +13,10 @@ public interface ReportService {
     ReportDto update(ReportDto reportDto);
 
     Page<ReportDto> findAll(int page, int size);
+
+    Map<String, Long> countReportsByStatus();
+
+    Page<ReportDto> search(String text, String status, String date, int page, int size);
 
     List<ReportDto> findByUserId(Long userId);
 
