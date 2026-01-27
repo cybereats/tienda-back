@@ -28,6 +28,7 @@ public class ProductMapper {
                 productRequest.slug(),
                 productRequest.description(),
                 productRequest.price(),
+                productRequest.image(),
                 CategoryProductMapper.getInstance()
                         .fromCategoryProductRequestToCategoryProductDto(productRequest.category()));
     }
@@ -43,6 +44,7 @@ public class ProductMapper {
                 productDto.slug(),
                 productDto.description(),
                 productDto.price(),
+                productDto.image(),
                 CategoryProductMapper.getInstance()
                         .fromCategoryProductDtoToCategoryProductResponse(productDto.category()));
     }

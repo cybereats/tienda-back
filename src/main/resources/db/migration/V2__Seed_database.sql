@@ -19,12 +19,12 @@ INSERT IGNORE INTO category_product (label, slug) VALUES
 -- ============================
 -- TABLE: product
 -- ============================
-INSERT IGNORE INTO product (label, slug, description, price, category_product_id) VALUES
-                                                                          ('Teclado Mecánico', 'teclado-mecanico', 'Teclado con switches rojos.', 49.90, 1),
-                                                                          ('Ratón Gaming', 'raton-gaming', 'Ratón RGB de alta precisión.', 29.90, 1),
-                                                                          ('Tarjeta Gráfica GTX 1660', 'gtx-1660', 'GeForce GTX 1660 6GB.', 229.00, 2),
-                                                                          ('Memoria RAM 16GB', 'ram-16gb', 'DDR4 3200MHz.', 69.90, 2),
-                                                                          ('Alfombrilla XXL', 'alfombrilla-xxl', 'Alfombrilla gaming extendida.', 12.99, 3);
+INSERT IGNORE INTO product (label, slug, description, price, image, category_product_id) VALUES
+                                                                          ('Teclado Mecánico', 'teclado-mecanico', 'Teclado con switches rojos.', 49.90, 'burger-1.png', 1),
+                                                                          ('Ratón Gaming', 'raton-gaming', 'Ratón RGB de alta precisión.', 29.90, 'burger-1.png', 1),
+                                                                          ('Tarjeta Gráfica GTX 1660', 'gtx-1660', 'GeForce GTX 1660 6GB.', 229.00, 'burger-1.png', 2),
+                                                                          ('Memoria RAM 16GB', 'ram-16gb', 'DDR4 3200MHz.', 69.90, 'burger-1.png', 2),
+                                                                          ('Alfombrilla XXL', 'alfombrilla-xxl', 'Alfombrilla gaming extendida.', 12.99, 'burger-1.png', 3);
 
 -- ============================
 -- TABLE: log
@@ -40,22 +40,25 @@ INSERT IGNORE INTO log (info, timestamp) VALUES
 -- TABLE: category_pc
 -- ============================
 
-INSERT INTO category_pc (label, slug, price) VALUES
+INSERT IGNORE INTO category_pc (label, slug, price) VALUES
                                            ('Básico', 'basico', 2.50),
                                            ('Gaming', 'gaming', 5.00),
                                            ('Streaming', 'streaming', 7.00),
-                                           ('Edición de Video', 'edicion-de-video', 6.50);
+                                           ('Edición de Video', 'edicion-de-video', 6.50),
+                                           ('VIP', 'vip', 15.00),
+                                           ('Workstation', 'workstation', 10.00),
+                                           ('Esports', 'esports', 8.00);
 
 
 -- ============================
 -- TABLE: pc
 -- ============================
-INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, category_pc_id) VALUES
-                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 'pc-gamer-1.jpg', 2),
-                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 'pc-gamer-2.jpg', 2),
-                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 'pc-stream-1.jpg', 3),
-                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 'pc-basic-1.jpg', 1),
-                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 'pc-edit-1.jpg', 4);
+INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 'pc-1.png', 'AVAILABLE', 2),
+                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 'pc-1.png', 'AVAILABLE', 2),
+                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 'pc-1.png', 'AVAILABLE', 3),
+                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 'pc-1.png', 'AVAILABLE', 1),
+                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 'pc-1.png', 'AVAILABLE', 4);
 
 -- ============================
 -- TABLE: booking
@@ -218,17 +221,17 @@ INSERT IGNORE INTO category_product (label, slug) VALUES
 -- ============================
 -- 50 Additional Products
 -- ============================
-INSERT IGNORE INTO product (label, slug, description, price, category_product_id) VALUES
-('Product 6', 'product-6', 'Desc 6', 99.99, 1), ('Product 7', 'product-7', 'Desc 7', 89.99, 2), ('Product 8', 'product-8', 'Desc 8', 79.99, 3), ('Product 9', 'product-9', 'Desc 9', 69.99, 4), ('Product 10', 'product-10', 'Desc 10', 59.99, 5),
-('Product 11', 'product-11', 'Desc 11', 49.99, 1), ('Product 12', 'product-12', 'Desc 12', 39.99, 2), ('Product 13', 'product-13', 'Desc 13', 29.99, 3), ('Product 14', 'product-14', 'Desc 14', 19.99, 4), ('Product 15', 'product-15', 'Desc 15', 109.99, 5),
-('Product 16', 'product-16', 'Desc 16', 119.99, 1), ('Product 17', 'product-17', 'Desc 17', 129.99, 2), ('Product 18', 'product-18', 'Desc 18', 139.99, 3), ('Product 19', 'product-19', 'Desc 19', 149.99, 4), ('Product 20', 'product-20', 'Desc 20', 159.99, 5),
-('Product 21', 'product-21', 'Desc 21', 169.99, 6), ('Product 22', 'product-22', 'Desc 22', 179.99, 7), ('Product 23', 'product-23', 'Desc 23', 189.99, 8), ('Product 24', 'product-24', 'Desc 24', 199.99, 9), ('Product 25', 'product-25', 'Desc 25', 209.99, 10),
-('Product 26', 'product-26', 'Desc 26', 219.99, 11), ('Product 27', 'product-27', 'Desc 27', 229.99, 12), ('Product 28', 'product-28', 'Desc 28', 239.99, 13), ('Product 29', 'product-29', 'Desc 29', 249.99, 14), ('Product 30', 'product-30', 'Desc 30', 259.99, 15),
-('Product 31', 'product-31', 'Desc 31', 269.99, 16), ('Product 32', 'product-32', 'Desc 32', 279.99, 17), ('Product 33', 'product-33', 'Desc 33', 289.99, 18), ('Product 34', 'product-34', 'Desc 34', 299.99, 19), ('Product 35', 'product-35', 'Desc 35', 309.99, 20),
-('Product 36', 'product-36', 'Desc 36', 319.99, 21), ('Product 37', 'product-37', 'Desc 37', 329.99, 22), ('Product 38', 'product-38', 'Desc 38', 339.99, 23), ('Product 39', 'product-39', 'Desc 39', 349.99, 24), ('Product 40', 'product-40', 'Desc 40', 359.99, 25),
-('Product 41', 'product-41', 'Desc 41', 369.99, 26), ('Product 42', 'product-42', 'Desc 42', 379.99, 27), ('Product 43', 'product-43', 'Desc 43', 389.99, 28), ('Product 44', 'product-44', 'Desc 44', 399.99, 29), ('Product 45', 'product-45', 'Desc 45', 409.99, 30),
-('Product 46', 'product-46', 'Desc 46', 419.99, 31), ('Product 47', 'product-47', 'Desc 47', 429.99, 32), ('Product 48', 'product-48', 'Desc 48', 439.99, 33), ('Product 49', 'product-49', 'Desc 49', 449.99, 34), ('Product 50', 'product-50', 'Desc 50', 459.99, 35),
-('Product 51', 'product-51', 'Desc 51', 469.99, 36), ('Product 52', 'product-52', 'Desc 52', 479.99, 37), ('Product 53', 'product-53', 'Desc 53', 489.99, 38), ('Product 54', 'product-54', 'Desc 54', 499.99, 39), ('Product 55', 'product-55', 'Desc 55', 509.99, 40);
+INSERT IGNORE INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Product 6', 'product-6', 'Desc 6', 99.99, 'burger-1.png', 1), ('Product 7', 'product-7', 'Desc 7', 89.99, 'burger-1.png', 2), ('Product 8', 'product-8', 'Desc 8', 79.99, 'burger-1.png', 3), ('Product 9', 'product-9', 'Desc 9', 69.99, 'burger-1.png', 4), ('Product 10', 'product-10', 'Desc 10', 59.99, 'burger-1.png', 5),
+('Product 11', 'product-11', 'Desc 11', 49.99, 'burger-1.png', 1), ('Product 12', 'product-12', 'Desc 12', 39.99, 'burger-1.png', 2), ('Product 13', 'product-13', 'Desc 13', 29.99, 'burger-1.png', 3), ('Product 14', 'product-14', 'Desc 14', 19.99, 'burger-1.png', 4), ('Product 15', 'product-15', 'Desc 15', 109.99, 'burger-1.png', 5),
+('Product 16', 'product-16', 'Desc 16', 119.99, 'burger-1.png', 1), ('Product 17', 'product-17', 'Desc 17', 129.99, 'burger-1.png', 2), ('Product 18', 'product-18', 'Desc 18', 139.99, 'burger-1.png', 3), ('Product 19', 'product-19', 'Desc 19', 149.99, 'burger-1.png', 4), ('Product 20', 'product-20', 'Desc 20', 159.99, 'burger-1.png', 5),
+('Product 21', 'product-21', 'Desc 21', 169.99, 'burger-1.png', 6), ('Product 22', 'product-22', 'Desc 22', 179.99, 'burger-1.png', 7), ('Product 23', 'product-23', 'Desc 23', 189.99, 'burger-1.png', 8), ('Product 24', 'product-24', 'Desc 24', 199.99, 'burger-1.png', 9), ('Product 25', 'product-25', 'Desc 25', 209.99, 'burger-1.png', 10),
+('Product 26', 'product-26', 'Desc 26', 219.99, 'burger-1.png', 11), ('Product 27', 'product-27', 'Desc 27', 229.99, 'burger-1.png', 12), ('Product 28', 'product-28', 'Desc 28', 239.99, 'burger-1.png', 13), ('Product 29', 'product-29', 'Desc 29', 249.99, 'burger-1.png', 14), ('Product 30', 'product-30', 'Desc 30', 259.99, 'burger-1.png', 15),
+('Product 31', 'product-31', 'Desc 31', 269.99, 'burger-1.png', 16), ('Product 32', 'product-32', 'Desc 32', 279.99, 'burger-1.png', 17), ('Product 33', 'product-33', 'Desc 33', 289.99, 'burger-1.png', 18), ('Product 34', 'product-34', 'Desc 34', 299.99, 'burger-1.png', 19), ('Product 35', 'product-35', 'Desc 35', 309.99, 'burger-1.png', 20),
+('Product 36', 'product-36', 'Desc 36', 319.99, 'burger-1.png', 21), ('Product 37', 'product-37', 'Desc 37', 329.99, 'burger-1.png', 22), ('Product 38', 'product-38', 'Desc 38', 339.99, 'burger-1.png', 23), ('Product 39', 'product-39', 'Desc 39', 349.99, 'burger-1.png', 24), ('Product 40', 'product-40', 'Desc 40', 359.99, 'burger-1.png', 25),
+('Product 41', 'product-41', 'Desc 41', 369.99, 'burger-1.png', 26), ('Product 42', 'product-42', 'Desc 42', 379.99, 'burger-1.png', 27), ('Product 43', 'product-43', 'Desc 43', 389.99, 'burger-1.png', 28), ('Product 44', 'product-44', 'Desc 44', 399.99, 'burger-1.png', 29), ('Product 45', 'product-45', 'Desc 45', 409.99, 'burger-1.png', 30),
+('Product 46', 'product-46', 'Desc 46', 419.99, 'burger-1.png', 31), ('Product 47', 'product-47', 'Desc 47', 429.99, 'burger-1.png', 32), ('Product 48', 'product-48', 'Desc 48', 439.99, 'burger-1.png', 33), ('Product 49', 'product-49', 'Desc 49', 449.99, 'burger-1.png', 34), ('Product 50', 'product-50', 'Desc 50', 459.99, 'burger-1.png', 35),
+('Product 51', 'product-51', 'Desc 51', 469.99, 'burger-1.png', 36), ('Product 52', 'product-52', 'Desc 52', 479.99, 'burger-1.png', 37), ('Product 53', 'product-53', 'Desc 53', 489.99, 'burger-1.png', 38), ('Product 54', 'product-54', 'Desc 54', 499.99, 'burger-1.png', 39), ('Product 55', 'product-55', 'Desc 55', 509.99, 'burger-1.png', 40);
 
 -- ============================
 -- 50 Additional Logs
@@ -245,34 +248,22 @@ INSERT IGNORE INTO log (info, timestamp) VALUES
 ('Action 46', '2025-02-19 02:00:00'), ('Action 47', '2025-02-20 03:00:00'), ('Action 48', '2025-02-21 04:00:00'), ('Action 49', '2025-02-22 05:00:00'), ('Action 50', '2025-02-23 06:00:00'),
 ('Action 51', '2025-02-24 07:00:00'), ('Action 52', '2025-02-25 08:00:00'), ('Action 53', '2025-02-26 09:00:00'), ('Action 54', '2025-02-27 10:00:00'), ('Action 55', '2025-02-28 11:00:00');
 
--- ============================
--- 50 Additional PC Categories
--- ============================
-INSERT INTO category_pc (label, slug, price) VALUES
-('Workstation', 'workstation', 8.50), ('Home Office', 'home-office', 3.00), ('Laptop High-End', 'laptop-high-end', 4.50), ('Entry Gaming', 'entry-gaming', 4.00),
-('PC Cat 9', 'pcc-9', 5.50), ('PC Cat 10', 'pcc-10', 6.00), ('PC Cat 11', 'pcc-11', 6.50), ('PC Cat 12', 'pcc-12', 7.00), ('PC Cat 13', 'pcc-13', 7.50), ('PC Cat 14', 'pcc-14', 8.00),
-('PC Cat 15', 'pcc-15', 8.50), ('PC Cat 16', 'pcc-16', 9.00), ('PC Cat 17', 'pcc-17', 9.50), ('PC Cat 18', 'pcc-18', 10.00), ('PC Cat 19', 'pcc-19', 10.50), ('PC Cat 20', 'pcc-20', 11.00),
-('PC Cat 21', 'pcc-21', 11.50), ('PC Cat 22', 'pcc-22', 12.00), ('PC Cat 23', 'pcc-23', 12.50), ('PC Cat 24', 'pcc-24', 13.00), ('PC Cat 25', 'pcc-25', 13.50), ('PC Cat 26', 'pcc-26', 14.00),
-('PC Cat 27', 'pcc-27', 14.50), ('PC Cat 28', 'pcc-28', 15.00), ('PC Cat 29', 'pcc-29', 15.50), ('PC Cat 30', 'pcc-30', 16.00), ('PC Cat 31', 'pcc-31', 16.50), ('PC Cat 32', 'pcc-32', 17.00),
-('PC Cat 33', 'pcc-33', 17.50), ('PC Cat 34', 'pcc-34', 18.00), ('PC Cat 35', 'pcc-35', 18.50), ('PC Cat 36', 'pcc-36', 19.00), ('PC Cat 37', 'pcc-37', 19.50), ('PC Cat 38', 'pcc-38', 20.00),
-('PC Cat 39', 'pcc-39', 20.50), ('PC Cat 40', 'pcc-40', 21.00), ('PC Cat 41', 'pcc-41', 21.50), ('PC Cat 42', 'pcc-42', 22.00), ('PC Cat 43', 'pcc-43', 22.50), ('PC Cat 44', 'pcc-44', 23.00),
-('PC Cat 45', 'pcc-45', 23.50), ('PC Cat 46', 'pcc-46', 24.00), ('PC Cat 47', 'pcc-47', 24.50), ('PC Cat 48', 'pcc-48', 25.00), ('PC Cat 49', 'pcc-49', 25.50), ('PC Cat 50', 'pcc-50', 26.00),
-('PC Cat 51', 'pcc-51', 26.50), ('PC Cat 52', 'pcc-52', 27.00), ('PC Cat 53', 'pcc-53', 27.50), ('PC Cat 54', 'pcc-54', 28.00);
+
 
 -- ============================
 -- 50 Additional PCs
 -- ============================
-INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, category_pc_id) VALUES
-('PC 6', 'pc-6', '10', 'i7, 32GB RAM', '2023-01-01', 'pc-6.jpg', 1), ('PC 7', 'pc-7', '12', 'i9, 64GB RAM', '2023-01-02', 'pc-7.jpg', 2), ('PC 8', 'pc-8', '8', 'Ryzen 7, 16GB RAM', '2023-01-03', 'pc-8.jpg', 3), ('PC 9', 'pc-9', '15', 'Ryzen 5, 16GB RAM', '2023-01-04', 'pc-9.jpg', 4), ('PC 10', 'pc-10', '20', 'i5, 8GB RAM', '2023-01-05', 'pc-10.jpg', 5),
-('PC 11', 'pc-11', '10', 'Specs 11', '2023-01-06', 'pc-11.jpg', 1), ('PC 12', 'pc-12', '12', 'Specs 12', '2023-01-07', 'pc-12.jpg', 2), ('PC 13', 'pc-13', '8', 'Specs 13', '2023-01-08', 'pc-13.jpg', 3), ('PC 14', 'pc-14', '15', 'Specs 14', '2023-01-09', 'pc-14.jpg', 4), ('PC 15', 'pc-15', '20', 'Specs 15', '2023-01-10', 'pc-15.jpg', 5),
-('PC 16', 'pc-16', '10', 'Specs 16', '2023-01-11', 'pc-16.jpg', 6), ('PC 17', 'pc-17', '12', 'Specs 17', '2023-01-12', 'pc-17.jpg', 7), ('PC 18', 'pc-18', '8', 'Specs 18', '2023-01-13', 'pc-18.jpg', 8), ('PC 19', 'pc-19', '15', 'Specs 19', '2023-01-14', 'pc-19.jpg', 9), ('PC 20', 'pc-20', '20', 'Specs 20', '2023-01-15', 'pc-20.jpg', 10),
-('PC 21', 'pc-21', '10', 'Specs 21', '2023-01-16', 'pc-21.jpg', 11), ('PC 22', 'pc-22', '12', 'Specs 22', '2023-01-17', 'pc-22.jpg', 12), ('PC 23', 'pc-23', '8', 'Specs 23', '2023-01-18', 'pc-23.jpg', 13), ('PC 24', 'pc-24', '15', 'Specs 24', '2023-01-19', 'pc-24.jpg', 14), ('PC 25', 'pc-25', '20', 'Specs 25', '2023-01-20', 'pc-25.jpg', 15),
-('PC 26', 'pc-26', '10', 'Specs 26', '2023-01-21', 'pc-26.jpg', 16), ('PC 27', 'pc-27', '12', 'Specs 27', '2023-01-22', 'pc-27.jpg', 17), ('PC 28', 'pc-28', '8', 'Specs 28', '2023-01-23', 'pc-28.jpg', 18), ('PC 29', 'pc-29', '15', 'Specs 29', '2023-01-24', 'pc-29.jpg', 19), ('PC 30', 'pc-30', '20', 'Specs 30', '2023-01-25', 'pc-30.jpg', 20),
-('PC 31', 'pc-31', '10', 'Specs 31', '2023-01-26', 'pc-31.jpg', 21), ('PC 32', 'pc-32', '12', 'Specs 32', '2023-01-27', 'pc-32.jpg', 22), ('PC 33', 'pc-33', '8', 'Specs 33', '2023-01-28', 'pc-33.jpg', 23), ('PC 34', 'pc-34', '15', 'Specs 34', '2023-01-29', 'pc-34.jpg', 24), ('PC 35', 'pc-35', '20', 'Specs 35', '2023-01-30', 'pc-35.jpg', 25),
-('PC 36', 'pc-36', '10', 'Specs 36', '2023-01-31', 'pc-36.jpg', 26), ('PC 37', 'pc-37', '12', 'Specs 37', '2023-02-01', 'pc-37.jpg', 27), ('PC 38', 'pc-38', '8', 'Specs 38', '2023-02-02', 'pc-38.jpg', 28), ('PC 39', 'pc-39', '15', 'Specs 39', '2023-02-03', 'pc-39.jpg', 29), ('PC 40', 'pc-40', '20', 'Specs 40', '2023-02-04', 'pc-40.jpg', 30),
-('PC 41', 'pc-41', '10', 'Specs 41', '2023-02-05', 'pc-41.jpg', 31), ('PC 42', 'pc-42', '12', 'Specs 42', '2023-02-06', 'pc-42.jpg', 32), ('PC 43', 'pc-43', '8', 'Specs 43', '2023-02-07', 'pc-43.jpg', 33), ('PC 44', 'pc-44', '15', 'Specs 44', '2023-02-08', 'pc-44.jpg', 34), ('PC 45', 'pc-45', '20', 'Specs 45', '2023-02-09', 'pc-45.jpg', 35),
-('PC 46', 'pc-46', '10', 'Specs 46', '2023-02-10', 'pc-46.jpg', 36), ('PC 47', 'pc-47', '12', 'Specs 47', '2023-02-11', 'pc-47.jpg', 37), ('PC 48', 'pc-48', '8', 'Specs 48', '2023-02-12', 'pc-48.jpg', 38), ('PC 49', 'pc-49', '15', 'Specs 49', '2023-02-13', 'pc-49.jpg', 39), ('PC 50', 'pc-50', '20', 'Specs 50', '2023-02-14', 'pc-50.jpg', 40),
-('PC 51', 'pc-51', '10', 'Specs 51', '2023-02-15', 'pc-51.jpg', 41), ('PC 52', 'pc-52', '12', 'Specs 52', '2023-02-16', 'pc-52.jpg', 42), ('PC 53', 'pc-53', '8', 'Specs 53', '2023-02-17', 'pc-53.jpg', 43), ('PC 54', 'pc-54', '15', 'Specs 54', '2023-02-18', 'pc-54.jpg', 44), ('PC 55', 'pc-55', '20', 'Specs 55', '2023-02-19', 'pc-55.jpg', 45);
+INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('PC 6', 'pc-6', '10', 'i7, 32GB RAM', '2023-01-01', 'pc-1.png', 'AVAILABLE', 1), ('PC 7', 'pc-7', '12', 'i9, 64GB RAM', '2023-01-02', 'pc-1.png', 'AVAILABLE', 2), ('PC 8', 'pc-8', '8', 'Ryzen 7, 16GB RAM', '2023-01-03', 'pc-1.png', 'AVAILABLE', 3), ('PC 9', 'pc-9', '15', 'Ryzen 5, 16GB RAM', '2023-01-04', 'pc-1.png', 'AVAILABLE', 4), ('PC 10', 'pc-10', '20', 'i5, 8GB RAM', '2023-01-05', 'pc-1.png', 'AVAILABLE', 5),
+('PC 11', 'pc-11', '10', 'Specs 11', '2023-01-06', 'pc-1.png', 'AVAILABLE', 6), ('PC 12', 'pc-12', '12', 'Specs 12', '2023-01-07', 'pc-1.png', 'AVAILABLE', 7), ('PC 13', 'pc-13', '8', 'Specs 13', '2023-01-08', 'pc-1.png', 'AVAILABLE', 1), ('PC 14', 'pc-14', '15', 'Specs 14', '2023-01-09', 'pc-1.png', 'AVAILABLE', 2), ('PC 15', 'pc-15', '20', 'Specs 15', '2023-01-10', 'pc-1.png', 'AVAILABLE', 3),
+('PC 16', 'pc-16', '10', 'Specs 16', '2023-01-11', 'pc-1.png', 'AVAILABLE', 4), ('PC 17', 'pc-17', '12', 'Specs 17', '2023-01-12', 'pc-1.png', 'AVAILABLE', 5), ('PC 18', 'pc-18', '8', 'Specs 18', '2023-01-13', 'pc-1.png', 'AVAILABLE', 6), ('PC 19', 'pc-19', '15', 'Specs 19', '2023-01-14', 'pc-1.png', 'AVAILABLE', 7), ('PC 20', 'pc-20', '20', 'Specs 20', '2023-01-15', 'pc-1.png', 'AVAILABLE', 1),
+('PC 21', 'pc-21', '10', 'Specs 21', '2023-01-16', 'pc-1.png', 'AVAILABLE', 2), ('PC 22', 'pc-22', '12', 'Specs 22', '2023-01-17', 'pc-1.png', 'AVAILABLE', 3), ('PC 23', 'pc-23', '8', 'Specs 23', '2023-01-18', 'pc-1.png', 'AVAILABLE', 4), ('PC 24', 'pc-24', '15', 'Specs 24', '2023-01-19', 'pc-1.png', 'AVAILABLE', 5), ('PC 25', 'pc-25', '20', 'Specs 25', '2023-01-20', 'pc-1.png', 'AVAILABLE', 6),
+('PC 26', 'pc-26', '10', 'Specs 26', '2023-01-21', 'pc-1.png', 'AVAILABLE', 7), ('PC 27', 'pc-27', '12', 'Specs 27', '2023-01-22', 'pc-1.png', 'AVAILABLE', 1), ('PC 28', 'pc-28', '8', 'Specs 28', '2023-01-23', 'pc-1.png', 'AVAILABLE', 2), ('PC 29', 'pc-29', '15', 'Specs 29', '2023-01-24', 'pc-1.png', 'AVAILABLE', 3), ('PC 30', 'pc-30', '20', 'Specs 30', '2023-01-25', 'pc-1.png', 'AVAILABLE', 4),
+('PC 31', 'pc-31', '10', 'Specs 31', '2023-01-26', 'pc-1.png', 'AVAILABLE', 5), ('PC 32', 'pc-32', '12', 'Specs 32', '2023-01-27', 'pc-1.png', 'AVAILABLE', 6), ('PC 33', 'pc-33', '8', 'Specs 33', '2023-01-28', 'pc-1.png', 'AVAILABLE', 7), ('PC 34', 'pc-34', '15', 'Specs 34', '2023-01-29', 'pc-1.png', 'AVAILABLE', 1), ('PC 35', 'pc-35', '20', 'Specs 35', '2023-01-30', 'pc-1.png', 'AVAILABLE', 2),
+('PC 36', 'pc-36', '10', 'Specs 36', '2023-01-31', 'pc-1.png', 'AVAILABLE', 3), ('PC 37', 'pc-37', '12', 'Specs 37', '2023-02-01', 'pc-1.png', 'AVAILABLE', 4), ('PC 38', 'pc-38', '8', 'Specs 38', '2023-02-02', 'pc-1.png', 'AVAILABLE', 5), ('PC 39', 'pc-39', '15', 'Specs 39', '2023-02-03', 'pc-1.png', 'AVAILABLE', 6), ('PC 40', 'pc-40', '20', 'Specs 40', '2023-02-04', 'pc-1.png', 'AVAILABLE', 7),
+('PC 41', 'pc-41', '10', 'Specs 41', '2023-02-05', 'pc-1.png', 'AVAILABLE', 1), ('PC 42', 'pc-42', '12', 'Specs 42', '2023-02-06', 'pc-1.png', 'AVAILABLE', 2), ('PC 43', 'pc-43', '8', 'Specs 43', '2023-02-07', 'pc-1.png', 'AVAILABLE', 3), ('PC 44', 'pc-44', '15', 'Specs 44', '2023-02-08', 'pc-1.png', 'AVAILABLE', 4), ('PC 45', 'pc-45', '20', 'Specs 45', '2023-02-09', 'pc-1.png', 'AVAILABLE', 5),
+('PC 46', 'pc-46', '10', 'Specs 46', '2023-02-10', 'pc-1.png', 'AVAILABLE', 6), ('PC 47', 'pc-47', '12', 'Specs 47', '2023-02-11', 'pc-1.png', 'AVAILABLE', 7), ('PC 48', 'pc-48', '8', 'Specs 48', '2023-02-12', 'pc-1.png', 'AVAILABLE', 1), ('PC 49', 'pc-49', '15', 'Specs 49', '2023-02-13', 'pc-1.png', 'AVAILABLE', 2), ('PC 50', 'pc-50', '20', 'Specs 50', '2023-02-14', 'pc-1.png', 'AVAILABLE', 3),
+('PC 51', 'pc-51', '10', 'Specs 51', '2023-02-15', 'pc-1.png', 'AVAILABLE', 4), ('PC 52', 'pc-52', '12', 'Specs 52', '2023-02-16', 'pc-1.png', 'AVAILABLE', 5), ('PC 53', 'pc-53', '8', 'Specs 53', '2023-02-17', 'pc-1.png', 'AVAILABLE', 6), ('PC 54', 'pc-54', '15', 'Specs 54', '2023-02-18', 'pc-1.png', 'AVAILABLE', 7), ('PC 55', 'pc-55', '20', 'Specs 55', '2023-02-19', 'pc-1.png', 'AVAILABLE', 1);
 
 -- ============================
 -- 50 Additional User Orders

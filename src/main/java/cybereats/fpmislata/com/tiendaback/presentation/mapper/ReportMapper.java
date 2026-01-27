@@ -36,6 +36,6 @@ public class ReportMapper {
     }
 
     private static PCDto mapPC(Long id) {
-        return new PCDto(id, null, null, 0, null, null, null, null);
+        return new PCDto(id, null, null, 0, null, null, null, null, null);
     }
 }

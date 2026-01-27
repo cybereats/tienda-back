@@ -39,7 +39,7 @@ class OrderItemServiceImplTest {
     @BeforeEach
     void setUp() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
-        productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), categoryDto);
+        productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), "image.png", categoryDto);
         orderItemDto = new OrderItemDto(1L, productDto, 2);
     }
 

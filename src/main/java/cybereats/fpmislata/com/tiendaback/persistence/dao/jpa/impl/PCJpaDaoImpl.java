@@ -21,6 +21,12 @@ public class PCJpaDaoImpl implements PCJpaDao {
     private EntityManager entityManager;
 
     @Override
+    public List<PCJpaEntity> findAll() {
+        String sql = "SELECT b FROM PCJpaEntity b ORDER BY b.id";
+        return entityManager.createQuery(sql, PCJpaEntity.class).getResultList();
+    }
+
+    @Override
     public List<PCJpaEntity> findAll(int page, int size) {
         int pageIndex = Math.max(page - 1, 0);
 

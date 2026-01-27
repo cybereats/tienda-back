@@ -44,7 +44,7 @@ class StatsServiceImplTest {
   @BeforeEach
   void setUp() {
     CategoryProductDto category = new CategoryProductDto(1L, "Cat", "cat");
-    ProductDto product = new ProductDto(1L, "Test", "test", "desc", new BigDecimal("10.0"), category);
+    ProductDto product = new ProductDto(1L, "Test", "test", "desc", new BigDecimal("10.0"), "image.png", category);
     OrderItemDto item = new OrderItemDto(1L, product, 2);
     UserDto user = new UserDto(1L, "Name", "Surname", "email", "1990-01-01", "user", "pass", null);
     mockOrder = new UserOrderDto(1L, user, List.of(item), OrderStatus.CONFIRMED, LocalDateTime.now());

@@ -41,9 +41,9 @@ class ReportJpaDaoImplTest {
 
         expectedPcs = List.of(
                 new PCJpaEntity(3L, "PC Streaming 1", "pc-stream-1", 5, "Ryzen 7, Capture Card, 32GB RAM", "2023-01-20",
-                        "pc-stream-1.jpg", null),
+                        "pc-stream-1.jpg", "AVAILABLE", null),
                 new PCJpaEntity(4L, "PC Básico 1", "pc-basic-1", 20, "i3, Integrada, 8GB RAM", "2021-08-10",
-                        "pc-basic-1.jpg", null));
+                        "pc-basic-1.jpg", "AVAILABLE", null));
 
         expectedReports = List.of(
                 new ReportJpaEntity(1L, "3", "Pantalla parpadeando, la pantalla parpadea constantemente.",
@@ -138,7 +138,8 @@ class ReportJpaDaoImplTest {
         void shouldInsertReport() {
             UserJpaEntity user = new UserJpaEntity();
             user.setId(1L);
-            PCJpaEntity pc = new PCJpaEntity(1L, "label", "slug", 10, "specs", "2023-01-01", "image", null);
+            PCJpaEntity pc = new PCJpaEntity(1L, "label", "slug", 10, "specs", "2023-01-01", "image", "AVAILABLE",
+                    null);
 
             ReportJpaEntity newReport = new ReportJpaEntity(null, "1", "Desc", "Subject", "OPEN", "2025-01-01", user,
                     pc);

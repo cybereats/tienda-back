@@ -8,6 +8,7 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ReportJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserJpaEntity;
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -40,13 +41,14 @@ class ReportRepositoryImplTest {
     void setUp() {
         UserJpaEntity userEntity = new UserJpaEntity();
         userEntity.setId(1L);
-        PCJpaEntity pcEntity = new PCJpaEntity(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", null);
+        PCJpaEntity pcEntity = new PCJpaEntity(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", "AVAILABLE",
+                null);
 
         reportJpaEntity = new ReportJpaEntity(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userEntity,
                 pcEntity);
 
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password", null);
-        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", null);
+        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", PCStatus.AVAILABLE, null);
         reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
     }
 

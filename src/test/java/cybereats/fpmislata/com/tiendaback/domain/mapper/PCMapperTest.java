@@ -4,6 +4,7 @@ import cybereats.fpmislata.com.tiendaback.domain.model.CategoryPC;
 import cybereats.fpmislata.com.tiendaback.domain.model.PC;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,7 @@ class PCMapperTest {
                 .specs("Specs")
                 .workingSince("2020-01-01")
                 .image("image.png")
+                .status(PCStatus.AVAILABLE)
                 .categoryPC(category)
                 .build();
 
@@ -40,6 +42,7 @@ class PCMapperTest {
         assertEquals(pc.getSpecs(), dto.specs());
         assertEquals(pc.getWorkingSince(), dto.workingSince());
         assertEquals(pc.getImage(), dto.image());
+        assertEquals(pc.getStatus(), dto.status());
         assertEquals(pc.getCategoryPC().getId(), dto.categoryPCDto().id());
     }
 
@@ -47,7 +50,8 @@ class PCMapperTest {
     @DisplayName("Debería mapear de PCDto a PC")
     void shouldMapToDomain() {
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
-        PCDto dto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", categoryDto);
+        PCDto dto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", PCStatus.AVAILABLE,
+                categoryDto);
 
         PC pc = mapper.fromPCDtoToPC(dto);
 
@@ -59,6 +63,7 @@ class PCMapperTest {
         assertEquals(dto.specs(), pc.getSpecs());
         assertEquals(dto.workingSince(), pc.getWorkingSince());
         assertEquals(dto.image(), pc.getImage());
+        assertEquals(dto.status(), pc.getStatus());
         assertEquals(dto.categoryPCDto().id(), pc.getCategoryPC().getId());
     }
 

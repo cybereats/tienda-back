@@ -41,7 +41,7 @@ public class LogJpaDaoImpl implements LogJpaDao {
     @Override
     public LogJpaEntity update(LogJpaEntity jpaEntity) {
         LogJpaEntity managed = entityManager.find(LogJpaEntity.class, jpaEntity.getId());
-        if(managed == null) {
+        if (managed == null) {
             throw new ResourceNotFoundException("Log with id " + jpaEntity.getId() + " not found");
         }
         entityManager.flush();

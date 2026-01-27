@@ -20,7 +20,7 @@ class ProductMapperTest {
     void shouldMapEntityToDto() {
         CategoryProductJpaEntity categoryEntity = new CategoryProductJpaEntity(1L, "Category", "category");
         ProductJpaEntity entity = new ProductJpaEntity(1L, "Product 1", "product-1", "Description",
-                new BigDecimal("10.00"), categoryEntity);
+                new BigDecimal("10.00"), "image.png", categoryEntity);
 
         ProductDto dto = mapper.fromProductJpaEntityToProductDto(entity);
 
@@ -38,6 +38,7 @@ class ProductMapperTest {
     void shouldMapDtoToEntity() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto dto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
 
         ProductJpaEntity entity = mapper.fromProductDtoToProductJpaEntity(dto);

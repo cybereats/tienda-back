@@ -51,11 +51,12 @@ class ProductControllerTest {
     void setUp() {
         CategoryProductDto catDto = new CategoryProductDto(1L, "Hamburguesas", "hamburguesas");
         productDto = new ProductDto(1L, "Teclado Mecánico", "teclado-mecanico", "Description", new BigDecimal("49.90"),
+                "image.png",
                 catDto);
 
         CategoryProductRequest catReq = new CategoryProductRequest(1L, "Hamburguesas", "hamburguesas");
         productRequest = new ProductRequest(1L, "Teclado Mecánico", "teclado-mecanico", "Description",
-                new BigDecimal("49.90"), catReq);
+                new BigDecimal("49.90"), "image.png", catReq);
 
         User adminUser = new User.Builder().id(1L).role(UserRole.ADMIN).build();
         User clientUser = new User.Builder().id(2L).role(UserRole.CLIENT).build();
@@ -139,7 +140,7 @@ class ProductControllerTest {
         @Test
         @DisplayName("Debería devolver 400 cuando los datos son inválidos")
         void shouldReturn400WhenInvalidData() throws Exception {
-            ProductRequest invalidRequest = new ProductRequest(null, null, "", null, null, null);
+            ProductRequest invalidRequest = new ProductRequest(null, null, "", null, null, null, null);
 
             mockMvc.perform(post("/api/products")
                     .header("Authorization", "Bearer " + adminToken)

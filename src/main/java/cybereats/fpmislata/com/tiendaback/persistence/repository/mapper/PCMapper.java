@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity;
 
@@ -29,6 +30,7 @@ public class PCMapper {
                 pcJpaEntity.getSpecs(),
                 pcJpaEntity.getWorkingSince(),
                 pcJpaEntity.getImage(),
+                PCStatus.fromString(pcJpaEntity.getStatus()),
                 CategoryPCMapper.getInstance().fromCategoryPCJpaEntityToCategoryPCDto(pcJpaEntity.getCategory()));
     }
 
@@ -45,6 +47,7 @@ public class PCMapper {
                 pcDto.specs(),
                 pcDto.workingSince(),
                 pcDto.image(),
+                pcDto.status() != null ? pcDto.status().name() : null,
                 CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCJpaEntity(pcDto.categoryPCDto()));
     }
 }

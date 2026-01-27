@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.dto;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
@@ -11,5 +12,6 @@ public record PCDto(
         @NotNull String specs,
         @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "El formato debe ser YYYY-MM-DD") String workingSince,
         String image,
+        PCStatus status,
         @NotNull CategoryPCDto categoryPCDto) {
 }

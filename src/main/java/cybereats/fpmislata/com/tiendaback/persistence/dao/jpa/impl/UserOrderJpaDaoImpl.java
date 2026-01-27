@@ -1,4 +1,4 @@
-package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+﻿package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.UserOrderJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserOrderJpaEntity;
@@ -116,7 +116,6 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
                 OrderStatus orderStatus = OrderStatus.valueOf(status.toUpperCase());
                 predicates.add(cb.equal(root.get("status"), orderStatus));
             } catch (IllegalArgumentException e) {
-                // Ignore invalid status
             }
         }
 

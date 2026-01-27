@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ReportRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +30,9 @@ class ReportServiceImplTest {
 
     @Mock
     private ReportRepository reportRepository;
+
+    @Mock
+    private cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository pcRepository;
 
     @InjectMocks
     private ReportServiceImpl reportService;
@@ -37,7 +42,8 @@ class ReportServiceImplTest {
     @BeforeEach
     void setUp() {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password", null);
-        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", null);
+        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image",
+                cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, null);
         reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
     }
 
@@ -97,6 +103,19 @@ class ReportServiceImplTest {
 
             assertNotNull(result);
             verify(reportRepository, times(1)).save(any(ReportDto.class));
+        }
+
+        @Test
+        @DisplayName("Debería actualizar el estado del PC a MAINTENANCE si el reporte pasa a IN_PROGRESS")
+        void shouldUpdatePCStatusToMaintenanceOnInProgress() {
+            ReportDto inProgressReport = new ReportDto(1L, "1", "Desc", "Sub", "IN_PROGRESS", "2025-01-01",
+                    reportDto.user(), reportDto.pc());
+            when(reportRepository.findById(1L)).thenReturn(Optional.of(reportDto));
+            when(reportRepository.save(any(ReportDto.class))).thenReturn(inProgressReport);
+
+            reportService.update(inProgressReport);
+
+            verify(pcRepository, times(1)).save(argThat(pc -> pc.status() == PCStatus.MAINTENANCE));
         }
 
         @Test

@@ -24,11 +24,10 @@ public class OrderItemMapper {
         return new OrderItemResponse(
                 orderItemDto.id(),
                 ProductMapper.getInstance().fromProductDtoToProductResponse(orderItemDto.product()),
-                orderItemDto.quantity()
-        );
+                orderItemDto.quantity());
     }
 
     public static ProductDto mapProduct(Long id) {
-        return new ProductDto(id, null, null, null, null, null);
+        return new ProductDto(id, null, null, null, null, null, null);
     }
 }

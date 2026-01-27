@@ -8,6 +8,7 @@ import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public class PCServiceImpl implements PCService {
@@ -15,6 +16,11 @@ public class PCServiceImpl implements PCService {
 
     public PCServiceImpl(PCRepository pcRepository) {
         this.pcRepository = pcRepository;
+    }
+
+    @Override
+    public List<PCDto> findAll() {
+        return pcRepository.findAll();
     }
 
     @Override

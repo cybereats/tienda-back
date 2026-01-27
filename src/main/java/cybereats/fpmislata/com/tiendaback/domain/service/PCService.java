@@ -3,9 +3,12 @@ package cybereats.fpmislata.com.tiendaback.domain.service;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PCService {
+    List<PCDto> findAll();
+
     Page<PCDto> findAll(int page, int size);
 
     PCDto getBySlug(String slug);

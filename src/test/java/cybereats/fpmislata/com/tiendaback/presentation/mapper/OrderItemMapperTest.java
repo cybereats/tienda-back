@@ -19,6 +19,7 @@ class OrderItemMapperTest {
     void shouldMapDtoToRequest() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto productDto = new ProductDto(1L, "Product", "product", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
         OrderItemDto dto = new OrderItemDto(1L, productDto, 5);
 
@@ -48,6 +49,7 @@ class OrderItemMapperTest {
     void shouldMapDtoToResponse() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto productDto = new ProductDto(1L, "Product", "product", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
         OrderItemDto dto = new OrderItemDto(1L, productDto, 5);
 

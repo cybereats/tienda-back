@@ -18,125 +18,124 @@ import java.time.LocalDateTime;
 
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthRepository authRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+        private final AuthRepository authRepository;
+        private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(AuthRepository authRepository) {
-        this.authRepository = authRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
-
-    @Override
-    public User getUsuarioFromToken(Token token) {
-        if (!JwtUtil.validateToken(token.getToken())) {
-            throw new BusinessException("Invalid or expired token");
+        public AuthServiceImpl(AuthRepository authRepository) {
+                this.authRepository = authRepository;
+                this.passwordEncoder = new BCryptPasswordEncoder();
         }
 
-        Long userId = JwtUtil.extractUserId(token.getToken());
+        @Override
+        public User getUsuarioFromToken(Token token) {
+                if (!JwtUtil.validateToken(token.getToken())) {
+                        throw new BusinessException("Invalid or expired token");
+                }
 
-        return authRepository.findById(userId)
-                .map(userDto -> new User.Builder()
-                        .id(userDto.id())
-                        .name(userDto.name())
-                        .username(userDto.username())
-                        .role(userDto.role())
-                        .build())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-    }
+                Long userId = JwtUtil.extractUserId(token.getToken());
 
-    @Override
-    public Token createTokenFromUser(User user) {
-        String tokenString = JwtUtil.generateToken(user);
-        LocalDateTime expiresAt = JwtUtil.getExpirationTime();
-
-        return TokenMapper.getInstance().fromStringToToken(tokenString, expiresAt);
-    }
-
-    @Override
-    public AuthResponseDto login(LoginRequestDto request) {
-        UserDto userDto = authRepository.findByUsername(request.username())
-                .orElseThrow(() -> new ResourceNotFoundException("Invalid username or password"));
-
-        if (!passwordEncoder.matches(request.password(), userDto.password())) {
-            throw new BusinessException("Invalid username or password");
+                return authRepository.findById(userId)
+                                .map(userDto -> new User.Builder()
+                                                .id(userDto.id())
+                                                .name(userDto.name())
+                                                .username(userDto.username())
+                                                .role(userDto.role())
+                                                .build())
+                                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         }
 
-        User user = new User.Builder()
-                .id(userDto.id())
-                .name(userDto.name())
-                .surname(userDto.surname())
-                .bornDate(userDto.bornDate())
-                .username(userDto.username())
-                .password(userDto.password())
-                .role(userDto.role())
-                .build();
+        @Override
+        public Token createTokenFromUser(User user) {
+                String tokenString = JwtUtil.generateToken(user);
+                LocalDateTime expiresAt = JwtUtil.getExpirationTime();
 
-        Token token = createTokenFromUser(user);
-
-        UserDto userResponse = new UserDto(
-                userDto.id(),
-                userDto.name(),
-                userDto.surname(),
-                userDto.email(),
-                userDto.bornDate(),
-                userDto.username(),
-                null,
-                userDto.role()
-        );
-
-        return new AuthResponseDto(
-                token.getToken(),
-                token.getExpiresAt(),
-                userResponse
-        );
-    }
-
-    @Override
-    public AuthResponseDto register(RegisterRequestDto request) {
-        if (authRepository.existsByUsername(request.username())) {
-            throw new BusinessException("Username already exists");
+                return TokenMapper.getInstance().fromStringToToken(tokenString, expiresAt);
         }
 
-        UserDto newUser = new UserDto(
-                null,
-                request.name(),
-                request.surname(),
-                request.email(),
-                request.bornDate(),
-                request.username(),
-                request.password(),
-                request.role()
-        );
+        @Override
+        public AuthResponseDto login(LoginRequestDto request) {
+                UserDto userDto = authRepository.findByUsernameOrEmail(request.username())
+                                .orElseThrow(() -> new ResourceNotFoundException("Invalid username or password"));
 
-        UserDto savedUser = authRepository.register(newUser);
+                if (!passwordEncoder.matches(request.password(), userDto.password())) {
+                        throw new BusinessException("Invalid username or password");
+                }
 
-        User user = new User.Builder()
-                .id(savedUser.id())
-                .name(savedUser.name())
-                .surname(savedUser.surname())
-                .bornDate(savedUser.bornDate())
-                .username(savedUser.username())
-                .password(savedUser.password())
-                .role(savedUser.role())
-                .build();
+                User user = new User.Builder()
+                                .id(userDto.id())
+                                .name(userDto.name())
+                                .surname(userDto.surname())
+                                .bornDate(userDto.bornDate())
+                                .username(userDto.username())
+                                .password(userDto.password())
+                                .role(userDto.role())
+                                .build();
 
-        Token token = createTokenFromUser(user);
+                Token token = createTokenFromUser(user);
 
-        UserDto userResponse = new UserDto(
-                savedUser.id(),
-                savedUser.name(),
-                savedUser.surname(),
-                savedUser.email(),
-                savedUser.bornDate(),
-                savedUser.username(),
-                null,
-                savedUser.role()
-        );
+                UserDto userResponse = new UserDto(
+                                userDto.id(),
+                                userDto.name(),
+                                userDto.surname(),
+                                userDto.email(),
+                                userDto.bornDate(),
+                                userDto.username(),
+                                null,
+                                userDto.role());
 
-        return new AuthResponseDto(
-                token.getToken(),
-                token.getExpiresAt(),
-                userResponse
-        );
-    }
+                return new AuthResponseDto(
+                                token.getToken(),
+                                token.getExpiresAt(),
+                                userResponse);
+        }
+
+        @Override
+        public AuthResponseDto register(RegisterRequestDto request) {
+                if (authRepository.existsByUsername(request.username())) {
+                        throw new BusinessException("Username already exists");
+                }
+                if (authRepository.existsByEmail(request.email())) {
+                        throw new BusinessException("Email already exists");
+                }
+
+                UserDto newUser = new UserDto(
+                                null,
+                                request.name(),
+                                request.surname(),
+                                request.email(),
+                                request.bornDate(),
+                                request.username(),
+                                request.password(),
+                                request.role() != null ? request.role()
+                                                : cybereats.fpmislata.com.tiendaback.domain.model.UserRole.CLIENT);
+
+                UserDto savedUser = authRepository.register(newUser);
+
+                User user = new User.Builder()
+                                .id(savedUser.id())
+                                .name(savedUser.name())
+                                .surname(savedUser.surname())
+                                .bornDate(savedUser.bornDate())
+                                .username(savedUser.username())
+                                .password(savedUser.password())
+                                .role(savedUser.role())
+                                .build();
+
+                Token token = createTokenFromUser(user);
+
+                UserDto userResponse = new UserDto(
+                                savedUser.id(),
+                                savedUser.name(),
+                                savedUser.surname(),
+                                savedUser.email(),
+                                savedUser.bornDate(),
+                                savedUser.username(),
+                                null,
+                                savedUser.role());
+
+                return new AuthResponseDto(
+                                token.getToken(),
+                                token.getExpiresAt(),
+                                userResponse);
+        }
 }

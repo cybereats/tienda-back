@@ -37,6 +37,7 @@ class ProductServiceImplTest {
     void setUp() {
         CategoryProductDto catDto = new CategoryProductDto(1L, "Hamburguesas", "hamburguesas");
         productDto = new ProductDto(1L, "Teclado Mecánico", "teclado-mecanico", "Description", new BigDecimal("49.90"),
+                "image.png",
                 catDto);
     }
 

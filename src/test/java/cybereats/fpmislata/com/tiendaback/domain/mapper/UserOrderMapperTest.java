@@ -55,6 +55,7 @@ class UserOrderMapperTest {
                 UserRole.CLIENT);
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto productDto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
         OrderItemDto orderItemDto = new OrderItemDto(1L, productDto, 2);
         UserOrderDto dto = new UserOrderDto(1L, userDto, List.of(orderItemDto), OrderStatus.CONFIRMED,

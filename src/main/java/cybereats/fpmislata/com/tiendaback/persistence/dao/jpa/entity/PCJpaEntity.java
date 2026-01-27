@@ -19,6 +19,7 @@ public class PCJpaEntity implements Serializable {
     @Column(name = "working_since")
     private String workingSince;
     private String image;
+    private String status;
     @ManyToOne
     @JoinColumn(name = "category_pc_id")
     private CategoryPCJpaEntity category;
@@ -33,6 +34,7 @@ public class PCJpaEntity implements Serializable {
     }
 
     public PCJpaEntity(Long id, String label, String slug, int runtime, String specs, String workingSince, String image,
+            String status,
             CategoryPCJpaEntity category) {
         this.id = id;
         this.label = label;
@@ -41,6 +43,7 @@ public class PCJpaEntity implements Serializable {
         this.specs = specs;
         this.workingSince = workingSince;
         this.image = image;
+        this.status = status;
         this.category = category;
     }
 
@@ -72,11 +75,19 @@ public class PCJpaEntity implements Serializable {
         return image;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public CategoryPCJpaEntity getCategory() {
         return category;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

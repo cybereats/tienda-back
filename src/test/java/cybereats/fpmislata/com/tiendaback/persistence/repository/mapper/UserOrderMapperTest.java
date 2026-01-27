@@ -33,7 +33,7 @@ class UserOrderMapperTest {
                                 "pass", UserRole.CLIENT);
                 CategoryProductJpaEntity categoryEntity = new CategoryProductJpaEntity(1L, "Category", "category");
                 ProductJpaEntity productEntity = new ProductJpaEntity(1L, "Product 1", "product-1", "Description",
-                                new BigDecimal("10.00"), categoryEntity);
+                                new BigDecimal("10.00"), "image.png", categoryEntity);
                 OrderItemJpaEntity orderItemEntity = new OrderItemJpaEntity(1L, 2, productEntity, null);
                 UserOrderJpaEntity entity = new UserOrderJpaEntity(1L, userEntity, List.of(orderItemEntity),
                                 OrderStatus.CONFIRMED, LocalDateTime.now());
@@ -55,7 +55,7 @@ class UserOrderMapperTest {
                                 UserRole.CLIENT);
                 CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
                 ProductDto productDto = new ProductDto(1L, "Product 1", "product-1", "Description",
-                                new BigDecimal("10.00"),
+                                new BigDecimal("10.00"), "image.png",
                                 categoryDto);
                 OrderItemDto orderItemDto = new OrderItemDto(1L, productDto, 2);
                 UserOrderDto dto = new UserOrderDto(1L, userDto, List.of(orderItemDto), OrderStatus.CONFIRMED,

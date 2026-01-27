@@ -71,6 +71,19 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
+    public Optional<UserJpaEntity> findByEmail(String email) {
+        try {
+            UserJpaEntity user = entityManager.createQuery(
+                    "SELECT u FROM UserJpaEntity u WHERE u.email = :email", UserJpaEntity.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return Optional.of(user);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public List<UserJpaEntity> search(String text, String role, int page, int size) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserJpaEntity> cq = cb.createQuery(UserJpaEntity.class);

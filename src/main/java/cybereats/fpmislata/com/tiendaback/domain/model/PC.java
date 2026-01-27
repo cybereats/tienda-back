@@ -8,6 +8,7 @@ public class PC {
     private String specs;
     private String workingSince;
     private String image;
+    private PCStatus status;
     private CategoryPC categoryPC;
 
     private PC(Builder builder) {
@@ -18,6 +19,7 @@ public class PC {
         this.specs = builder.specs;
         this.workingSince = builder.workingSince;
         this.image = builder.image;
+        this.status = builder.status;
         this.categoryPC = builder.categoryPC;
     }
 
@@ -49,6 +51,10 @@ public class PC {
         return image;
     }
 
+    public PCStatus getStatus() {
+        return status;
+    }
+
     public CategoryPC getCategoryPC() {
         return categoryPC;
     }
@@ -61,6 +67,7 @@ public class PC {
         private String specs;
         private String workingSince;
         private String image;
+        private PCStatus status;
         private CategoryPC categoryPC;
 
         public Builder id(Long id) {
@@ -95,6 +102,11 @@ public class PC {
 
         public Builder image(String image) {
             this.image = image;
+            return this;
+        }
+
+        public Builder status(PCStatus status) {
+            this.status = status;
             return this;
         }
 

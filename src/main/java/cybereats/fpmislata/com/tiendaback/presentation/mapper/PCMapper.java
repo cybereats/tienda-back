@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.PCRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.PCResponse;
@@ -30,6 +31,7 @@ public class PCMapper {
                 pcRequest.specs(),
                 pcRequest.workingSince(),
                 pcRequest.image(),
+                PCStatus.fromString(pcRequest.status()),
                 CategoryPCMapper.getInstance().fromCategoryPCRequestToCategoryPCDto(pcRequest.categoryPCRequest()));
     }
 
@@ -46,6 +48,7 @@ public class PCMapper {
                 pcDto.specs(),
                 pcDto.workingSince(),
                 pcDto.image(),
+                pcDto.status() != null ? pcDto.status().name() : null,
                 CategoryPCMapper.getInstance().fromCategoryPCDtoToCategoryPCResponse(pcDto.categoryPCDto()));
     }
 }

@@ -1,4 +1,4 @@
-package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+﻿package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
@@ -56,7 +56,7 @@ class UserOrderJpaDaoImplTest {
         void shouldReturnAllOrders() {
             List<UserOrderJpaEntity> orders = userOrderJpaDao.findAll();
             assertFalse(orders.isEmpty());
-            assertTrue(orders.size() >= 8); // Seeded 8 orders
+            assertTrue(orders.size() >= 8); 
         }
 
         @Test

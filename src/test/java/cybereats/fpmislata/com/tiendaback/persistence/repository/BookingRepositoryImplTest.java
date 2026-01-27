@@ -67,12 +67,14 @@ class BookingRepositoryImplTest {
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "category", "slug", BigDecimal.TEN);
 
         pcJpaEntities = List.of(
-                new PCJpaEntity(1L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryJpa),
-                new PCJpaEntity(2L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryJpa));
+                new PCJpaEntity(1L, "label", "slug", 10, "specs", "2023-01-01", "image", "AVAILABLE", categoryJpa),
+                new PCJpaEntity(2L, "label", "slug", 10, "specs", "2023-01-01", "image", "AVAILABLE", categoryJpa));
 
         pcDtos = List.of(
-                new PCDto(1L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryDto),
-                new PCDto(2L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryDto));
+                new PCDto(1L, "label", "slug", 10, "specs", "2023-01-01", "image",
+                        cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto),
+                new PCDto(2L, "label", "slug", 10, "specs", "2023-01-01", "image",
+                        cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto));
 
         pcDto = pcDtos.get(0);
 

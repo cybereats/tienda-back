@@ -12,6 +12,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.BookingRequest;
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,7 +55,8 @@ public class BookingControllerTest {
     void setUp() {
         userDto = new UserDto(1L, "Ismael", "Surname", "isma@test.com", "2000-01-01", "isma", "pass", UserRole.CLIENT);
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "Gaming", "gaming", new BigDecimal("50.0"));
-        pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2023-01-01", "image.jpg", categoryDto);
+        pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2023-01-01", "image.jpg",
+                PCStatus.AVAILABLE, categoryDto);
         bookingDto = new BookingDto(1L, 5, userDto, pcDto, LocalDateTime.now());
 
         User adminUser = new User.Builder()

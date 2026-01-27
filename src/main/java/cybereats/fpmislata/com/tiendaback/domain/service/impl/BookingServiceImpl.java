@@ -1,9 +1,12 @@
-package cybereats.fpmislata.com.tiendaback.domain.service.impl;
+﻿package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.BookingRepository;
+import cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.BookingService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
@@ -12,9 +15,12 @@ import java.util.Optional;
 
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
+    private final PCRepository pcRepository;
 
-    public BookingServiceImpl(BookingRepository bookingRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository,
+            PCRepository pcRepository) {
         this.bookingRepository = bookingRepository;
+        this.pcRepository = pcRepository;
     }
 
     @Override
@@ -53,6 +59,20 @@ public class BookingServiceImpl implements BookingService {
         if (bookingDtoOptional.isPresent()) {
             throw new BusinessException("Booking already exists");
         }
+
+        PCDto pcDto = bookingDto.pc();
+        PCDto updatedPcDto = new PCDto(
+                pcDto.id(),
+                pcDto.label(),
+                pcDto.slug(),
+                pcDto.runtime(),
+                pcDto.specs(),
+                pcDto.workingSince(),
+                pcDto.image(),
+                PCStatus.OCCUPIED,
+                pcDto.categoryPCDto());
+        pcRepository.save(updatedPcDto);
+
         return bookingRepository.save(bookingDto);
     }
 

@@ -42,11 +42,11 @@ class OrderItemRepositoryImplTest {
     @BeforeEach
     void setUp() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
-        productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), categoryDto);
+        productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), "image.png", categoryDto);
         orderItemDto = new OrderItemDto(1L, productDto, 2);
 
         CategoryProductJpaEntity categoryJpaEntity = new CategoryProductJpaEntity(1L, "Category", "category");
-        productJpaEntity = new ProductJpaEntity(1L, "Product", "product", "Desc", new BigDecimal("10.0"),
+        productJpaEntity = new ProductJpaEntity(1L, "Product", "product", "Desc", new BigDecimal("10.0"), "image.png",
                 categoryJpaEntity);
         orderItemJpaEntity = new OrderItemJpaEntity(1L, 2, productJpaEntity, null);
     }

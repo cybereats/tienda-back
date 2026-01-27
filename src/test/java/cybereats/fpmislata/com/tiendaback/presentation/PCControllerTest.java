@@ -7,6 +7,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.CategoryPCRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.PCRequest;
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -42,11 +43,12 @@ class PCControllerTest {
 
     @BeforeEach
     void setUp() {
-        CategoryPCDto categoryDto = new CategoryPCDto(2L, "Gaming", "gaming", new BigDecimal("5.00"));
-        pcDto = new PCDto(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg", categoryDto);
+        CategoryPCDto categoryDto = new CategoryPCDto(2L, "Gaming", "gaming", new BigDecimal("50.00"));
+        pcDto = new PCDto(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg", PCStatus.AVAILABLE,
+                categoryDto);
 
-        CategoryPCRequest categoryRequest = new CategoryPCRequest(2L, "Gaming", "gaming", new BigDecimal("5.00"));
-        pcRequest = new PCRequest(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg",
+        CategoryPCRequest categoryRequest = new CategoryPCRequest(2L, "Gaming", "gaming", new BigDecimal("50.00"));
+        pcRequest = new PCRequest(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg", "AVAILABLE",
                 categoryRequest);
     }
 
@@ -65,6 +67,21 @@ class PCControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.data[0].slug").value("pc-gamer-1"))
                     .andExpect(jsonPath("$.totalElements").value(1));
+        }
+    }
+
+    @Nested
+    @DisplayName("GET /api/pcs/all")
+    class GetAllPCsWithoutPaginationTests {
+        @Test
+        @DisplayName("Debería devolver la lista de todos los PCs")
+        void shouldReturnListOfAllPCs() throws Exception {
+            when(pcService.findAll()).thenReturn(List.of(pcDto));
+
+            mockMvc.perform(get("/api/pcs/all"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$[0].slug").value("pc-gamer-1"))
+                    .andExpect(jsonPath("$.length()").value(1));
         }
     }
 

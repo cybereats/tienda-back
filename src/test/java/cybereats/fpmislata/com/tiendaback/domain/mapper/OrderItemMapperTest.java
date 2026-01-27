@@ -35,6 +35,7 @@ class OrderItemMapperTest {
     void shouldMapToDomain() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto productDto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
         OrderItemDto dto = new OrderItemDto(1L, productDto, 5);
 

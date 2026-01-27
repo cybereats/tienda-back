@@ -21,7 +21,7 @@ class ProductMapperTest {
     void shouldMapRequestToDto() {
         CategoryProductRequest categoryRequest = new CategoryProductRequest(1L, "Category", "category");
         ProductRequest request = new ProductRequest(1L, "Product 1", "product-1", "Description",
-                new BigDecimal("10.00"), categoryRequest);
+                new BigDecimal("10.00"), "image.png", categoryRequest);
 
         ProductDto dto = mapper.fromProductRequestToProductDto(request);
 
@@ -39,6 +39,7 @@ class ProductMapperTest {
     void shouldMapDtoToResponse() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto dto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
 
         ProductResponse response = mapper.fromProductDtoToProductResponse(dto);

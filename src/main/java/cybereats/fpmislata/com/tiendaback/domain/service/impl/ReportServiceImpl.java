@@ -1,12 +1,14 @@
-package cybereats.fpmislata.com.tiendaback.domain.service.impl;
+﻿package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ReportRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.ReportService;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
@@ -14,9 +16,12 @@ import jakarta.transaction.Transactional;
 
 public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
+    private final cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository pcRepository;
 
-    public ReportServiceImpl(ReportRepository reportRepository) {
+    public ReportServiceImpl(ReportRepository reportRepository,
+            cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository pcRepository) {
         this.reportRepository = reportRepository;
+        this.pcRepository = pcRepository;
     }
 
     @Override
@@ -26,7 +31,6 @@ public class ReportServiceImpl implements ReportService {
         if (reportDtoOptional.isPresent()) {
             throw new BusinessException("Report already exists");
         }
-        // Set default values if not present
         String status = reportDto.status() != null ? reportDto.status() : "OPEN";
         String createdAt = reportDto.createdAt() != null ? reportDto.createdAt()
                 : java.time.LocalDate.now().toString();
@@ -41,6 +45,10 @@ public class ReportServiceImpl implements ReportService {
                 reportDto.user(),
                 reportDto.pc());
 
+        if ("IN_PROGRESS".equalsIgnoreCase(status)) {
+            updatePCStatusToMaintenance(reportDto.pc());
+        }
+
         return reportRepository.save(reportToSave);
     }
 
@@ -50,17 +58,39 @@ public class ReportServiceImpl implements ReportService {
         ReportDto existingReportDto = reportRepository.findById(reportDto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
 
+        String newStatus = reportDto.status() != null ? reportDto.status() : existingReportDto.status();
+
         ReportDto reportToSave = new ReportDto(
                 existingReportDto.id(),
                 reportDto.priority() != null ? reportDto.priority() : existingReportDto.priority(),
                 reportDto.description() != null ? reportDto.description() : existingReportDto.description(),
                 reportDto.subject() != null ? reportDto.subject() : existingReportDto.subject(),
-                reportDto.status() != null ? reportDto.status() : existingReportDto.status(),
+                newStatus,
                 existingReportDto.createdAt(),
                 reportDto.user() != null ? reportDto.user() : existingReportDto.user(),
                 reportDto.pc() != null ? reportDto.pc() : existingReportDto.pc());
 
+        if ("IN_PROGRESS".equalsIgnoreCase(newStatus)) {
+            updatePCStatusToMaintenance(reportToSave.pc());
+        }
+
         return reportRepository.save(reportToSave);
+    }
+
+    private void updatePCStatusToMaintenance(PCDto pcDto) {
+        if (pcDto != null) {
+            PCDto updatedPcDto = new PCDto(
+                    pcDto.id(),
+                    pcDto.label(),
+                    pcDto.slug(),
+                    pcDto.runtime(),
+                    pcDto.specs(),
+                    pcDto.workingSince(),
+                    pcDto.image(),
+                    PCStatus.MAINTENANCE,
+                    pcDto.categoryPCDto());
+            pcRepository.save(updatedPcDto);
+        }
     }
 
     @Override

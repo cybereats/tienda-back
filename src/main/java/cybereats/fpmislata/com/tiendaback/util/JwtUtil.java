@@ -1,4 +1,4 @@
-package cybereats.fpmislata.com.tiendaback.util;
+﻿package cybereats.fpmislata.com.tiendaback.util;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.User;
 import io.jsonwebtoken.Claims;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class JwtUtil {
 
     private static final String SECRET_KEY = "mi-cybereats-key-mas-segura-y-super-secreta-para-que-no-pete";
-    private static final long EXPIRATION_TIME = 7776000000L; // 90 días (esto está en milisegundos)
+    private static final long EXPIRATION_TIME = 7776000000L; 
 
     private static final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 

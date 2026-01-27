@@ -40,6 +40,14 @@ public class PCController {
         return new ResponseEntity<>(pcPage, HttpStatus.OK);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<PCResponse>> findAll() {
+        List<PCResponse> pcResponses = pcService.findAll().stream()
+                .map(PCMapper.getInstance()::fromPCDtoToPCResponse)
+                .toList();
+        return new ResponseEntity<>(pcResponses, HttpStatus.OK);
+    }
+
     @GetMapping("/search")
     public ResponseEntity<Page<PCResponse>> searchPCs(
             @RequestParam(required = false) String text,
@@ -77,11 +85,5 @@ public class PCController {
         DtoValidator.validate(pcDto);
         PCDto updatedPC = pcService.update(pcDto);
         return new ResponseEntity<>(PCMapper.getInstance().fromPCDtoToPCResponse(updatedPC), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{slug}")
-    public ResponseEntity<Void> deletePC(@PathVariable("slug") String slug) {
-        pcService.deleteBySlug(slug);
-        return ResponseEntity.noContent().build();
     }
 }

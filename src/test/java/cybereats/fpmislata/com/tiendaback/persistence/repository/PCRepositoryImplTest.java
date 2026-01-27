@@ -6,6 +6,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.PCJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.CategoryPCJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity;
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -39,10 +40,11 @@ class PCRepositoryImplTest {
     void setUp() {
         CategoryPCJpaEntity categoryEntity = new CategoryPCJpaEntity(2L, "Gaming", "gaming", new BigDecimal("5.00"));
         pcJpaEntity = new PCJpaEntity(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg",
-                categoryEntity);
+                "AVAILABLE", categoryEntity);
 
         CategoryPCDto categoryDto = new CategoryPCDto(2L, "Gaming", "gaming", new BigDecimal("5.00"));
-        pcDto = new PCDto(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg", categoryDto);
+        pcDto = new PCDto(1L, "PC Gamer 1", "pc-gamer-1", 12, "Specs", "2023-01-01", "image.jpg", PCStatus.AVAILABLE,
+                categoryDto);
     }
 
     @Nested
@@ -108,7 +110,7 @@ class PCRepositoryImplTest {
         @DisplayName("Debería insertar un nuevo PC")
         void shouldInsertNewPC() {
             PCDto newPcDto = new PCDto(null, "New PC", "new-pc", 10, "Specs", "2023-01-01", "new.jpg",
-                    pcDto.categoryPCDto());
+                    PCStatus.AVAILABLE, pcDto.categoryPCDto());
             when(pcJpaDao.insert(any(PCJpaEntity.class))).thenReturn(pcJpaEntity);
 
             PCDto result = pcRepository.save(newPcDto);

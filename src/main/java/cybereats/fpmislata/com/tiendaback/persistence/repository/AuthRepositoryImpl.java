@@ -27,6 +27,15 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
+    public Optional<UserDto> findByUsernameOrEmail(String identifier) {
+        Optional<UserJpaEntity> userJpaEntity = userJpaDao.findByUsername(identifier);
+        if (userJpaEntity.isEmpty()) {
+            userJpaEntity = userJpaDao.findByEmail(identifier);
+        }
+        return userJpaEntity.map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserDto(entity));
+    }
+
+    @Override
     public Optional<UserDto> findById(Long id) {
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.findById(id);
         return userJpaEntity.map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserDto(entity));
@@ -43,8 +52,7 @@ public class AuthRepositoryImpl implements AuthRepository {
                 user.bornDate(),
                 user.username(),
                 passwordEncoder.encode(user.password()),
-                user.role()
-        );
+                user.role());
 
         UserJpaEntity userJpaEntity = UserMapper.getInstance().fromUserDtoToUserJpaEntity(userWithHashedPassword);
         UserJpaEntity savedEntity = userJpaDao.insert(userJpaEntity);
@@ -54,5 +62,10 @@ public class AuthRepositoryImpl implements AuthRepository {
     @Override
     public boolean existsByUsername(String username) {
         return userJpaDao.findByUsername(username).isPresent();
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userJpaDao.findByEmail(email).isPresent();
     }
 }

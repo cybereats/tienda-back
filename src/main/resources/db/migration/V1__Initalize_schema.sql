@@ -10,6 +10,7 @@ CREATE TABLE product (
                          slug VARCHAR(255),
                          description TEXT,
                          price DECIMAL(10,2),
+                         image VARCHAR(255),
                          category_product_id INT,
                          FOREIGN KEY (category_product_id) REFERENCES category_product(id)
 );
@@ -27,7 +28,7 @@ CREATE TABLE users (
 CREATE TABLE user_order (
                             id INT PRIMARY KEY AUTO_INCREMENT,
                             status VARCHAR(255),
-                            user_id INT UNIQUE,
+                            user_id INT,
                             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -60,6 +61,7 @@ CREATE TABLE pc (
                     slug VARCHAR(255),
                     runtime VARCHAR(255),
                     specs TEXT,
+                    status VARCHAR(50) DEFAULT 'DISPONIBLE',
                     working_since DATE,
                     image VARCHAR(255),
                     category_pc_id INT,

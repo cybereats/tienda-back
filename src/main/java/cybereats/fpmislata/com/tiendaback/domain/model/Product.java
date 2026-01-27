@@ -10,6 +10,7 @@ public class Product {
     private String slug;
     private String description;
     private BigDecimal price;
+    private String image;
     private CategoryProduct categoryProduct;
 
     private Product(Builder builder) {
@@ -18,6 +19,7 @@ public class Product {
         this.slug = builder.slug;
         this.description = builder.description;
         this.price = builder.price;
+        this.image = builder.image;
         this.categoryProduct = builder.categoryProduct;
     }
 
@@ -41,6 +43,10 @@ public class Product {
         return price;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public CategoryProduct getCategoryProduct() {
         return categoryProduct;
     }
@@ -51,6 +57,7 @@ public class Product {
         private String slug;
         private String description;
         private BigDecimal price;
+        private String image;
         private CategoryProduct categoryProduct;
 
         public Builder id(Long id) {
@@ -78,6 +85,11 @@ public class Product {
                 throw new BusinessException("Price must be a positive number");
             }
             this.price = price;
+            return this;
+        }
+
+        public Builder image(String image) {
+            this.image = image;
             return this;
         }
 

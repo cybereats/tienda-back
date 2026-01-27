@@ -5,7 +5,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import cybereats.fpmislata.com.tiendaback.domain.repository.BookingRepository;
-import cybereats.fpmislata.com.tiendaback.domain.service.impl.BookingServiceImpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,13 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.never;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
@@ -42,6 +42,9 @@ class BookingServiceImplTest {
     @Mock
     private BookingRepository bookingRepository;
 
+    @Mock
+    private cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository pcRepository;
+
     @InjectMocks
     private BookingServiceImpl bookingService;
 
@@ -58,8 +61,8 @@ class BookingServiceImplTest {
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "category", "slug", java.math.BigDecimal.TEN);
 
         pcDtos = List.of(
-                new PCDto(1L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryDto),
-                new PCDto(2L, "label", "slug", 10, "specs", "2023-01-01", "image", categoryDto));
+                new PCDto(1L, "label", "slug", 10, "specs", "2023-01-01", "image", PCStatus.AVAILABLE, categoryDto),
+                new PCDto(2L, "label", "slug", 10, "specs", "2023-01-01", "image", PCStatus.AVAILABLE, categoryDto));
 
         bookings = List.of(
                 new BookingDto(1L, 2, userDtos.get(0), pcDtos.get(0), null),
@@ -229,6 +232,7 @@ class BookingServiceImplTest {
             assertAll("Create booking success",
                     () -> assertNotNull(result),
                     () -> assertEquals(bookingDto, result));
+            verify(pcRepository, times(1)).save(argThat(pc -> pc.status() == PCStatus.OCCUPIED));
         }
 
         @Test

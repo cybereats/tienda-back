@@ -3,9 +3,12 @@ package cybereats.fpmislata.com.tiendaback.domain.repository;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PCRepository {
+    List<PCDto> findAll();
+
     Page<PCDto> findAll(int page, int size);
 
     Optional<PCDto> findById(Long id);

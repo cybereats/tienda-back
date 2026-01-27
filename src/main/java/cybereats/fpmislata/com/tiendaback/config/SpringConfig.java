@@ -1,4 +1,4 @@
-package cybereats.fpmislata.com.tiendaback.config;
+﻿package cybereats.fpmislata.com.tiendaback.config;
 
 import cybereats.fpmislata.com.tiendaback.domain.repository.*;
 import cybereats.fpmislata.com.tiendaback.domain.service.*;
@@ -15,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "cybereats.fpmislata.com.tiendaback.persistence.dao.jpa")
 @EntityScan(basePackages = "cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity")
 public class SpringConfig {
-    // JPA DAOs
 
     @Bean
     public BookingJpaDao bookingJpaDao() {
@@ -67,16 +66,14 @@ public class SpringConfig {
         return new ProductJpaDaoImpl();
     }
 
-    // Services and Repositories
-
     @Bean
     public BookingRepository bookingRepository(BookingJpaDao bookingJpaDao) {
         return new BookingRepositoryImpl(bookingJpaDao);
     }
 
     @Bean
-    public BookingService bookingService(BookingRepository bookingRepository) {
-        return new BookingServiceImpl(bookingRepository);
+    public BookingService bookingService(BookingRepository bookingRepository, PCRepository pcRepository) {
+        return new BookingServiceImpl(bookingRepository, pcRepository);
     }
 
     @Bean
@@ -125,8 +122,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public ReportService reportService(ReportRepository reportRepository) {
-        return new ReportServiceImpl(reportRepository);
+    public ReportService reportService(ReportRepository reportRepository, PCRepository pcRepository) {
+        return new ReportServiceImpl(reportRepository, pcRepository);
     }
 
     @Bean

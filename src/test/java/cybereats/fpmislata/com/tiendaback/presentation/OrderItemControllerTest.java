@@ -48,7 +48,8 @@ class OrderItemControllerTest {
     @BeforeEach
     void setUp() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
-        ProductDto productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), categoryDto);
+        ProductDto productDto = new ProductDto(1L, "Product", "product", "Desc", new BigDecimal("10.0"), "image.png",
+                categoryDto);
         orderItemDto = new OrderItemDto(1L, productDto, 2);
 
         User adminUser = new User.Builder()

@@ -27,6 +27,7 @@ public class ProductMapper {
                 product.getSlug(),
                 product.getDescription(),
                 product.getPrice(),
+                product.getImage(),
                 CategoryProductMapper.getInstance()
                         .fromCategoryProductToCategoryProductDto(product.getCategoryProduct()));
     }
@@ -42,6 +43,7 @@ public class ProductMapper {
                 .slug(productDto.slug())
                 .description(productDto.description())
                 .price(productDto.price())
+                .image(productDto.image())
                 .categoryProduct(CategoryProductMapper.getInstance()
                         .fromCategoryProductDtoToCategoryProduct(productDto.category()))
                 .build();

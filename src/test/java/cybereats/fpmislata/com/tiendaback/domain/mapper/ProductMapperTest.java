@@ -44,6 +44,7 @@ class ProductMapperTest {
     void shouldMapToDomain() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto dto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
 
         Product product = mapper.fromProductDtoToProduct(dto);

@@ -48,9 +48,9 @@ class BookingJpaDaoImplTest {
 
         expectedPcs = List.of(
                 new PCJpaEntity(1L, "PC Gamer 1", "pc-gamer-1", 12, "Ryzen 5, RTX 3060, 16GB RAM", "2023-05-12",
-                        "pc-gamer-1.jpg", categoryGaming),
+                        "pc-gamer-1.jpg", "AVAILABLE", categoryGaming),
                 new PCJpaEntity(3L, "PC Streaming 1", "pc-stream-1", 5, "Ryzen 7, Capture Card, 32GB RAM", "2023-01-20",
-                        "pc-stream-1.jpg", categoryStreaming));
+                        "pc-stream-1.jpg", "AVAILABLE", categoryStreaming));
 
         expectedBookings = List.of(
                 new BookingJpaEntity(1L, 2, expectedUsers.get(0), expectedPcs.get(0), null),
@@ -156,7 +156,8 @@ class BookingJpaDaoImplTest {
         void shouldInsertNewBooking() {
             UserJpaEntity user = new UserJpaEntity();
             user.setId(1L);
-            PCJpaEntity pc = new PCJpaEntity(1L, "label", "slug", 1, "working_since", "runtime", "image", null);
+            PCJpaEntity pc = new PCJpaEntity(1L, "label", "slug", 1, "working_since", "runtime", "image", "AVAILABLE",
+                    null);
 
             BookingJpaEntity newBooking = new BookingJpaEntity(null, 3, user, pc, null);
 

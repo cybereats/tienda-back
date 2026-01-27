@@ -1,4 +1,4 @@
-package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+﻿package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
 import cybereats.fpmislata.com.tiendaback.persistence.TestConfig;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ProductJpaDao;
@@ -152,7 +152,7 @@ class ProductJpaDaoImplTest {
         @Test
         @DisplayName("Debería eliminar un producto por su ID")
         void shouldDeleteProductById() {
-            Long idToDelete = 5L; // Alfombrilla XXL
+            Long idToDelete = 5L; 
             assertTrue(productJpaDao.findById(idToDelete).isPresent());
 
             productJpaDao.deleteById(idToDelete);

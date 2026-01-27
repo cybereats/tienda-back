@@ -18,6 +18,13 @@ public class PCRepositoryImpl implements PCRepository {
     }
 
     @Override
+    public List<PCDto> findAll() {
+        return pcJpaDao.findAll().stream()
+                .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity))
+                .toList();
+    }
+
+    @Override
     public Page<PCDto> findAll(int page, int size) {
         List<PCDto> content = pcJpaDao.findAll(page, size).stream()
                 .map(pcJpaEntity -> PCMapper.getInstance().fromPCJpaEntityToPCDto(pcJpaEntity))

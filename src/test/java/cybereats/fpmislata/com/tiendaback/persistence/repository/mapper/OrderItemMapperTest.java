@@ -22,7 +22,7 @@ class OrderItemMapperTest {
     void shouldMapEntityToDto() {
         CategoryProductJpaEntity categoryEntity = new CategoryProductJpaEntity(1L, "Category", "category");
         ProductJpaEntity productEntity = new ProductJpaEntity(1L, "Product 1", "product-1", "Description",
-                new BigDecimal("10.00"), categoryEntity);
+                new BigDecimal("10.00"), "image.png", categoryEntity);
         OrderItemJpaEntity entity = new OrderItemJpaEntity(1L, 5, productEntity, null);
 
         OrderItemDto dto = mapper.fromOrderItemJpaEntityToOrderItemDto(entity);
@@ -38,6 +38,7 @@ class OrderItemMapperTest {
     void shouldMapDtoToEntity() {
         CategoryProductDto categoryDto = new CategoryProductDto(1L, "Category", "category");
         ProductDto productDto = new ProductDto(1L, "Product 1", "product-1", "Description", new BigDecimal("10.00"),
+                "image.png",
                 categoryDto);
         OrderItemDto dto = new OrderItemDto(1L, productDto, 5);
 

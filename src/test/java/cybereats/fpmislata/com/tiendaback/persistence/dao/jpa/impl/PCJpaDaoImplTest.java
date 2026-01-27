@@ -37,11 +37,11 @@ class PCJpaDaoImplTest {
 
         expectedPcs = List.of(
                 new PCJpaEntity(1L, "PC Gamer 1", "pc-gamer-1", 12, "Ryzen 5, RTX 3060, 16GB RAM", "2023-05-12",
-                        "pc-gamer-1.jpg", categoryGaming),
+                        "pc-gamer-1.jpg", "AVAILABLE", categoryGaming),
                 new PCJpaEntity(2L, "PC Gamer 2", "pc-gamer-2", 8, "Ryzen 5, RTX 3050, 8GB RAM", "2023-06-15",
-                        "pc-gamer-2.jpg", categoryGaming),
+                        "pc-gamer-2.jpg", "AVAILABLE", categoryGaming),
                 new PCJpaEntity(3L, "PC Streaming 1", "pc-stream-1", 5, "Ryzen 7, Capture Card, 32GB RAM", "2023-01-20",
-                        "pc-stream-1.jpg", categoryStreaming));
+                        "pc-stream-1.jpg", "AVAILABLE", categoryStreaming));
     }
 
     @Nested
@@ -115,7 +115,7 @@ class PCJpaDaoImplTest {
         void shouldInsertNewPC() {
             CategoryPCJpaEntity category = new CategoryPCJpaEntity(2L, "Gaming", "gaming", new BigDecimal("5.0"));
             PCJpaEntity newPC = new PCJpaEntity(null, "New PC", "new-pc", 10, "Specs", "2023-01-01", "new-pc.jpg",
-                    category);
+                    "AVAILABLE", category);
 
             PCJpaEntity saved = pcJpaDao.insert(newPC);
 
@@ -137,7 +137,7 @@ class PCJpaDaoImplTest {
             String newLabel = "Updated Label";
             PCJpaEntity updateData = new PCJpaEntity(existing.getId(), newLabel, existing.getSlug(),
                     existing.getRuntime(), existing.getSpecs(), existing.getWorkingSince(), existing.getImage(),
-                    existing.getCategory());
+                    existing.getStatus(), existing.getCategory());
 
             PCJpaEntity updated = pcJpaDao.update(updateData);
 
