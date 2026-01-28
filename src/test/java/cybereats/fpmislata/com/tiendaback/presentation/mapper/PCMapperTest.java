@@ -20,7 +20,8 @@ class PCMapperTest {
     @DisplayName("Debería mapear de PCRequest a PCDto")
     void shouldMapRequestToDto() {
         CategoryPCRequest categoryRequest = new CategoryPCRequest(1L, "Category", "category", new BigDecimal("10.00"));
-        PCRequest request = new PCRequest(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", categoryRequest);
+        PCRequest request = new PCRequest(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", "AVAILABLE",
+                categoryRequest);
 
         PCDto dto = mapper.fromPCRequestToPCDto(request);
 
@@ -39,7 +40,8 @@ class PCMapperTest {
     @DisplayName("Debería mapear de PCDto a PCResponse")
     void shouldMapDtoToResponse() {
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
-        PCDto dto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", categoryDto);
+        PCDto dto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
+                cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto);
 
         PCResponse response = mapper.fromPCDtoToPCResponse(dto);
 

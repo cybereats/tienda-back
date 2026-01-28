@@ -49,7 +49,8 @@ class BookingMapperTest {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "email@test.com", "1990-01-01", "user", "pass",
                 UserRole.CLIENT);
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
-        PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", categoryDto);
+        PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
+                cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto);
         BookingDto dto = new BookingDto(1L, 2, userDto, pcDto, LocalDateTime.now());
 
         Booking booking = mapper.fromBookingDtoToBooking(dto);

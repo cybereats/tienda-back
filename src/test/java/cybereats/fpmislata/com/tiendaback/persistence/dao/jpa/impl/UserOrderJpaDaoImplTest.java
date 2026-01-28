@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;

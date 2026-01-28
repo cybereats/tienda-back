@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.config;
+package cybereats.fpmislata.com.tiendaback.config;
 
 import cybereats.fpmislata.com.tiendaback.domain.repository.*;
 import cybereats.fpmislata.com.tiendaback.domain.service.*;

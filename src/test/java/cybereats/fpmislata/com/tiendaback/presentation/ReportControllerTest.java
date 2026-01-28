@@ -3,6 +3,7 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.ReportService;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
@@ -44,7 +45,9 @@ class ReportControllerTest {
     @BeforeEach
     void setUp() {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password", null);
-        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", null);
+        CategoryPCDto categoryPCDto = new CategoryPCDto(1L, "Category", "category", java.math.BigDecimal.TEN);
+        PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image",
+                cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryPCDto);
         reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
 
         reportRequest = new ReportRequest(1L, 1L, 1L, "Description", "Subject", "OPEN", "2025-01-01", "1");

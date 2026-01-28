@@ -28,7 +28,7 @@ class BookingMapperTest {
                 "pass", UserRole.CLIENT);
         CategoryPCJpaEntity categoryEntity = new CategoryPCJpaEntity(1L, "Category", "category",
                 new BigDecimal("10.00"));
-        PCJpaEntity pcEntity = new PCJpaEntity(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
+        PCJpaEntity pcEntity = new PCJpaEntity(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", "AVAILABLE",
                 categoryEntity);
         BookingJpaEntity entity = new BookingJpaEntity(1L, 2, userEntity, pcEntity, LocalDateTime.now());
 
@@ -48,7 +48,8 @@ class BookingMapperTest {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "email@test.com", "1990-01-01", "user", "pass",
                 UserRole.CLIENT);
         CategoryPCDto categoryDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
-        PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png", categoryDto);
+        PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
+                cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto);
         BookingDto dto = new BookingDto(1L, 2, userDto, pcDto, LocalDateTime.now());
 
         BookingJpaEntity entity = mapper.fromBookingDtoToBookingJpaEntity(dto);

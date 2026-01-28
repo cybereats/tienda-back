@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.domain.model;
+package cybereats.fpmislata.com.tiendaback.domain.model;
 
 import java.time.LocalDateTime;
 

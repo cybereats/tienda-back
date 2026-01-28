@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.domain.service.impl;
+package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;

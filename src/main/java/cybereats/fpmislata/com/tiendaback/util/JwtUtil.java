@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.util;
+package cybereats.fpmislata.com.tiendaback.util;
 
 import cybereats.fpmislata.com.tiendaback.domain.model.User;
 import io.jsonwebtoken.Claims;

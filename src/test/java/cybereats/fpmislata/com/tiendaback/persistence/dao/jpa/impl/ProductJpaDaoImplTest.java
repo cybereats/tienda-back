@@ -1,4 +1,4 @@
-﻿package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
+package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
 import cybereats.fpmislata.com.tiendaback.persistence.TestConfig;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ProductJpaDao;
@@ -36,11 +36,11 @@ class ProductJpaDaoImplTest {
 
         expectedProducts = List.of(
                 new ProductJpaEntity(1L, "Teclado Mecánico", "teclado-mecanico", "Teclado con switches rojos.",
-                        new BigDecimal("49.90"), cat1),
+                        new BigDecimal("49.90"), "image.png", cat1),
                 new ProductJpaEntity(2L, "Ratón Gaming", "raton-gaming", "Ratón RGB de alta precisión.",
-                        new BigDecimal("29.90"), cat1),
+                        new BigDecimal("29.90"), "image.png", cat1),
                 new ProductJpaEntity(3L, "Tarjeta Gráfica GTX 1660", "gtx-1660", "GeForce GTX 1660 6GB.",
-                        new BigDecimal("229.00"), cat2));
+                        new BigDecimal("229.00"), "image.png", cat2));
     }
 
     @Nested
@@ -116,7 +116,7 @@ class ProductJpaDaoImplTest {
         void shouldInsertNewProduct() {
             CategoryProductJpaEntity category = new CategoryProductJpaEntity(1L, "Hamburguesas", "hamburguesas");
             ProductJpaEntity newProduct = new ProductJpaEntity(null, "New Product", "new-product", "Description",
-                    new BigDecimal("10.00"), category);
+                    new BigDecimal("10.00"), "image.png", category);
 
             ProductJpaEntity saved = productJpaDao.insert(newProduct);
 
@@ -137,7 +137,8 @@ class ProductJpaDaoImplTest {
             ProductJpaEntity existing = productJpaDao.findById(1L).orElseThrow();
             String newLabel = "Updated Label";
             ProductJpaEntity updateData = new ProductJpaEntity(existing.getId(), newLabel, existing.getSlug(),
-                    existing.getDescription(), existing.getPrice(), existing.getCategoryProductJpaEntity());
+                    existing.getDescription(), existing.getPrice(), "image.png",
+                    existing.getCategoryProductJpaEntity());
 
             ProductJpaEntity updated = productJpaDao.update(updateData);
 
@@ -152,7 +153,7 @@ class ProductJpaDaoImplTest {
         @Test
         @DisplayName("Debería eliminar un producto por su ID")
         void shouldDeleteProductById() {
-            Long idToDelete = 5L; 
+            Long idToDelete = 5L;
             assertTrue(productJpaDao.findById(idToDelete).isPresent());
 
             productJpaDao.deleteById(idToDelete);

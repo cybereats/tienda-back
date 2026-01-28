@@ -34,9 +34,9 @@ class OrderItemJpaDaoImplTest {
     void setUp() {
         expectedProducts = List.of(
                 new ProductJpaEntity(1L, "Teclado Mecánico", "teclado-mecanico", "Teclado con switches rojos.",
-                        new BigDecimal("49.90"), null),
+                        new BigDecimal("49.90"), "image1.png", null),
                 new ProductJpaEntity(2L, "Ratón Gaming", "raton-gaming", "Ratón RGB de alta precisión.",
-                        new BigDecimal("29.90"), null));
+                        new BigDecimal("29.90"), "image2.png", null));
 
         expectedOrderItems = List.of(
                 new OrderItemJpaEntity(1L, 1, expectedProducts.get(0), null),
@@ -134,7 +134,7 @@ class OrderItemJpaDaoImplTest {
         void shouldInsertNewOrderItem() {
             ProductJpaEntity product = new ProductJpaEntity(1L, "Product", "product", "Description",
                     new BigDecimal("10.0"),
-                    null);
+                    "image.png", null);
             UserOrderJpaEntity order = new UserOrderJpaEntity();
             order.setId(3L);
 
