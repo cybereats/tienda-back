@@ -31,6 +31,7 @@ public class UserOrderMapper {
                                 .map(orderItem -> OrderItemMapper.getInstance().fromOrderItemToOrderItemDto(orderItem))
                                 .toList(),
                 userOrder.getStatus(),
+                userOrder.getDeliveryType(),
                 userOrder.getCreatedAt());
     }
 
@@ -48,6 +49,7 @@ public class UserOrderMapper {
                                         .fromOrderItemDtoToOrderItem(orderItemDto))
                                 .toList())
                 .status(userOrderDto.status())
+                .deliveryType(userOrderDto.deliveryType())
                 .createdAt(userOrderDto.createdAt())
                 .build();
     }

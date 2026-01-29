@@ -26,6 +26,7 @@ public class UserOrderMapper {
                 UserMapper.getInstance().fromUserDtoToUserResponse(userOrderDto.user()),
                 userOrderDto.orderItems().stream().map(OrderItemMapper::fromOrderItemDtoToOrderItemResponse).toList(),
                 userOrderDto.status(),
+                userOrderDto.deliveryType(),
                 userOrderDto.createdAt());
     }
 
@@ -40,7 +41,8 @@ public class UserOrderMapper {
                         ? cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus
                                 .valueOf(userOrderRequest.status().toUpperCase())
                         : null,
-                null);
+                null, // deliveryType
+                null); // createdAt
     }
 
     public UserDto mapUser(Long id) {

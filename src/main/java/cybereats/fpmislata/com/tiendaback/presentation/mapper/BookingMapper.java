@@ -32,6 +32,19 @@ public class BookingMapper {
                 null);
     }
 
+    public BookingDto fromBookingRequestToBookingDto(BookingRequest bookingRequest, Long userId) {
+        if (bookingRequest == null) {
+            return null;
+        }
+
+        return new BookingDto(
+                bookingRequest.id(),
+                bookingRequest.hours(),
+                mapUser(userId),
+                mapPC(bookingRequest.pcId()),
+                null);
+    }
+
     public BookingResponse fromBookingDtoToBookingResponse(BookingDto bookingDto) {
         if (bookingDto == null) {
             return null;

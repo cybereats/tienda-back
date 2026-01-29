@@ -8,8 +8,16 @@ import java.util.Optional;
 
 public interface BookingRepository {
     List<BookingDto> findAll();
+
     Page<BookingDto> findAll(int page, int size);
+
     Optional<BookingDto> findById(Long id);
+
     BookingDto save(BookingDto bookingDto);
+
     void deleteById(Long id);
+
+    boolean hasActiveBooking(Long userId);
+
+    List<BookingDto> findActiveByUserId(Long userId);
 }

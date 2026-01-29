@@ -9,6 +9,8 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
 public interface UserOrderService {
     Page<UserOrderDto> findAll(int page, int size);
 
+    Page<UserOrderDto> findByUserId(Long userId, int page, int size);
+
     UserOrderDto getById(Long id);
 
     Optional<UserOrderDto> findById(Long id);

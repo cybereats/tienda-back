@@ -70,4 +70,13 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
                 .toList();
     }
 
+    @Override
+    public Page<UserOrderDto> findByUserId(Long userId, int page, int size) {
+        List<UserOrderDto> content = userOrderJpaDao.findByUserId(userId, page, size).stream()
+                .map(entity -> UserOrderMapper.getInstance().fromUserOrderJpaEntityToUserOrderDto(entity))
+                .toList();
+        long totalElements = userOrderJpaDao.countByUserId(userId);
+        return new Page<>(content, page, size, totalElements);
+    }
+
 }

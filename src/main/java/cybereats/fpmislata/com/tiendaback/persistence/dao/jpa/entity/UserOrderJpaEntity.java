@@ -15,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -35,6 +36,10 @@ public class UserOrderJpaEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "delivery_type")
+    private DeliveryType deliveryType;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private java.time.LocalDateTime createdAt;
@@ -43,11 +48,12 @@ public class UserOrderJpaEntity {
     }
 
     public UserOrderJpaEntity(Long id, UserJpaEntity user, List<OrderItemJpaEntity> orderItems,
-            OrderStatus status, java.time.LocalDateTime createdAt) {
+            OrderStatus status, DeliveryType deliveryType, java.time.LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.orderItems = orderItems;
         this.status = status;
+        this.deliveryType = deliveryType;
         this.createdAt = createdAt;
     }
 
@@ -81,6 +87,14 @@ public class UserOrderJpaEntity {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public DeliveryType getDeliveryType() {
+        return deliveryType;
+    }
+
+    public void setDeliveryType(DeliveryType deliveryType) {
+        this.deliveryType = deliveryType;
     }
 
     public java.time.LocalDateTime getCreatedAt() {

@@ -4,23 +4,29 @@ import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.BookingRepository;
 import cybereats.fpmislata.com.tiendaback.domain.repository.PCRepository;
+import cybereats.fpmislata.com.tiendaback.domain.repository.UserRepository;
 import cybereats.fpmislata.com.tiendaback.domain.service.BookingService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
+import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
 import jakarta.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final PCRepository pcRepository;
+    private final UserRepository userRepository;
 
     public BookingServiceImpl(BookingRepository bookingRepository,
-            PCRepository pcRepository) {
+            PCRepository pcRepository,
+            UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
         this.pcRepository = pcRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -55,12 +61,23 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public BookingDto create(BookingDto bookingDto) {
-        Optional<BookingDto> bookingDtoOptional = bookingRepository.findById(bookingDto.id());
-        if (bookingDtoOptional.isPresent()) {
-            throw new BusinessException("Booking already exists");
+        PCDto pcDto = pcRepository.findById(bookingDto.pc().id())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "No se encontró el ordenador seleccionado. Es posible que haya sido eliminado."));
+
+        if (pcDto.status() == PCStatus.OCCUPIED) {
+            throw new BusinessException(
+                    "Este ordenador ya está reservado por otro usuario. Por favor, elige otro equipo disponible.");
+        } else if (pcDto.status() == PCStatus.MAINTENANCE) {
+            throw new BusinessException("Este ordenador está en mantenimiento y no puede reservarse en este momento.");
+        } else if (pcDto.status() != PCStatus.AVAILABLE) {
+            throw new BusinessException("Este ordenador no está disponible para reservar.");
         }
 
-        PCDto pcDto = bookingDto.pc();
+        UserDto userDto = userRepository.findById(bookingDto.user().id())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "No se pudo verificar tu cuenta de usuario. Por favor, cierra sesión e inicia de nuevo."));
+
         PCDto updatedPcDto = new PCDto(
                 pcDto.id(),
                 pcDto.label(),
@@ -73,7 +90,14 @@ public class BookingServiceImpl implements BookingService {
                 pcDto.categoryPCDto());
         pcRepository.save(updatedPcDto);
 
-        return bookingRepository.save(bookingDto);
+        BookingDto completeBookingDto = new BookingDto(
+                null,
+                bookingDto.hours(),
+                userDto,
+                pcDto,
+                null);
+
+        return bookingRepository.save(completeBookingDto);
     }
 
     @Override
@@ -94,5 +118,10 @@ public class BookingServiceImpl implements BookingService {
             throw new ResourceNotFoundException("Booking not found");
         }
         bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookingDto> findActiveByUserId(Long userId) {
+        return bookingRepository.findActiveByUserId(userId);
     }
 }

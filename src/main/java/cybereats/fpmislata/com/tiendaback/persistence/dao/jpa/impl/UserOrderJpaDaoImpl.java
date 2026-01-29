@@ -94,6 +94,25 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
         return entityManager.createQuery(cq).getSingleResult();
     }
 
+    @Override
+    public List<UserOrderJpaEntity> findByUserId(Long userId, int page, int size) {
+        return entityManager
+                .createQuery("SELECT u FROM UserOrderJpaEntity u WHERE u.user.id = :userId ORDER BY u.createdAt DESC",
+                        UserOrderJpaEntity.class)
+                .setParameter("userId", userId)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+    }
+
+    @Override
+    public long countByUserId(Long userId) {
+        return entityManager
+                .createQuery("SELECT COUNT(u) FROM UserOrderJpaEntity u WHERE u.user.id = :userId", Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
     private Predicate[] getSearchPredicates(CriteriaBuilder cb, Root<UserOrderJpaEntity> root, String text,
             String status,
             String date) {

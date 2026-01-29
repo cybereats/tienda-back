@@ -9,6 +9,7 @@ public class UserOrder {
     private User user;
     private List<OrderItem> orderItems;
     private OrderStatus status;
+    private DeliveryType deliveryType;
     private LocalDateTime createdAt;
 
     private UserOrder(Builder builder) {
@@ -16,6 +17,7 @@ public class UserOrder {
         this.user = builder.user;
         this.orderItems = builder.orderItems;
         this.status = builder.status;
+        this.deliveryType = builder.deliveryType;
         this.createdAt = builder.createdAt;
     }
 
@@ -35,6 +37,10 @@ public class UserOrder {
         return status;
     }
 
+    public DeliveryType getDeliveryType() {
+        return deliveryType;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -44,6 +50,7 @@ public class UserOrder {
         private User user;
         private List<OrderItem> orderItems;
         private OrderStatus status;
+        private DeliveryType deliveryType;
         private LocalDateTime createdAt;
 
         public Builder id(Long id) {
@@ -63,6 +70,11 @@ public class UserOrder {
 
         public Builder status(OrderStatus status) {
             this.status = status;
+            return this;
+        }
+
+        public Builder deliveryType(DeliveryType deliveryType) {
+            this.deliveryType = deliveryType;
             return this;
         }
 

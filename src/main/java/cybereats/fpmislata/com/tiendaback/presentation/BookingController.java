@@ -7,6 +7,8 @@ import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.BookingMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.BookingRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.BookingResponse;
+import cybereats.fpmislata.com.tiendaback.util.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,8 +47,18 @@ public class BookingController {
         return new ResponseEntity<>(bookingPage, HttpStatus.OK);
     }
 
+    @GetMapping("/my-active")
+    @AllowedRoles({ UserRole.CLIENT, UserRole.ADMIN })
+    public ResponseEntity<List<BookingResponse>> getMyActiveBookings(HttpServletRequest request) {
+        Long userId = extractUserId(request);
+        List<BookingResponse> bookingResponses = bookingService.findActiveByUserId(userId).stream()
+                .map(bookingDto -> BookingMapper.getInstance().fromBookingDtoToBookingResponse(bookingDto))
+                .toList();
+        return new ResponseEntity<>(bookingResponses, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
-    @AllowedRoles({UserRole.ADMIN, UserRole.CLIENT})
+    @AllowedRoles({ UserRole.ADMIN, UserRole.CLIENT })
     public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
         BookingResponse bookingResponse = BookingMapper.getInstance()
                 .fromBookingDtoToBookingResponse(bookingService.getById(id));
@@ -54,13 +66,28 @@ public class BookingController {
     }
 
     @PostMapping
-    @AllowedRoles(UserRole.CLIENT)
-    public ResponseEntity<BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
-        BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest);
-        DtoValidator.validate(bookingDto);
-        BookingDto createdBooking = bookingService.create(bookingDto);
-        return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(createdBooking),
-                HttpStatus.CREATED);
+    @AllowedRoles({ UserRole.CLIENT, UserRole.ADMIN })
+    public ResponseEntity<BookingResponse> createBooking(
+            HttpServletRequest request,
+            @RequestBody BookingRequest bookingRequest) {
+        try {
+            Long userId = extractUserId(request);
+            System.out.println("=== CREATE BOOKING ===");
+            System.out.println("UserId: " + userId);
+            System.out.println("PcId: " + bookingRequest.pcId());
+            System.out.println("Hours: " + bookingRequest.hours());
+
+            BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest, userId);
+            DtoValidator.validate(bookingDto);
+            BookingDto createdBooking = bookingService.create(bookingDto);
+            System.out.println("Booking created successfully: " + createdBooking.id());
+            return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(createdBooking),
+                    HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.err.println("Error creating booking: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @PutMapping("/{id}")
@@ -78,9 +105,18 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    @AllowedRoles({UserRole.ADMIN, UserRole.CLIENT})
+    @AllowedRoles({ UserRole.ADMIN, UserRole.CLIENT })
     public ResponseEntity<Void> deleteBooking(@PathVariable("id") Long id) {
         bookingService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Long extractUserId(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            String token = bearerToken.substring(7);
+            return JwtUtil.extractUserId(token);
+        }
+        throw new IllegalArgumentException("Invalid authorization header");
     }
 }

@@ -22,5 +22,9 @@ public interface UserOrderJpaDao {
 
     public List<UserOrderJpaEntity> search(String text, String status, String date, int page, int size);
 
+    public List<UserOrderJpaEntity> findByUserId(Long userId, int page, int size);
+
+    public long countByUserId(Long userId);
+
     public long countSearch(String text, String status, String date);
 }

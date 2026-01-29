@@ -46,7 +46,7 @@ public class BookingJpaDaoImpl implements BookingJpaDao {
     @Override
     public BookingJpaEntity update(BookingJpaEntity jpaEntity) {
         BookingJpaEntity managed = entityManager.find(BookingJpaEntity.class, jpaEntity.getId());
-        if(managed == null) {
+        if (managed == null) {
             throw new ResourceNotFoundException("Booking with id " + jpaEntity.getId() + " not found");
         }
         entityManager.flush();
@@ -62,5 +62,20 @@ public class BookingJpaDaoImpl implements BookingJpaDao {
     public long count() {
         return entityManager.createQuery("SELECT COUNT(b) FROM BookingJpaEntity b", Long.class)
                 .getSingleResult();
+    }
+
+    @Override
+    public Optional<BookingJpaEntity> findActiveByUserId(Long userId) {
+        List<BookingJpaEntity> results = findAllActiveByUserId(userId);
+        return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
+    }
+
+    @Override
+    public List<BookingJpaEntity> findAllActiveByUserId(Long userId) {
+        String sql = "SELECT * FROM booking b WHERE b.user_id = :userId " +
+                "AND DATE_ADD(b.created_at, INTERVAL b.hours HOUR) > NOW()";
+        return entityManager.createNativeQuery(sql, BookingJpaEntity.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

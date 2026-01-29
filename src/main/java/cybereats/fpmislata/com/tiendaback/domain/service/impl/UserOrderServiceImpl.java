@@ -33,6 +33,11 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    public Page<UserOrderDto> findByUserId(Long userId, int page, int size) {
+        return userOrderRepository.findByUserId(userId, page, size);
+    }
+
+    @Override
     public Page<UserOrderDto> search(String text, String status, String date, int page, int size) {
         return userOrderRepository.search(text, status, date, page, size);
     }

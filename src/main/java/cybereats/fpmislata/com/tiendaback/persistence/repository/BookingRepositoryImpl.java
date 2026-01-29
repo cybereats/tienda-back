@@ -36,14 +36,15 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public Optional<BookingDto> findById(Long id) {
         return bookingJpaDao.findById(id)
-                .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity));
+                .map(bookingJpaEntity -> BookingMapper.getInstance()
+                        .fromBookingJpaEntityToBookingDto(bookingJpaEntity));
     }
 
     @Override
     public BookingDto save(BookingDto bookingDto) {
         BookingJpaEntity bookingJpaEntity = BookingMapper.getInstance().fromBookingDtoToBookingJpaEntity(bookingDto);
 
-        if(bookingDto.id() == null) {
+        if (bookingDto.id() == null) {
             return BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaDao.insert(bookingJpaEntity));
         }
 
@@ -53,5 +54,17 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public void deleteById(Long id) {
         bookingJpaDao.deleteById(id);
+    }
+
+    @Override
+    public boolean hasActiveBooking(Long userId) {
+        return bookingJpaDao.findActiveByUserId(userId).isPresent();
+    }
+
+    @Override
+    public List<BookingDto> findActiveByUserId(Long userId) {
+        return bookingJpaDao.findAllActiveByUserId(userId).stream()
+                .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity))
+                .toList();
     }
 }

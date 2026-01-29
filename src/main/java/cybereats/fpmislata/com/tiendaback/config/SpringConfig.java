@@ -67,13 +67,24 @@ public class SpringConfig {
     }
 
     @Bean
+    public CartJpaDao cartJpaDao() {
+        return new CartJpaDaoImpl();
+    }
+
+    @Bean
+    public CartItemJpaDao cartItemJpaDao() {
+        return new CartItemJpaDaoImpl();
+    }
+
+    @Bean
     public BookingRepository bookingRepository(BookingJpaDao bookingJpaDao) {
         return new BookingRepositoryImpl(bookingJpaDao);
     }
 
     @Bean
-    public BookingService bookingService(BookingRepository bookingRepository, PCRepository pcRepository) {
-        return new BookingServiceImpl(bookingRepository, pcRepository);
+    public BookingService bookingService(BookingRepository bookingRepository, PCRepository pcRepository,
+            UserRepository userRepository) {
+        return new BookingServiceImpl(bookingRepository, pcRepository, userRepository);
     }
 
     @Bean
@@ -181,5 +192,17 @@ public class SpringConfig {
             PCRepository pcRepository, UserRepository userRepository, ReportRepository reportRepository) {
         return new StatsServiceImpl(userOrderRepository, bookingRepository, pcRepository, userRepository,
                 reportRepository);
+    }
+
+    @Bean
+    public CartRepository cartRepository(CartJpaDao cartJpaDao, CartItemJpaDao cartItemJpaDao,
+            ProductJpaDao productJpaDao, UserJpaDao userJpaDao) {
+        return new CartRepositoryImpl(cartJpaDao, cartItemJpaDao, productJpaDao, userJpaDao);
+    }
+
+    @Bean
+    public CartService cartService(CartRepository cartRepository, UserOrderRepository userOrderRepository,
+            UserRepository userRepository, BookingRepository bookingRepository) {
+        return new CartServiceImpl(cartRepository, userOrderRepository, userRepository, bookingRepository);
     }
 }

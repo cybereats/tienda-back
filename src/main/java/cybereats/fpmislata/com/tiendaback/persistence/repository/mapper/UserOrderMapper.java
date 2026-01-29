@@ -1,6 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository.mapper;
 
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserOrderDto;
+import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.OrderItemJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserOrderJpaEntity;
 
 import java.util.Collections;
@@ -23,15 +24,30 @@ public class UserOrderMapper {
             return null;
         }
 
-        return new UserOrderJpaEntity(
+        UserOrderJpaEntity userOrder = new UserOrderJpaEntity(
                 userOrderDto.id(),
                 UserMapper.getInstance().fromUserDtoToUserJpaEntity(userOrderDto.user()),
-                userOrderDto.orderItems() == null ? Collections.emptyList()
-                        : userOrderDto.orderItems().stream()
-                                .map(item -> OrderItemMapper.getInstance().fromOrderItemDtoToOrderItemJpaEntity(item))
-                                .toList(),
+                null,
                 userOrderDto.status(),
+                userOrderDto.deliveryType(),
                 userOrderDto.createdAt());
+
+        // Crear los order items y establecer la relación bidireccional
+        if (userOrderDto.orderItems() != null) {
+            java.util.List<OrderItemJpaEntity> items = new java.util.ArrayList<>(userOrderDto.orderItems().stream()
+                    .map(item -> {
+                        OrderItemJpaEntity orderItem = OrderItemMapper.getInstance()
+                                .fromOrderItemDtoToOrderItemJpaEntity(item);
+                        orderItem.setUser_order_id(userOrder);
+                        return orderItem;
+                    })
+                    .toList());
+            userOrder.setOrderItems(items);
+        } else {
+            userOrder.setOrderItems(new java.util.ArrayList<>());
+        }
+
+        return userOrder;
     }
 
     public UserOrderDto fromUserOrderJpaEntityToUserOrderDto(UserOrderJpaEntity userOrderJpaEntity) {
@@ -47,6 +63,7 @@ public class UserOrderMapper {
                                 .map(item -> OrderItemMapper.getInstance().fromOrderItemJpaEntityToOrderItemDto(item))
                                 .toList(),
                 userOrderJpaEntity.getStatus(),
+                userOrderJpaEntity.getDeliveryType(),
                 userOrderJpaEntity.getCreatedAt());
     }
 }
