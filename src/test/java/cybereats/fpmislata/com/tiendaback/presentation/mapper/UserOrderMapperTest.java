@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryProductDto;
@@ -33,7 +34,7 @@ class UserOrderMapperTest {
                 categoryDto);
         OrderItemDto orderItemDto = new OrderItemDto(1L, productDto, 2);
         UserOrderDto dto = new UserOrderDto(1L, userDto, List.of(orderItemDto), OrderStatus.CONFIRMED,
-                LocalDateTime.now());
+                DeliveryType.PICKUP, LocalDateTime.now());
 
         UserOrderResponse response = mapper.fromUserOrderDtoToUserOrderResponse(dto);
 

@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
@@ -42,7 +43,7 @@ class UserOrderControllerTest {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password",
                 UserRole.CLIENT);
         userOrderDto = new UserOrderDto(1L, userDto, List.of(), OrderStatus.CONFIRMED,
-                LocalDateTime.parse("2025-01-15T10:00:00"));
+                DeliveryType.PICKUP, LocalDateTime.parse("2025-01-15T10:00:00"));
     }
 
     @Nested

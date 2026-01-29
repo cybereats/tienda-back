@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.*;
@@ -47,7 +48,8 @@ class StatsServiceImplTest {
     ProductDto product = new ProductDto(1L, "Test", "test", "desc", new BigDecimal("10.0"), "image.png", category);
     OrderItemDto item = new OrderItemDto(1L, product, 2);
     UserDto user = new UserDto(1L, "Name", "Surname", "email", "1990-01-01", "user", "pass", null);
-    mockOrder = new UserOrderDto(1L, user, List.of(item), OrderStatus.CONFIRMED, LocalDateTime.now());
+    mockOrder = new UserOrderDto(1L, user, List.of(item), OrderStatus.CONFIRMED, DeliveryType.PICKUP,
+        LocalDateTime.now());
     mockBooking = new BookingDto(1L, 2, user, null, LocalDateTime.now());
   }
 

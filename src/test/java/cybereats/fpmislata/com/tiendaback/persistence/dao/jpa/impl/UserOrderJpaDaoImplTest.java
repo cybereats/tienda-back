@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.persistence.TestConfig;
@@ -42,9 +43,9 @@ class UserOrderJpaDaoImplTest {
 
         expectedOrders = List.of(
                 new UserOrderJpaEntity(1L, expectedUsers.get(0), null, OrderStatus.CONFIRMED,
-                        LocalDateTime.parse("2025-01-15T10:00:00")),
+                        DeliveryType.PICKUP, LocalDateTime.parse("2025-01-15T10:00:00")),
                 new UserOrderJpaEntity(2L, expectedUsers.get(1), null, OrderStatus.SHIPPED,
-                        LocalDateTime.parse("2025-01-20T14:00:00")));
+                        DeliveryType.PICKUP, LocalDateTime.parse("2025-01-20T14:00:00")));
     }
 
     @Nested
@@ -56,7 +57,7 @@ class UserOrderJpaDaoImplTest {
         void shouldReturnAllOrders() {
             List<UserOrderJpaEntity> orders = userOrderJpaDao.findAll();
             assertFalse(orders.isEmpty());
-            assertTrue(orders.size() >= 8); 
+            assertTrue(orders.size() >= 8);
         }
 
         @Test
@@ -107,7 +108,7 @@ class UserOrderJpaDaoImplTest {
             UserJpaEntity user = new UserJpaEntity();
             user.setId(1L);
             UserOrderJpaEntity newOrder = new UserOrderJpaEntity(null, user, null, OrderStatus.CONFIRMED,
-                    LocalDateTime.now());
+                    DeliveryType.PICKUP, LocalDateTime.now());
 
             UserOrderJpaEntity saved = userOrderJpaDao.insert(newOrder);
 

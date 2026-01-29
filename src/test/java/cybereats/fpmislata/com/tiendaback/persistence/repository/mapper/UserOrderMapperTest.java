@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryProductDto;
@@ -36,7 +37,7 @@ class UserOrderMapperTest {
                                 new BigDecimal("10.00"), "image.png", categoryEntity);
                 OrderItemJpaEntity orderItemEntity = new OrderItemJpaEntity(1L, 2, productEntity, null);
                 UserOrderJpaEntity entity = new UserOrderJpaEntity(1L, userEntity, List.of(orderItemEntity),
-                                OrderStatus.CONFIRMED, LocalDateTime.now());
+                                OrderStatus.CONFIRMED, DeliveryType.PICKUP, LocalDateTime.now());
 
                 UserOrderDto dto = mapper.fromUserOrderJpaEntityToUserOrderDto(entity);
 
@@ -59,7 +60,7 @@ class UserOrderMapperTest {
                                 categoryDto);
                 OrderItemDto orderItemDto = new OrderItemDto(1L, productDto, 2);
                 UserOrderDto dto = new UserOrderDto(1L, userDto, List.of(orderItemDto), OrderStatus.CONFIRMED,
-                                LocalDateTime.now());
+                                DeliveryType.PICKUP, LocalDateTime.now());
 
                 UserOrderJpaEntity entity = mapper.fromUserOrderDtoToUserOrderJpaEntity(dto);
 

@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.DeliveryType;
 import cybereats.fpmislata.com.tiendaback.domain.model.OrderStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
@@ -42,12 +43,12 @@ class UserOrderRepositoryImplTest {
         UserJpaEntity userEntity = new UserJpaEntity();
         userEntity.setId(1L);
         userOrderJpaEntity = new UserOrderJpaEntity(1L, userEntity, List.of(), OrderStatus.CONFIRMED,
-                LocalDateTime.parse("2025-01-15T10:00:00"));
+                DeliveryType.PICKUP, LocalDateTime.parse("2025-01-15T10:00:00"));
 
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password",
                 UserRole.CLIENT);
         userOrderDto = new UserOrderDto(1L, userDto, List.of(), OrderStatus.CONFIRMED,
-                LocalDateTime.parse("2025-01-15T10:00:00"));
+                DeliveryType.PICKUP, LocalDateTime.parse("2025-01-15T10:00:00"));
     }
 
     @Nested
@@ -106,7 +107,7 @@ class UserOrderRepositoryImplTest {
         @DisplayName("Debería insertar un nuevo pedido")
         void shouldInsertOrder() {
             UserOrderDto newOrderDto = new UserOrderDto(null, userOrderDto.user(), List.of(), OrderStatus.CONFIRMED,
-                    LocalDateTime.parse("2025-01-15T10:00:00"));
+                    DeliveryType.PICKUP, LocalDateTime.parse("2025-01-15T10:00:00"));
             when(userOrderJpaDao.insert(any(UserOrderJpaEntity.class))).thenReturn(userOrderJpaEntity);
 
             UserOrderDto result = userOrderRepository.save(newOrderDto);
