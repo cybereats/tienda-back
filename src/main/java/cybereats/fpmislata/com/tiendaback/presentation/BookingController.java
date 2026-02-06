@@ -3,7 +3,6 @@ package cybereats.fpmislata.com.tiendaback.presentation;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.service.BookingService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
-import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.presentation.mapper.BookingMapper;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.BookingRequest;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.response.BookingResponse;
@@ -78,7 +77,6 @@ public class BookingController {
             System.out.println("Hours: " + bookingRequest.hours());
 
             BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest, userId);
-            DtoValidator.validate(bookingDto);
             BookingDto createdBooking = bookingService.create(bookingDto);
             System.out.println("Booking created successfully: " + createdBooking.id());
             return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(createdBooking),
@@ -98,7 +96,6 @@ public class BookingController {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
         BookingDto bookingDto = BookingMapper.getInstance().fromBookingRequestToBookingDto(bookingRequest);
-        DtoValidator.validate(bookingDto);
         BookingDto updatedBooking = bookingService.update(bookingDto);
         return new ResponseEntity<>(BookingMapper.getInstance().fromBookingDtoToBookingResponse(updatedBooking),
                 HttpStatus.OK);
@@ -109,6 +106,12 @@ public class BookingController {
     public ResponseEntity<Void> deleteBooking(@PathVariable("id") Long id) {
         bookingService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/next-id")
+    @AllowedRoles({ UserRole.CLIENT, UserRole.ADMIN })
+    public ResponseEntity<Long> getNextId() {
+        return new ResponseEntity<>(bookingService.getNextId(), HttpStatus.OK);
     }
 
     private Long extractUserId(HttpServletRequest request) {

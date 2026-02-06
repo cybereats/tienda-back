@@ -94,4 +94,9 @@ public class UserOrderController {
         userOrderService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/next-id")
+    public ResponseEntity<Long> getNextId() {
+        return new ResponseEntity<>(userOrderService.getNextId(), HttpStatus.OK);
+    }
 }

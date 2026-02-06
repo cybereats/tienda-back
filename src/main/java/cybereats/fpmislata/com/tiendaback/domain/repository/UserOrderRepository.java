@@ -21,4 +21,6 @@ public interface UserOrderRepository {
     UserOrderDto save(UserOrderDto userOrderDto);
 
     void deleteById(Long id);
+
+    long getMaxId();
 }

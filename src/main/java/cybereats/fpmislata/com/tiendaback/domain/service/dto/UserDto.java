@@ -5,13 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 public record UserDto(
-        Long id,
-        @NotNull String name,
-        String surname,
-        String email,
-        @Past String bornDate,
-        @NotNull String username,
-        @NotNull String password,
-        @NotNull UserRole role) {
+                Long id,
+                @NotNull String name,
+                String surname,
+                String email,
+                @Past String bornDate,
+                @NotNull String username,
+                @NotNull String password,
+                @NotNull UserRole role) {
 
 }

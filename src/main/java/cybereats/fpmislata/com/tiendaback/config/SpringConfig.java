@@ -6,10 +6,13 @@ import cybereats.fpmislata.com.tiendaback.domain.service.impl.*;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.*;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl.*;
 import cybereats.fpmislata.com.tiendaback.persistence.repository.*;
+import cybereats.fpmislata.com.tiendaback.microservices.payment.PaymentMicroservice;
+import cybereats.fpmislata.com.tiendaback.microservices.payment.impl.PaymentMicroserviceImpl;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "cybereats.fpmislata.com.tiendaback.persistence.dao.jpa")
@@ -204,5 +207,20 @@ public class SpringConfig {
     public CartService cartService(CartRepository cartRepository, UserOrderRepository userOrderRepository,
             UserRepository userRepository, BookingRepository bookingRepository) {
         return new CartServiceImpl(cartRepository, userOrderRepository, userRepository, bookingRepository);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public PaymentMicroservice paymentMicroservice(RestTemplate restTemplate) {
+        return new PaymentMicroserviceImpl(restTemplate);
+    }
+
+    @Bean
+    public PaymentService paymentService(PaymentMicroservice paymentMicroservice) {
+        return new PaymentServiceImpl(paymentMicroservice);
     }
 }

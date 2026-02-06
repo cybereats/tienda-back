@@ -11,6 +11,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+    @ExceptionHandler(org.springframework.web.client.HttpStatusCodeException.class)
+    public org.springframework.http.ResponseEntity<ErrorMessage> handleHttpStatusCodeException(
+            org.springframework.web.client.HttpStatusCodeException ex) {
+        System.err.println("Microservice Error: " + ex.getStatusCode() + " - " + ex.getResponseBodyAsString());
+        ErrorMessage microserviceError = ex.getResponseBodyAs(ErrorMessage.class);
+        if (microserviceError == null) {
+            microserviceError = new ErrorMessage("MicroserviceError", ex.getMessage());
+        }
+        return new org.springframework.http.ResponseEntity<>(microserviceError, ex.getStatusCode());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ BusinessException.class })
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ErrorMessage handleBusinessException(BusinessException ex) {
+        return new ErrorMessage(ex);
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({ ResourceNotFoundException.class })
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,6 +41,7 @@ public class ApiExceptionHandler {
             HttpMessageNotReadableException.class })
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ErrorMessage handleValidationException(Exception ex) {
+        System.err.println("Validation Error: " + ex.getMessage());
         return new ErrorMessage(ex);
     }
 

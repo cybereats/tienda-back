@@ -27,4 +27,6 @@ public interface UserOrderJpaDao {
     public long countByUserId(Long userId);
 
     public long countSearch(String text, String status, String date);
+
+    public long getMaxId();
 }

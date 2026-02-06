@@ -145,4 +145,11 @@ public class UserOrderJpaDaoImpl implements UserOrderJpaDao {
 
         return predicates.toArray(new Predicate[0]);
     }
+
+    @Override
+    public long getMaxId() {
+        Long maxId = entityManager.createQuery("SELECT MAX(u.id) FROM UserOrderJpaEntity u", Long.class)
+                .getSingleResult();
+        return maxId != null ? maxId : 0;
+    }
 }

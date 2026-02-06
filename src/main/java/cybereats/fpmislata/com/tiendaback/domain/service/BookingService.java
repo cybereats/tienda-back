@@ -20,4 +20,6 @@ public interface BookingService {
     void deleteById(Long id);
 
     List<BookingDto> findActiveByUserId(Long userId);
+
+    long getNextId();
 }

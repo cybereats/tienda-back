@@ -67,4 +67,9 @@ public class BookingRepositoryImpl implements BookingRepository {
                 .map(bookingJpaEntity -> BookingMapper.getInstance().fromBookingJpaEntityToBookingDto(bookingJpaEntity))
                 .toList();
     }
+
+    @Override
+    public long getMaxId() {
+        return bookingJpaDao.getMaxId();
+    }
 }

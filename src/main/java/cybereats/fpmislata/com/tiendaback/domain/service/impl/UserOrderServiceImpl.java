@@ -100,4 +100,9 @@ public class UserOrderServiceImpl implements UserOrderService {
         }
         userOrderRepository.deleteById(id);
     }
+
+    @Override
+    public long getNextId() {
+        return userOrderRepository.getMaxId() + 1;
+    }
 }

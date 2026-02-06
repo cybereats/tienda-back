@@ -22,4 +22,6 @@ public interface UserOrderService {
     UserOrderDto update(UserOrderDto userOrderDto);
 
     void deleteById(Long id);
+
+    long getNextId();
 }

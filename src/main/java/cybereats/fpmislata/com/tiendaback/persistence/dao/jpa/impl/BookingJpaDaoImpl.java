@@ -78,4 +78,11 @@ public class BookingJpaDaoImpl implements BookingJpaDao {
                 .setParameter("userId", userId)
                 .getResultList();
     }
+
+    @Override
+    public long getMaxId() {
+        Long maxId = entityManager.createQuery("SELECT MAX(b.id) FROM BookingJpaEntity b", Long.class)
+                .getSingleResult();
+        return maxId != null ? maxId : 0;
+    }
 }

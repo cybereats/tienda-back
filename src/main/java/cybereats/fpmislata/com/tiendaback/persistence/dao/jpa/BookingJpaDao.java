@@ -11,4 +11,6 @@ public interface BookingJpaDao extends GenericJpaDao<BookingJpaEntity> {
     Optional<BookingJpaEntity> findActiveByUserId(Long userId);
 
     List<BookingJpaEntity> findAllActiveByUserId(Long userId);
+
+    long getMaxId();
 }

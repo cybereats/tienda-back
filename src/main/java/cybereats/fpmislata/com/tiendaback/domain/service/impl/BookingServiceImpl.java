@@ -9,6 +9,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.BookingService;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.BookingDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
+import cybereats.fpmislata.com.tiendaback.domain.validation.DtoValidator;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
 
@@ -97,6 +98,8 @@ public class BookingServiceImpl implements BookingService {
                 pcDto,
                 null);
 
+        DtoValidator.validate(completeBookingDto);
+
         return bookingRepository.save(completeBookingDto);
     }
 
@@ -107,6 +110,7 @@ public class BookingServiceImpl implements BookingService {
         if (bookingDtoOptional.isEmpty()) {
             throw new ResourceNotFoundException("Booking not found");
         }
+        DtoValidator.validate(bookingDto);
         return bookingRepository.save(bookingDto);
     }
 
@@ -123,5 +127,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDto> findActiveByUserId(Long userId) {
         return bookingRepository.findActiveByUserId(userId);
+    }
+
+    @Override
+    public long getNextId() {
+        return bookingRepository.getMaxId() + 1;
     }
 }

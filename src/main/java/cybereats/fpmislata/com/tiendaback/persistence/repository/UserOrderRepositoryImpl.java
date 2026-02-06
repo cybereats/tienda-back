@@ -79,4 +79,9 @@ public class UserOrderRepositoryImpl implements UserOrderRepository {
         return new Page<>(content, page, size, totalElements);
     }
 
+    @Override
+    public long getMaxId() {
+        return userOrderJpaDao.getMaxId();
+    }
+
 }

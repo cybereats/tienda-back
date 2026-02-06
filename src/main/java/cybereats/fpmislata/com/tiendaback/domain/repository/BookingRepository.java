@@ -20,4 +20,6 @@ public interface BookingRepository {
     boolean hasActiveBooking(Long userId);
 
     List<BookingDto> findActiveByUserId(Long userId);
+
+    long getMaxId();
 }
