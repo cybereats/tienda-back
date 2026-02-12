@@ -8,6 +8,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
+import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity;
+import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserJpaEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,27 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
 
     @Override
     public ReportJpaEntity update(ReportJpaEntity reportJpaEntity) {
-        return entityManager.merge(reportJpaEntity);
+        ReportJpaEntity existingReport = entityManager.find(ReportJpaEntity.class, reportJpaEntity.getId());
+
+        if (existingReport == null) {
+            throw new RuntimeException("Report not found with id: " + reportJpaEntity.getId());
+        }
+
+        existingReport.setPriority(reportJpaEntity.getPriority());
+        existingReport.setDescription(reportJpaEntity.getDescription());
+        existingReport.setSubject(reportJpaEntity.getSubject());
+        existingReport.setStatus(reportJpaEntity.getStatus());
+        existingReport.setCreatedAt(reportJpaEntity.getCreatedAt());
+
+        if (reportJpaEntity.getPc() != null && reportJpaEntity.getPc().getId() != null) {
+            existingReport.setPc(entityManager.getReference(PCJpaEntity.class, reportJpaEntity.getPc().getId()));
+        }
+
+        if (reportJpaEntity.getUser() != null && reportJpaEntity.getUser().getId() != null) {
+            existingReport.setUser(entityManager.getReference(UserJpaEntity.class, reportJpaEntity.getUser().getId()));
+        }
+
+        return entityManager.merge(existingReport);
     }
 
     @Override

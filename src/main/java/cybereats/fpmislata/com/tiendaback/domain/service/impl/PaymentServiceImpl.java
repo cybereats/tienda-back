@@ -1,6 +1,5 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
-import cybereats.fpmislata.com.tiendaback.domain.mapper.PaymentMapper;
 import cybereats.fpmislata.com.tiendaback.domain.service.PaymentService;
 import cybereats.fpmislata.com.tiendaback.microservices.payment.PaymentMicroservice;
 import cybereats.fpmislata.com.tiendaback.microservices.payment.model.PagoTarjeta;
@@ -16,8 +15,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void payment(PagoTarjetaRequest request) {
-        PagoTarjeta dto = PaymentMapper.getInstance().toPagoTarjeta(request);
+        PagoTarjeta pagoTarjeta = new PagoTarjeta(
+                new PagoTarjeta.Autorizacion("usuario1", "token_demo_123"),
+                request.origen(),
+                new PagoTarjeta.Destino("ES1234567890123456789012"),
+                request.pago());
 
-        paymentMicroservice.payment(dto);
+        paymentMicroservice.payment(pagoTarjeta);
     }
 }

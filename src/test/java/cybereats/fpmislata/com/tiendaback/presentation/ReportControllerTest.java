@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -48,9 +50,9 @@ class ReportControllerTest {
         CategoryPCDto categoryPCDto = new CategoryPCDto(1L, "Category", "category", java.math.BigDecimal.TEN);
         PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image",
                 cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryPCDto);
-        reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
+        reportDto = new ReportDto(1L, 1, "Description", "Subject", ReportStatus.PENDING, "2025-01-01", userDto, pcDto);
 
-        reportRequest = new ReportRequest(1L, 1L, 1L, "Description", "Subject", "OPEN", "2025-01-01", "1");
+        reportRequest = new ReportRequest(1L, 1L, 1L, "Description", "Subject", "OPEN", "2025-01-01", 1);
     }
 
     @Nested

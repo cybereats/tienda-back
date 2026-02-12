@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 class ReportMapperTest {
 
         @Test
@@ -29,7 +31,7 @@ class ReportMapperTest {
                 PCJpaEntity pcEntity = new PCJpaEntity(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
                                 "AVAILABLE",
                                 categoryEntity);
-                ReportJpaEntity entity = new ReportJpaEntity(1L, "High", "Description", "Subject", "Status",
+                ReportJpaEntity entity = new ReportJpaEntity(1L, 1, "Description", "Subject", ReportStatus.PENDING,
                                 "2025-01-15 10:00:00", userEntity, pcEntity);
 
                 ReportDto dto = ReportMapper.fromReportJpaEntitytoReportDto(entity);
@@ -53,7 +55,8 @@ class ReportMapperTest {
                 CategoryPCDto categoryDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
                 PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
                                 cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryDto);
-                ReportDto dto = new ReportDto(1L, "High", "Description", "Subject", "Status", "2025-01-15 10:00:00",
+                ReportDto dto = new ReportDto(1L, 1, "Description", "Subject", ReportStatus.PENDING,
+                                "2025-01-15 10:00:00",
                                 userDto,
                                 pcDto);
 

@@ -27,7 +27,7 @@ public class PCJpaEntity implements Serializable {
     @OneToMany(mappedBy = "pcJpaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingJpaEntity> bookings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "pc", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pc")
     private List<ReportJpaEntity> reports = new ArrayList<>();
 
     public PCJpaEntity() {
@@ -89,5 +89,21 @@ public class PCJpaEntity implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public void setWorkingSince(String workingSince) {
+        this.workingSince = workingSince;
+    }
+
+    public void setCategory(CategoryPCJpaEntity category) {
+        this.category = category;
     }
 }

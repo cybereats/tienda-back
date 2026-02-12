@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
@@ -13,7 +14,7 @@ public class ReportMapper {
                 reportRequest.priority(),
                 reportRequest.description(),
                 reportRequest.subject(),
-                reportRequest.status(),
+                reportRequest.status() != null ? ReportStatus.fromString(reportRequest.status()) : null,
                 reportRequest.createdAt(),
                 reportRequest.userId() != null ? mapUser(reportRequest.userId()) : null,
                 reportRequest.pcId() != null ? mapPC(reportRequest.pcId()) : null);

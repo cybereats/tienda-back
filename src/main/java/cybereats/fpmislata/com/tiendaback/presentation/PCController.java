@@ -86,4 +86,10 @@ public class PCController {
         PCDto updatedPC = pcService.update(pcDto);
         return new ResponseEntity<>(PCMapper.getInstance().fromPCDtoToPCResponse(updatedPC), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{slug}")
+    public ResponseEntity<Void> deletePC(@PathVariable("slug") String slug) {
+        pcService.deleteBySlug(slug);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

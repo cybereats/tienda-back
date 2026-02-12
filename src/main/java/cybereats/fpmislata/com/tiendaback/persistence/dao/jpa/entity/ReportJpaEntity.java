@@ -1,6 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity;
 
 import jakarta.persistence.*;
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 
 @Entity
 @Table(name = "report")
@@ -9,11 +10,12 @@ public class ReportJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String priority;
+    private Integer priority;
     @Column(name = "description")
     private String description;
     private String subject;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ReportStatus status;
     @Column(name = "created_at")
     private String createdAt;
     @ManyToOne
@@ -34,7 +36,7 @@ public class ReportJpaEntity {
     public ReportJpaEntity() {
     }
 
-    public ReportJpaEntity(Long id, String priority, String description, String subject, String status,
+    public ReportJpaEntity(Long id, Integer priority, String description, String subject, ReportStatus status,
             String createdAt,
             UserJpaEntity user, PCJpaEntity pc) {
         this.id = id;
@@ -55,11 +57,11 @@ public class ReportJpaEntity {
         this.id = id;
     }
 
-    public String getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
@@ -79,11 +81,11 @@ public class ReportJpaEntity {
         this.subject = subject;
     }
 
-    public String getStatus() {
+    public ReportStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ReportStatus status) {
         this.status = status;
     }
 

@@ -1,11 +1,13 @@
 package cybereats.fpmislata.com.tiendaback.presentation.webModel.response;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 public record ReportResponse(
         Long id,
-        String priority,
+        Integer priority,
         String description,
         String subject,
-        String status,
+        ReportStatus status,
         String createdAt,
         UserResponse user,
         PCResponse pc) {

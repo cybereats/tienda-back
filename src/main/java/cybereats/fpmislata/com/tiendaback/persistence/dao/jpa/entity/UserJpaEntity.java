@@ -28,7 +28,7 @@ public class UserJpaEntity {
     @OneToMany(mappedBy = "userJpaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookingJpaEntity> bookings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private List<ReportJpaEntity> reports = new ArrayList<>();
 
     public UserJpaEntity() {

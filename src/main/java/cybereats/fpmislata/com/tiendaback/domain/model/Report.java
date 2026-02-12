@@ -5,7 +5,7 @@ public class Report {
     private String priority;
     private String description;
     private String subject;
-    private String status;
+    private ReportStatus status;
     private String createdAt;
     private User user;
     private PC pc;
@@ -37,7 +37,7 @@ public class Report {
         return subject;
     }
 
-    public String getStatus() {
+    public ReportStatus getStatus() {
         return status;
     }
 
@@ -58,7 +58,7 @@ public class Report {
         private String priority;
         private String description;
         private String subject;
-        private String status;
+        private ReportStatus status;
         private String createdAt;
         private User user;
         private PC pc;
@@ -83,7 +83,7 @@ public class Report {
             return this;
         }
 
-        public Builder status(String status) {
+        public Builder status(ReportStatus status) {
             this.status = status;
             return this;
         }

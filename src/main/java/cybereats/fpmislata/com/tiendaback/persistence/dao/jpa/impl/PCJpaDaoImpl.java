@@ -56,13 +56,37 @@ public class PCJpaDaoImpl implements PCJpaDao {
         if (managed == null) {
             throw new ResourceNotFoundException("PC with id " + jpaEntity.getId() + " not found");
         }
+        // Update only the fields that can change, avoiding cascade issues
+        managed.setLabel(jpaEntity.getLabel());
+        managed.setStatus(jpaEntity.getStatus());
+        managed.setImage(jpaEntity.getImage());
+        managed.setSpecs(jpaEntity.getSpecs());
+        managed.setWorkingSince(jpaEntity.getWorkingSince());
+        managed.setCategory(jpaEntity.getCategory());
+
         entityManager.flush();
-        return entityManager.merge(jpaEntity);
+        return managed;
     }
 
     @Override
     public void deleteById(Long id) {
-        entityManager.remove(entityManager.find(PCJpaEntity.class, id));
+        PCJpaEntity pc = entityManager.find(PCJpaEntity.class, id);
+        if (pc != null) {
+            // First, nullify the PC reference in all associated reports
+            String updateReportsQuery = "UPDATE ReportJpaEntity r SET r.pc = null WHERE r.pc.id = :pcId";
+            entityManager.createQuery(updateReportsQuery)
+                    .setParameter("pcId", id)
+                    .executeUpdate();
+
+            // Delete all associated bookings
+            String deleteBookingsQuery = "DELETE FROM BookingJpaEntity b WHERE b.pcJpaEntity.id = :pcId";
+            entityManager.createQuery(deleteBookingsQuery)
+                    .setParameter("pcId", id)
+                    .executeUpdate();
+
+            // Now we can safely delete the PC
+            entityManager.remove(pc);
+        }
     }
 
     @Override
@@ -85,7 +109,22 @@ public class PCJpaDaoImpl implements PCJpaDao {
 
     @Override
     public void deleteBySlug(String slug) {
-        findBySlug(slug).ifPresent(entityManager::remove);
+        findBySlug(slug).ifPresent(pc -> {
+            // First, nullify the PC reference in all associated reports
+            String updateReportsQuery = "UPDATE ReportJpaEntity r SET r.pc = null WHERE r.pc.id = :pcId";
+            entityManager.createQuery(updateReportsQuery)
+                    .setParameter("pcId", pc.getId())
+                    .executeUpdate();
+
+            // Delete all associated bookings
+            String deleteBookingsQuery = "DELETE FROM BookingJpaEntity b WHERE b.pcJpaEntity.id = :pcId";
+            entityManager.createQuery(deleteBookingsQuery)
+                    .setParameter("pcId", pc.getId())
+                    .executeUpdate();
+
+            // Now we can safely delete the PC
+            entityManager.remove(pc);
+        });
     }
 
     @Override

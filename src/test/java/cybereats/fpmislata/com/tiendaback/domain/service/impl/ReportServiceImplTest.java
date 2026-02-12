@@ -8,6 +8,7 @@ import cybereats.fpmislata.com.tiendaback.domain.service.dto.ReportDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.UserDto;
 import cybereats.fpmislata.com.tiendaback.exception.BusinessException;
 import cybereats.fpmislata.com.tiendaback.exception.ResourceNotFoundException;
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -44,7 +45,7 @@ class ReportServiceImplTest {
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password", null);
         PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image",
                 cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, null);
-        reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
+        reportDto = new ReportDto(1L, 1, "Description", "Subject", ReportStatus.PENDING, "2025-01-01", userDto, pcDto);
     }
 
     @Nested
@@ -71,7 +72,7 @@ class ReportServiceImplTest {
         @Test
         @DisplayName("Debería crear un nuevo reporte con valores por defecto")
         void shouldInsertReportWithDefaults() {
-            ReportDto inputDto = new ReportDto(null, "1", "Desc", "Subject", null, null, reportDto.user(),
+            ReportDto inputDto = new ReportDto(null, 1, "Desc", "Subject", null, null, reportDto.user(),
                     reportDto.pc());
             when(reportRepository.findById(null)).thenReturn(Optional.empty());
             when(reportRepository.save(any(ReportDto.class))).thenReturn(reportDto);
@@ -108,13 +109,31 @@ class ReportServiceImplTest {
         @Test
         @DisplayName("Debería actualizar el estado del PC a MAINTENANCE si el reporte pasa a IN_PROGRESS")
         void shouldUpdatePCStatusToMaintenanceOnInProgress() {
-            ReportDto inProgressReport = new ReportDto(1L, "1", "Desc", "Sub", "IN_PROGRESS", "2025-01-01",
+            ReportDto inProgressReport = new ReportDto(1L, 1, "Desc", "Sub", ReportStatus.IN_PROGRESS, "2025-01-01",
                     reportDto.user(), reportDto.pc());
+
             when(reportRepository.findById(1L)).thenReturn(Optional.of(reportDto));
+            when(pcRepository.findById(reportDto.pc().id())).thenReturn(Optional.of(reportDto.pc()));
             when(reportRepository.save(any(ReportDto.class))).thenReturn(inProgressReport);
 
             reportService.update(inProgressReport);
 
+            verify(pcRepository, times(1)).findById(reportDto.pc().id());
+            verify(pcRepository, times(1)).save(argThat(pc -> pc.status() == PCStatus.MAINTENANCE));
+        }
+
+        @Test
+        @DisplayName("Debería actualizar el estado del PC a MAINTENANCE al insertar un reporte IN_PROGRESS")
+        void shouldUpdatePCStatusToMaintenanceOnInsertInProgress() {
+            ReportDto inProgressReport = new ReportDto(null, 1, "Desc", "Sub", ReportStatus.IN_PROGRESS, null,
+                    reportDto.user(), reportDto.pc());
+
+            when(pcRepository.findById(reportDto.pc().id())).thenReturn(Optional.of(reportDto.pc()));
+            when(reportRepository.save(any(ReportDto.class))).thenReturn(inProgressReport);
+
+            reportService.insert(inProgressReport);
+
+            verify(pcRepository, times(1)).findById(reportDto.pc().id());
             verify(pcRepository, times(1)).save(argThat(pc -> pc.status() == PCStatus.MAINTENANCE));
         }
 

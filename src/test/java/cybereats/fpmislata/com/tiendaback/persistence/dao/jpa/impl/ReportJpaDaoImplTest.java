@@ -46,10 +46,10 @@ class ReportJpaDaoImplTest {
                         "pc-basic-1.jpg", "AVAILABLE", null));
 
         expectedReports = List.of(
-                new ReportJpaEntity(1L, "3", "Pantalla parpadeando, la pantalla parpadea constantemente.",
+                new ReportJpaEntity(1L, 3, "Pantalla parpadeando, la pantalla parpadea constantemente.",
                         "Pantalla parpadeando", "PENDING", "2025-01-15 10:00:00", expectedUsers.get(0),
                         expectedPcs.get(0)),
-                new ReportJpaEntity(10L, "3",
+                new ReportJpaEntity(10L, 3,
                         "Configuración incorrecta, la computadora tiene una configuración incorrecta.",
                         "Configuración incorrecta", "RESOLVED", "2025-04-25 16:00:00", expectedUsers.get(1),
                         expectedPcs.get(1)));
@@ -141,7 +141,7 @@ class ReportJpaDaoImplTest {
             PCJpaEntity pc = new PCJpaEntity(1L, "label", "slug", 10, "specs", "2023-01-01", "image", "AVAILABLE",
                     null);
 
-            ReportJpaEntity newReport = new ReportJpaEntity(null, "1", "Desc", "Subject", "OPEN", "2025-01-01", user,
+            ReportJpaEntity newReport = new ReportJpaEntity(null, 1, "Desc", "Subject", "OPEN", "2025-01-01", user,
                     pc);
             ReportJpaEntity saved = reportJpaDao.insert(newReport);
 

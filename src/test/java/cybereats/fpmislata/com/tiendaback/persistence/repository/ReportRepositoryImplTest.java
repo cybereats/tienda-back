@@ -8,6 +8,7 @@ import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ReportJpaDao;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.PCJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.UserJpaEntity;
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,12 +45,13 @@ class ReportRepositoryImplTest {
         PCJpaEntity pcEntity = new PCJpaEntity(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", "AVAILABLE",
                 null);
 
-        reportJpaEntity = new ReportJpaEntity(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userEntity,
+        reportJpaEntity = new ReportJpaEntity(1L, 1, "Description", "Subject", ReportStatus.PENDING, "2025-01-01",
+                userEntity,
                 pcEntity);
 
         UserDto userDto = new UserDto(1L, "Name", "Surname", "Email", "BornDate", "Username", "Password", null);
         PCDto pcDto = new PCDto(1L, "Label", "Slug", 10, "Specs", "2023-01-01", "Image", PCStatus.AVAILABLE, null);
-        reportDto = new ReportDto(1L, "1", "Description", "Subject", "OPEN", "2025-01-01", userDto, pcDto);
+        reportDto = new ReportDto(1L, 1, "Description", "Subject", ReportStatus.PENDING, "2025-01-01", userDto, pcDto);
     }
 
     @Nested
@@ -92,7 +94,8 @@ class ReportRepositoryImplTest {
         @Test
         @DisplayName("Debería insertar un nuevo reporte")
         void shouldInsertReport() {
-            ReportDto newReportDto = new ReportDto(null, "1", "Desc", "Sub", "OPEN", "2025-01-01", reportDto.user(),
+            ReportDto newReportDto = new ReportDto(null, 1, "Desc", "Sub", ReportStatus.PENDING, "2025-01-01",
+                    reportDto.user(),
                     reportDto.pc());
             when(reportJpaDao.insert(any(ReportJpaEntity.class))).thenReturn(reportJpaEntity);
 

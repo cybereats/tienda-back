@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.PCStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ReportRepository;
@@ -27,11 +28,13 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional
     public ReportDto insert(ReportDto reportDto) {
-        Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
-        if (reportDtoOptional.isPresent()) {
-            throw new BusinessException("Report already exists");
+        if (reportDto.id() != null) {
+            Optional<ReportDto> reportDtoOptional = reportRepository.findById(reportDto.id());
+            if (reportDtoOptional.isPresent()) {
+                throw new BusinessException("Report already exists");
+            }
         }
-        String status = reportDto.status() != null ? reportDto.status() : "OPEN";
+        ReportStatus status = reportDto.status() != null ? reportDto.status() : ReportStatus.OPEN;
         String createdAt = reportDto.createdAt() != null ? reportDto.createdAt()
                 : java.time.LocalDate.now().toString();
 
@@ -45,8 +48,10 @@ public class ReportServiceImpl implements ReportService {
                 reportDto.user(),
                 reportDto.pc());
 
-        if ("IN_PROGRESS".equalsIgnoreCase(status)) {
+        if (ReportStatus.IN_PROGRESS == status || ReportStatus.PENDING == status) {
             updatePCStatusToMaintenance(reportDto.pc());
+        } else if (ReportStatus.RESOLVED == status) {
+            updatePCStatusToAvailable(reportDto.pc());
         }
 
         return reportRepository.save(reportToSave);
@@ -58,7 +63,7 @@ public class ReportServiceImpl implements ReportService {
         ReportDto existingReportDto = reportRepository.findById(reportDto.id())
                 .orElseThrow(() -> new ResourceNotFoundException("Report not found"));
 
-        String newStatus = reportDto.status() != null ? reportDto.status() : existingReportDto.status();
+        ReportStatus newStatus = reportDto.status() != null ? reportDto.status() : existingReportDto.status();
 
         ReportDto reportToSave = new ReportDto(
                 existingReportDto.id(),
@@ -70,25 +75,51 @@ public class ReportServiceImpl implements ReportService {
                 reportDto.user() != null ? reportDto.user() : existingReportDto.user(),
                 reportDto.pc() != null ? reportDto.pc() : existingReportDto.pc());
 
-        if ("IN_PROGRESS".equalsIgnoreCase(newStatus)) {
+        if (ReportStatus.IN_PROGRESS == newStatus || ReportStatus.PENDING == newStatus) {
             updatePCStatusToMaintenance(reportToSave.pc());
+        } else if (ReportStatus.RESOLVED == newStatus) {
+            updatePCStatusToAvailable(reportToSave.pc());
         }
 
         return reportRepository.save(reportToSave);
     }
 
     private void updatePCStatusToMaintenance(PCDto pcDto) {
-        if (pcDto != null) {
+        if (pcDto != null && pcDto.id() != null) {
+            // Buscamos el PC completo para no perder datos al actualizar el estado
+            PCDto fullPcDto = pcRepository.findById(pcDto.id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Computer not found"));
+
             PCDto updatedPcDto = new PCDto(
-                    pcDto.id(),
-                    pcDto.label(),
-                    pcDto.slug(),
-                    pcDto.runtime(),
-                    pcDto.specs(),
-                    pcDto.workingSince(),
-                    pcDto.image(),
+                    fullPcDto.id(),
+                    fullPcDto.label(),
+                    fullPcDto.slug(),
+                    fullPcDto.runtime(),
+                    fullPcDto.specs(),
+                    fullPcDto.workingSince(),
+                    fullPcDto.image(),
                     PCStatus.MAINTENANCE,
-                    pcDto.categoryPCDto());
+                    fullPcDto.categoryPCDto());
+            pcRepository.save(updatedPcDto);
+        }
+    }
+
+    private void updatePCStatusToAvailable(PCDto pcDto) {
+        if (pcDto != null && pcDto.id() != null) {
+            // Buscamos el PC completo para no perder datos al actualizar el estado
+            PCDto fullPcDto = pcRepository.findById(pcDto.id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Computer not found"));
+
+            PCDto updatedPcDto = new PCDto(
+                    fullPcDto.id(),
+                    fullPcDto.label(),
+                    fullPcDto.slug(),
+                    fullPcDto.runtime(),
+                    fullPcDto.specs(),
+                    fullPcDto.workingSince(),
+                    fullPcDto.image(),
+                    PCStatus.AVAILABLE,
+                    fullPcDto.categoryPCDto());
             pcRepository.save(updatedPcDto);
         }
     }

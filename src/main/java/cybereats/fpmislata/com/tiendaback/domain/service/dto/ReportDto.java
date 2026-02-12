@@ -1,11 +1,13 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.dto;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 public record ReportDto(
                 Long id,
-                String priority,
+                Integer priority,
                 String description,
                 String subject,
-                String status,
+                ReportStatus status,
                 String createdAt,
                 UserDto user,
                 PCDto pc) {
