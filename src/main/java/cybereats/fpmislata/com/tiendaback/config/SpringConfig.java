@@ -3,11 +3,12 @@ package cybereats.fpmislata.com.tiendaback.config;
 import cybereats.fpmislata.com.tiendaback.domain.repository.*;
 import cybereats.fpmislata.com.tiendaback.domain.service.*;
 import cybereats.fpmislata.com.tiendaback.domain.service.impl.*;
+import cybereats.fpmislata.com.tiendaback.infraestructura.payment.PaymentMicroservice;
+import cybereats.fpmislata.com.tiendaback.infraestructura.payment.impl.PaymentMicroserviceImpl;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.*;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl.*;
 import cybereats.fpmislata.com.tiendaback.persistence.repository.*;
-import cybereats.fpmislata.com.tiendaback.microservices.payment.PaymentMicroservice;
-import cybereats.fpmislata.com.tiendaback.microservices.payment.impl.PaymentMicroserviceImpl;
+
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

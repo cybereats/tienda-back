@@ -1,8 +1,8 @@
 package cybereats.fpmislata.com.tiendaback.domain.service.impl;
 
 import cybereats.fpmislata.com.tiendaback.domain.service.PaymentService;
-import cybereats.fpmislata.com.tiendaback.microservices.payment.PaymentMicroservice;
-import cybereats.fpmislata.com.tiendaback.microservices.payment.model.PagoTarjeta;
+import cybereats.fpmislata.com.tiendaback.infraestructura.payment.PaymentMicroservice;
+import cybereats.fpmislata.com.tiendaback.infraestructura.payment.model.PagoTarjeta;
 import cybereats.fpmislata.com.tiendaback.presentation.webModel.request.PagoTarjetaRequest;
 
 public class PaymentServiceImpl implements PaymentService {
