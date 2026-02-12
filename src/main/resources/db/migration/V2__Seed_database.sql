@@ -1,75 +1,9 @@
 -- ============================
--- TABLE: user
+-- TABLE: users
 -- ============================
-INSERT IGNORE INTO users (name, surname, email, born_date, username, password, role) VALUES
-                                                                    ('Juan', 'Pérez', 'juan.perez@example.com', '1990-05-12', 'user', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
-                                                                    ('Ana', 'Ruiz', 'ana.ruiz@example.com', '2000-10-08', 'admin', '$2a$12$VDY8aHe0tZHYLniEJilwLuFKK9EFZE04JCrRltJRXurBmvc/eEn56', 'ADMIN');
-
--- ============================
--- TABLE: category_product
--- ============================
-INSERT IGNORE INTO category_product (label, slug) VALUES
-    ('Hamburguesas', 'hamburguesas'),
-    ('Acompañamientos', 'acompanamientos'),
-    ('Bebidas', 'bebidas'),
-    ('Postres', 'postres'),
-    ('Desayunos', 'desayunos');
-
-
--- ============================
--- TABLE: product
--- ============================
-INSERT IGNORE INTO product (label, slug, description, price, image, category_product_id) VALUES
-                                                                          ('Teclado Mecánico', 'teclado-mecanico', 'Teclado con switches rojos.', 49.90, 'burger-1.png', 1),
-                                                                          ('Ratón Gaming', 'raton-gaming', 'Ratón RGB de alta precisión.', 29.90, 'burger-1.png', 1),
-                                                                          ('Tarjeta Gráfica GTX 1660', 'gtx-1660', 'GeForce GTX 1660 6GB.', 229.00, 'burger-1.png', 2),
-                                                                          ('Memoria RAM 16GB', 'ram-16gb', 'DDR4 3200MHz.', 69.90, 'burger-1.png', 2),
-                                                                          ('Alfombrilla XXL', 'alfombrilla-xxl', 'Alfombrilla gaming extendida.', 12.99, 'burger-1.png', 3);
-
--- ============================
--- TABLE: log
--- ============================
-INSERT IGNORE INTO log (info, timestamp) VALUES
-                                      ('Usuario Juan inició sesión', '2025-01-01 10:00:00'),
-                                      ('Pedido creado', '2025-01-02 14:22:10'),
-                                      ('Producto actualizado', '2025-01-05 18:45:31'),
-                                      ('Reporte generado', '2025-01-08 09:15:55'),
-                                      ('Usuario Ana cerró sesión', '2025-01-09 21:10:10');
-
--- ============================
--- TABLE: category_pc
--- ============================
-
-INSERT IGNORE INTO category_pc (label, slug, price) VALUES
-                                           ('Básico', 'basico', 2.50),
-                                           ('Gaming', 'gaming', 5.00),
-                                           ('Streaming', 'streaming', 7.00),
-                                           ('Edición de Video', 'edicion-de-video', 6.50),
-                                           ('VIP', 'vip', 15.00),
-                                           ('Workstation', 'workstation', 10.00),
-                                           ('Esports', 'esports', 8.00);
-
-
--- ============================
--- TABLE: pc
--- ============================
-INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
-                                                                                ('PC Gamer 1', 'pc-gamer-1', '12', 'Ryzen 5, RTX 3060, 16GB RAM', '2023-05-12', 'pc-1.png', 'AVAILABLE', 2),
-                                                                                ('PC Gamer 2', 'pc-gamer-2', '8', 'i5, RTX 2060, 16GB RAM', '2022-11-02', 'pc-1.png', 'AVAILABLE', 2),
-                                                                                ('PC Streaming 1', 'pc-stream-1', '5', 'Ryzen 7, Capture Card, 32GB RAM', '2023-01-20', 'pc-1.png', 'AVAILABLE', 3),
-                                                                                ('PC Básico 1', 'pc-basic-1', '20', 'i3, Integrada, 8GB RAM', '2021-08-10', 'pc-1.png', 'AVAILABLE', 1),
-                                                                                ('PC Edición 1', 'pc-edit-1', '10', 'Ryzen 9, 64GB RAM', '2023-07-15', 'pc-1.png', 'AVAILABLE', 4);
-
--- ============================
--- TABLE: booking
--- ============================
-INSERT IGNORE INTO booking (hours, pc_id, user_id) VALUES
-                                                (2, 1, 1),
-                                                (4, 3, 2);
-
-
--- Más usuarios
-INSERT IGNORE INTO users (name, surname, email, born_date, username, password, role) VALUES
+INSERT INTO users (name, surname, email, born_date, username, password, role) VALUES
+('Juan', 'Pérez', 'juan.perez@example.com', '1990-05-12', 'user', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
+('Ana', 'Ruiz', 'ana.ruiz@example.com', '2000-10-08', 'admin', '$2a$12$VDY8aHe0tZHYLniEJilwLuFKK9EFZE04JCrRltJRXurBmvc/eEn56', 'ADMIN'),
 ('Carlos', 'Gómez', 'carlos.gomez@example.com', '1985-03-15', 'carlos', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('María', 'López', 'maria.lopez@example.com', '1995-07-22', 'maria', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('Pedro', 'Martínez', 'pedro.martinez@example.com', '1992-11-30', 'pedro', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
@@ -77,41 +11,7 @@ INSERT IGNORE INTO users (name, surname, email, born_date, username, password, r
 ('José', 'Díaz', 'jose.diaz@example.com', '1998-01-05', 'jose', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('Carmen', 'Morales', 'carmen.morales@example.com', '1993-12-18', 'carmen', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('Antonio', 'Ortiz', 'antonio.ortiz@example.com', '1987-06-25', 'antonio', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
-('Isabel', 'Ramírez', 'isabel.ramirez@example.com', '1996-04-12', 'isabel', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT');
-
--- Más pedidos con created_at en diferentes meses
-INSERT IGNORE INTO user_order (status, user_id, created_at) VALUES
-('CONFIRMED', 3, '2025-01-15 10:00:00'),
-('SHIPPED', 4, '2025-01-20 14:00:00'),
-('DELIVERED', 5, '2025-02-10 09:00:00'),
-('CONFIRMED', 6, '2025-02-25 16:00:00'),
-('DELIVERED', 7, '2025-03-05 11:00:00'),
-('SHIPPED', 8, '2025-03-18 13:00:00'),
-('CONFIRMED', 9, '2025-04-02 15:00:00'),
-('DELIVERED', 10, '2025-04-15 10:00:00');
-
-
--- Más reportes
--- Más reportes
-
--- Más reportes
--- Más reportes
-INSERT IGNORE INTO report (priority, `subject`, description, pc_id, user_id, created_at, `status`) VALUES
-(3, 'Pantalla parpadeando', 'Pantalla parpadeando, la pantalla parpadea constantemente.', 3, 3, '2025-01-15 10:00:00', 'PENDING'),
-(1, 'No enciende', 'No enciende, la computadora no enciende.', 4, 4, '2025-01-20 14:00:00', 'PENDING'),
-(2, 'Lento rendimiento', 'Lento rendimiento, la computadora es muy lenta.', 5, 5, '2025-02-10 09:00:00', 'IN_PROGRESS'),
-(3, 'Sobrecalentamiento', 'Sobrecalentamiento, la computadora se calienta mucho.', 1, 6, '2025-02-25 16:00:00', 'IN_PROGRESS'),
-(1, 'Error de conexión', 'Error de conexión, la computadora no se conecta.', 2, 7, '2025-03-05 11:00:00', 'IN_PROGRESS'),
-(2, 'Ruido excesivo', 'Ruido excesivo, la computadora hace mucho ruido.', 3, 8, '2025-03-18 13:00:00', 'IN_PROGRESS'),
-(3, 'Actualización necesaria', 'Actualización necesaria, la computadora necesita una actualización.', 4, 1, '2025-04-02 15:00:00', 'RESOLVED'),
-(1, 'Falla en periféricos', 'Falla en periféricos, la computadora tiene problemas con los periféricos.', 5, 2, '2025-04-15 10:00:00', 'RESOLVED'),
-(2, 'Problema de red', 'Problema de red, la computadora tiene problemas de red.', 1, 3, '2025-04-20 14:00:00', 'RESOLVED'),
-(3, 'Configuración incorrecta', 'Configuración incorrecta, la computadora tiene una configuración incorrecta.', 2, 4, '2025-04-25 16:00:00', 'RESOLVED');
-
--- ============================
--- 50 Additional Users
--- ============================
-INSERT IGNORE INTO users (name, surname, email, born_date, username, password, role) VALUES
+('Isabel', 'Ramírez', 'isabel.ramirez@example.com', '1996-04-12', 'isabel', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('User11', 'Surname11', 'user11@example.com', '1985-06-15', 'user11', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('User12', 'Surname12', 'user12@example.com', '1992-04-22', 'user12', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
 ('User13', 'Surname13', 'user13@example.com', '1988-11-30', 'user13', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT'),
@@ -164,79 +64,151 @@ INSERT IGNORE INTO users (name, surname, email, born_date, username, password, r
 ('User60', 'Surname60', 'user60@example.com', '1988-09-10', 'user60', '$2a$12$FxSD7GSeKwbw/zGf0QsXdOnzMB4FbGPswtNLdkbUah52/qv7DAd1S', 'CLIENT');
 
 -- ============================
--- 50 Additional Product Categories
+-- TABLE: category_product
 -- ============================
-INSERT IGNORE INTO category_product (label, slug) VALUES
-('Hamburguesas de Neón', 'hamburguesas-de-neon'),
-('Sushi Ciberpunk', 'sushi-ciberpunk'),
-('Pizza-Sintetiza', 'pizza-sintetiza'),
-('Tacos Bio-Hack', 'tacos-bio-hack'),
-('Ramen de Silicio', 'ramen-de-silicio'),
-('Bebidas Electrolíticas', 'bebidas-electroliticas'),
-('Snacks Cuánticos', 'snacks-cuanticos'),
-('Postres Holográficos', 'postres-holograficos'),
-('Café de Materia Oscura', 'cafe-materia-oscura'),
-('Batidos de Nanobots', 'batidos-nanobots'),
-('Teclados Mecatrónicos', 'teclados-mecatronicos'),
-('Ratones Ópticos Laser', 'ratones-opticos-laser'),
-('Monitores de Plasma', 'monitores-plasma'),
-('Tarjetas Gráficas Pro', 'tarjetas-graficas-pro'),
-('Procesadores i99', 'procesadores-i99'),
-('RAM Hiper-Veloz', 'ram-hiper-veloz'),
-('Discos de Estado Neural', 'discos-estado-neural'),
-('Fuentes de Energía Fusión', 'fuentes-energia-fusion'),
-('Placas Base Estelares', 'placas-base-estelares'),
-('Cajas de Titanio', 'cajas-titanio'),
-('Cascos VR 80K', 'cascos-vr-80k'),
-('Guantes Hápticos', 'guantes-hapticos'),
-('Sillas de Gravedad Cero', 'sillas-gravedad-cero'),
-('Mesas de Luz Sólida', 'mesas-luz-solida'),
-('Cámaras de Stream 4D', 'camaras-stream-4d'),
-('Micrófonos de Vacío', 'microfonos-vacio'),
-('Altavoces de Resonancia', 'altavoces-resonancia'),
-('Cableado de Fibra Óptica', 'cableado-fibra-optica'),
-('Routers Cuánticos', 'routers-cuanticos'),
-('Repetidores de Señal', 'repetidores-senal'),
-('Software de IA', 'software-ia'),
-('Sistemas Operativos Pro', 'sistemas-operativos-pro'),
-('Scripts de Automatización', 'scripts-automatizacion'),
-('Plugins de Realidad', 'plugins-realidad'),
-('Assets 3D', 'assets-3d'),
-('Seguridad Firewall X', 'seguridad-firewall-x'),
-('Antivirus Deflector', 'antivirus-deflector'),
-('Encriptadores de Red', 'encriptadores-red'),
-('Billeteras Crypto', 'billeteras-crypto'),
-('Minería de Datos', 'mineria-datos'),
-('Componentes de Drone', 'componentes-drone'),
-('Motores de Propulsión', 'motores-propulsion'),
-('Sensores de Movimiento', 'sensores-movimiento'),
-('Baterías de Ion-S', 'baterias-ion-s'),
-('Kits de Robótica', 'kits-robotica'),
-('Herramientas de Soldadura', 'herramientas-soldadura'),
-('Impresoras 3D Bio', 'impresoras-3d-bio'),
-('Filamentos Especiales', 'filamentos-especiales'),
-('Resinas Tóxicas', 'resinas-toxicas'),
-('Accesorios de Estilo', 'accesorios-estilo');
+INSERT INTO category_product (label, slug) VALUES
+('Hamburguesas', 'hamburguesas'),
+('Pizzas', 'pizzas'),
+('Bebidas', 'bebidas'),
+('Postres', 'postres'),
+('Combos', 'combos'),
+('Entrantes', 'entrantes'),
+('Smoothies', 'smoothies'),
+('Hot Dogs', 'hot-dogs'),
+('Ensaladas', 'ensaladas'),
+('Wraps', 'wraps');
 
 -- ============================
--- 50 Additional Products
+-- TABLE: product
 -- ============================
-INSERT IGNORE INTO product (label, slug, description, price, image, category_product_id) VALUES
-('Product 6', 'product-6', 'Desc 6', 99.99, 'burger-1.png', 1), ('Product 7', 'product-7', 'Desc 7', 89.99, 'burger-1.png', 2), ('Product 8', 'product-8', 'Desc 8', 79.99, 'burger-1.png', 3), ('Product 9', 'product-9', 'Desc 9', 69.99, 'burger-1.png', 4), ('Product 10', 'product-10', 'Desc 10', 59.99, 'burger-1.png', 5),
-('Product 11', 'product-11', 'Desc 11', 49.99, 'burger-1.png', 1), ('Product 12', 'product-12', 'Desc 12', 39.99, 'burger-1.png', 2), ('Product 13', 'product-13', 'Desc 13', 29.99, 'burger-1.png', 3), ('Product 14', 'product-14', 'Desc 14', 19.99, 'burger-1.png', 4), ('Product 15', 'product-15', 'Desc 15', 109.99, 'burger-1.png', 5),
-('Product 16', 'product-16', 'Desc 16', 119.99, 'burger-1.png', 1), ('Product 17', 'product-17', 'Desc 17', 129.99, 'burger-1.png', 2), ('Product 18', 'product-18', 'Desc 18', 139.99, 'burger-1.png', 3), ('Product 19', 'product-19', 'Desc 19', 149.99, 'burger-1.png', 4), ('Product 20', 'product-20', 'Desc 20', 159.99, 'burger-1.png', 5),
-('Product 21', 'product-21', 'Desc 21', 169.99, 'burger-1.png', 6), ('Product 22', 'product-22', 'Desc 22', 179.99, 'burger-1.png', 7), ('Product 23', 'product-23', 'Desc 23', 189.99, 'burger-1.png', 8), ('Product 24', 'product-24', 'Desc 24', 199.99, 'burger-1.png', 9), ('Product 25', 'product-25', 'Desc 25', 209.99, 'burger-1.png', 10),
-('Product 26', 'product-26', 'Desc 26', 219.99, 'burger-1.png', 11), ('Product 27', 'product-27', 'Desc 27', 229.99, 'burger-1.png', 12), ('Product 28', 'product-28', 'Desc 28', 239.99, 'burger-1.png', 13), ('Product 29', 'product-29', 'Desc 29', 249.99, 'burger-1.png', 14), ('Product 30', 'product-30', 'Desc 30', 259.99, 'burger-1.png', 15),
-('Product 31', 'product-31', 'Desc 31', 269.99, 'burger-1.png', 16), ('Product 32', 'product-32', 'Desc 32', 279.99, 'burger-1.png', 17), ('Product 33', 'product-33', 'Desc 33', 289.99, 'burger-1.png', 18), ('Product 34', 'product-34', 'Desc 34', 299.99, 'burger-1.png', 19), ('Product 35', 'product-35', 'Desc 35', 309.99, 'burger-1.png', 20),
-('Product 36', 'product-36', 'Desc 36', 319.99, 'burger-1.png', 21), ('Product 37', 'product-37', 'Desc 37', 329.99, 'burger-1.png', 22), ('Product 38', 'product-38', 'Desc 38', 339.99, 'burger-1.png', 23), ('Product 39', 'product-39', 'Desc 39', 349.99, 'burger-1.png', 24), ('Product 40', 'product-40', 'Desc 40', 359.99, 'burger-1.png', 25),
-('Product 41', 'product-41', 'Desc 41', 369.99, 'burger-1.png', 26), ('Product 42', 'product-42', 'Desc 42', 379.99, 'burger-1.png', 27), ('Product 43', 'product-43', 'Desc 43', 389.99, 'burger-1.png', 28), ('Product 44', 'product-44', 'Desc 44', 399.99, 'burger-1.png', 29), ('Product 45', 'product-45', 'Desc 45', 409.99, 'burger-1.png', 30),
-('Product 46', 'product-46', 'Desc 46', 419.99, 'burger-1.png', 31), ('Product 47', 'product-47', 'Desc 47', 429.99, 'burger-1.png', 32), ('Product 48', 'product-48', 'Desc 48', 439.99, 'burger-1.png', 33), ('Product 49', 'product-49', 'Desc 49', 449.99, 'burger-1.png', 34), ('Product 50', 'product-50', 'Desc 50', 459.99, 'burger-1.png', 35),
-('Product 51', 'product-51', 'Desc 51', 469.99, 'burger-1.png', 36), ('Product 52', 'product-52', 'Desc 52', 479.99, 'burger-1.png', 37), ('Product 53', 'product-53', 'Desc 53', 489.99, 'burger-1.png', 38), ('Product 54', 'product-54', 'Desc 54', 499.99, 'burger-1.png', 39), ('Product 55', 'product-55', 'Desc 55', 509.99, 'burger-1.png', 40);
+
+-- HAMBURGUESAS (category_id = 1)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Cyber Burger', 'cyber-burger', 'Nuestra hamburguesa clásica con carne de 200g, queso cheddar, lechuga, tomate y salsa especial.', 8.99, 'food/cyber_burger.png', 1),
+('Gamer Deluxe', 'gamer-deluxe', 'Doble carne de 150g, bacon crujiente, queso americano, cebolla caramelizada y salsa BBQ.', 11.99, 'food/gamer_deluxe.png', 1),
+('Pixel Bacon', 'pixel-bacon', 'Carne de 180g con doble bacon, queso suizo, jalapeños y mayonesa picante.', 10.49, 'food/pixel_bacon.png', 1),
+('Veggie Quest', 'veggie-quest', 'Hamburguesa vegetariana con beyond meat, aguacate, rúcula y pesto casero.', 9.99, 'food/veggie_quest.png', 1),
+('Boss Battle', 'boss-battle', 'Triple carne de 150g, triple queso, bacon, huevo frito y salsa especial. ¡Para campeones!', 14.99, 'food/boss_battle.png', 1),
+('Crispy Chicken', 'crispy-chicken', 'Pechuga de pollo empanizada, lechuga iceberg, tomate y mayonesa de ajo.', 8.49, 'food/crispy_chicken.png', 1),
+('Smash Burger', 'smash-burger', 'Dos carnes smash de 90g, queso americano derretido, pepinillos y salsa mil islas.', 9.49, 'food/smash_burger.png', 1),
+('Mushroom Level', 'mushroom-level', 'Carne de 200g con champiñones salteados, queso brie y cebolla crujiente.', 10.99, 'food/mushroom_level.png', 1),
+('Spicy Fire', 'spicy-fire', 'Carne de 180g con habanero, queso pepper jack, jalapeños y salsa sriracha. ¡Extremo!', 10.49, 'food/spicy_fire.png', 1),
+('Classic Cheese', 'classic-cheese', 'Simple pero perfecta: carne de 150g, queso cheddar, ketchup y mostaza.', 6.99, 'food/classic_cheese.png', 1);
+
+-- PIZZAS (category_id = 2)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Pepperoni Arcade', 'pepperoni-arcade', 'Pizza clásica con pepperoni premium y extra queso mozzarella.', 10.99, 'food/pepperoni_arcade.png', 2),
+('4 Quesos Gaming', '4-quesos-gaming', 'Mozzarella, gorgonzola, parmesano y queso de cabra sobre base de tomate.', 11.99, 'food/4_quesos_gaming.png', 2),
+('Hawaiana Pixel', 'hawaiana-pixel', 'Jamón york, piña natural, bacon y mozzarella. La combinación ganadora.', 10.49, 'food/hawaiana_pixel.png', 2),
+('BBQ Chicken', 'bbq-chicken', 'Pollo marinado en BBQ, bacon, cebolla morada y cilantro fresco.', 12.49, 'food/BBQ_chicken.png', 2),
+('Vegetariana Pro', 'vegetariana-pro', 'Pimientos, champiñones, cebolla, aceitunas, tomate cherry y albahaca.', 9.99, 'food/vegetariana_pro.png', 2),
+('Meat Lovers XL', 'meat-lovers-xl', 'Pepperoni, salchicha italiana, bacon, jamón y carne picada. Para carnívoros.', 13.99, 'food/meat_lovers_XL.png', 2),
+('Margherita Classic', 'margherita-classic', 'Tomate San Marzano, mozzarella fresca, albahaca y aceite de oliva virgen.', 8.99, 'food/margherita_classic.png', 2),
+('Carbonara Style', 'carbonara-style', 'Base de crema, bacon crujiente, huevo, parmesano y pimienta negra.', 11.49, 'food/carbonara_style.png', 2);
+
+-- BEBIDAS (category_id = 3)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Coca-Cola', 'coca-cola', 'Coca-Cola original bien fría. 500ml.', 2.49, 'food/coca-cola_original.png', 3),
+('Coca-Cola Zero', 'coca-cola-zero', 'Todo el sabor sin azúcar. 500ml.', 2.49, 'food/coca-cola_zero.png', 3),
+('Fanta Naranja', 'fanta-naranja', 'Refrescante Fanta de naranja. 500ml.', 2.49, 'food/fanta.png', 3),
+('Sprite', 'sprite', 'Lima-limón burbujeante. 500ml.', 2.49, 'food/coca-cola_original.png', 3),
+('Agua Mineral', 'agua-mineral', 'Agua mineral natural. 500ml.', 1.99, 'food/coca-cola_zero.png', 3),
+('Nestea Limón', 'nestea-limon', 'Té frío con sabor a limón. 500ml.', 2.79, 'food/fanta.png', 3),
+('Red Bull', 'red-bull', 'Bebida energética para las sesiones largas. 250ml.', 3.49, 'food/coca-cola_original.png', 3),
+('Monster Energy', 'monster-energy', 'Energía extrema para gamers. 500ml.', 3.29, 'food/coca-cola_zero.png', 3),
+('Cerveza Mahou', 'cerveza-mahou', 'Cerveza Mahou 5 estrellas. 330ml.', 2.99, 'food/fanta.png', 3),
+('Cerveza Estrella', 'cerveza-estrella', 'Estrella Galicia especial. 330ml.', 2.99, 'food/coca-cola_original.png', 3),
+('Café Americano', 'cafe-americano', 'Café recién hecho, intenso y aromático.', 1.99, 'food/coca-cola_zero.png', 3),
+('Café Latte', 'cafe-latte', 'Espresso con leche cremosa.', 2.49, 'food/fanta.png', 3),
+('Capuccino', 'capuccino', 'Espresso, leche espumada y cacao.', 2.79, 'food/coca-cola_original.png', 3),
+('Zumo de Naranja', 'zumo-naranja', 'Zumo de naranja natural recién exprimido.', 3.49, 'food/coca-cola_zero.png', 3);
+
+-- POSTRES (category_id = 4)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Brownie Gamer', 'brownie-gamer', 'Brownie de chocolate con nueces, servido caliente con helado de vainilla.', 4.99, 'food/cyber_burger.png', 4),
+('Cheesecake NY', 'cheesecake-ny', 'Tarta de queso estilo New York con coulis de frutos rojos.', 5.49, 'food/gamer_deluxe.png', 4),
+('Helado Artesano', 'helado-artesano', '3 bolas de helado artesano. Elige tus sabores favoritos.', 4.49, 'food/pixel_bacon.png', 4),
+('Tarta de Chocolate', 'tarta-chocolate', 'Tarta death by chocolate con ganache y virutas de chocolate.', 5.99, 'food/veggie_quest.png', 4),
+('Churros con Chocolate', 'churros-chocolate', '6 churros crujientes con chocolate caliente para mojar.', 4.99, 'food/boss_battle.png', 4),
+('Cookies & Cream', 'cookies-cream', 'Galletas caseras con helado de cookies and cream y sirope de chocolate.', 5.49, 'food/crispy_chicken.png', 4),
+('Apple Pie', 'apple-pie', 'Tarta de manzana casera con canela y helado de vainilla.', 4.99, 'food/smash_burger.png', 4),
+('Coulant de Chocolate', 'coulant-chocolate', 'Bizcocho de chocolate con corazón fundido. Irresistible.', 5.99, 'food/mushroom_level.png', 4),
+('Tiramisú', 'tiramisu', 'Clásico italiano con mascarpone, café y cacao.', 5.49, 'food/spicy_fire.png', 4),
+('Donuts Variados', 'donuts-variados', '3 donuts glaseados con diferentes toppings.', 3.99, 'food/classic_cheese.png', 4);
+
+-- COMBOS (category_id = 5)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Combo Gamer', 'combo-gamer', 'Cyber Burger + Patatas Fritas + Bebida mediana. El clásico.', 11.99, 'food/cyber_burger.png', 5),
+('Combo Deluxe', 'combo-deluxe', 'Gamer Deluxe + Aros de Cebolla + Bebida grande + Brownie.', 16.99, 'food/gamer_deluxe.png', 5),
+('Combo Duo', 'combo-duo', '2 Smash Burgers + 2 Patatas + 2 Bebidas. Perfecto para compartir.', 19.99, 'food/boss_battle.png', 5),
+('Combo Pizza Party', 'combo-pizza-party', 'Pizza mediana + 4 Alitas + Patatas Bravas + 2 Bebidas.', 22.99, 'food/pepperoni_arcade.png', 5),
+('Combo Kids', 'combo-kids', 'Mini Burger + Patatas + Nuggets + Zumo + Helado pequeño.', 8.99, 'food/smash_burger.png', 5),
+('Combo Streaming', 'combo-streaming', 'Boss Battle + Nachos Supreme + Monster Energy + Brownie.', 21.99, 'food/meat_lovers_XL.png', 5),
+('Combo Fit', 'combo-fit', 'Veggie Quest + Ensalada César + Agua + Fruta fresca.', 14.99, 'food/veggie_quest.png', 5),
+('Combo Noche', 'combo-noche', '2 Pizzas medianas + Alitas BBQ + Nachos + 4 Cervezas.', 34.99, 'food/BBQ_chicken.png', 5);
+
+-- ENTRANTES (category_id = 6)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Patatas Fritas', 'patatas-fritas', 'Patatas fritas crujientes con sal. Ración generosa.', 3.49, 'food/classic_cheese.png', 6),
+('Patatas Deluxe', 'patatas-deluxe', 'Patatas gajo especiadas con salsa sour cream.', 4.49, 'food/pixel_bacon.png', 6),
+('Aros de Cebolla', 'aros-cebolla', 'Aros de cebolla rebozados con salsa ranch.', 4.99, 'food/crispy_chicken.png', 6),
+('Nuggets de Pollo', 'nuggets-pollo', '8 nuggets de pollo crujientes con salsa BBQ.', 5.49, 'food/smash_burger.png', 6),
+('Alitas BBQ', 'alitas-bbq', '8 alitas de pollo bañadas en salsa BBQ casera.', 7.99, 'food/spicy_fire.png', 6),
+('Alitas Buffalo', 'alitas-buffalo', '8 alitas picantes estilo Buffalo con salsa blue cheese.', 7.99, 'food/mushroom_level.png', 6),
+('Nachos Supreme', 'nachos-supreme', 'Nachos con queso fundido, jalapeños, guacamole, pico de gallo y sour cream.', 8.99, 'food/4_quesos_gaming.png', 6),
+('Mozzarella Sticks', 'mozzarella-sticks', '6 palitos de mozzarella rebozados con salsa marinara.', 5.99, 'food/carbonara_style.png', 6),
+('Patatas Bravas', 'patatas-bravas', 'Patatas con salsa brava picante y alioli casero.', 4.99, 'food/hawaiana_pixel.png', 6),
+('Tequeños', 'tequenos', '6 tequeños de queso con guasacaca.', 5.49, 'food/margherita_classic.png', 6),
+('Jalapeño Poppers', 'jalapeno-poppers', '6 jalapeños rellenos de queso crema, rebozados y fritos.', 5.99, 'food/vegetariana_pro.png', 6),
+('Fingers de Pollo', 'fingers-pollo', '5 fingers de pollo crujientes con salsa honey mustard.', 6.49, 'food/pepperoni_arcade.png', 6);
+
+-- SMOOTHIES (category_id = 7)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Smoothie Tropical', 'smoothie-tropical', 'Mango, piña, maracuyá y zumo de naranja. Vitamina pura.', 4.99, 'food/fanta.png', 7),
+('Smoothie Berry Blast', 'smoothie-berry-blast', 'Fresas, arándanos, frambuesas y yogur griego.', 4.99, 'food/coca-cola_original.png', 7),
+('Smoothie Green Power', 'smoothie-green-power', 'Espinacas, plátano, manzana verde y jengibre. Energía natural.', 5.49, 'food/coca-cola_zero.png', 7),
+('Smoothie Protein', 'smoothie-protein', 'Plátano, mantequilla de cacahuete, avena y proteína de suero.', 5.99, 'food/fanta.png', 7),
+('Smoothie Chocolate', 'smoothie-chocolate', 'Plátano, cacao puro, leche de almendras y dátiles.', 5.49, 'food/coca-cola_original.png', 7),
+('Milkshake Vainilla', 'milkshake-vainilla', 'Batido cremoso de vainilla con nata montada.', 4.49, 'food/coca-cola_zero.png', 7),
+('Milkshake Chocolate', 'milkshake-chocolate', 'Batido de chocolate belga con sirope y nata.', 4.49, 'food/fanta.png', 7),
+('Milkshake Fresa', 'milkshake-fresa', 'Batido de fresas naturales con helado de fresa.', 4.49, 'food/coca-cola_original.png', 7),
+('Milkshake Oreo', 'milkshake-oreo', 'Batido con galletas Oreo trituradas, helado y nata.', 5.49, 'food/coca-cola_zero.png', 7),
+('Frappe Café', 'frappe-cafe', 'Café helado con leche, hielo y sirope de caramelo.', 4.29, 'food/fanta.png', 7);
+
+-- HOT DOGS (category_id = 8)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Hot Dog Clásico', 'hot-dog-clasico', 'Salchicha Frankfurt, ketchup, mostaza y cebolla crujiente.', 4.99, 'food/cyber_burger.png', 8),
+('Hot Dog NYC', 'hot-dog-nyc', 'Salchicha premium con chucrut, mostaza Dijon y pepinillos.', 5.99, 'food/gamer_deluxe.png', 8),
+('Hot Dog Bacon', 'hot-dog-bacon', 'Salchicha envuelta en bacon, queso cheddar y salsa BBQ.', 6.49, 'food/pixel_bacon.png', 8),
+('Hot Dog Chili', 'hot-dog-chili', 'Salchicha con chili con carne, queso fundido y jalapeños.', 6.99, 'food/boss_battle.png', 8),
+('Hot Dog Mexicano', 'hot-dog-mexicano', 'Salchicha con guacamole, pico de gallo, crema y nachos.', 6.49, 'food/spicy_fire.png', 8),
+('Corn Dog', 'corn-dog', 'Salchicha rebozada en masa de maíz, frita y dorada.', 4.49, 'food/crispy_chicken.png', 8);
+
+-- ENSALADAS (category_id = 9)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Ensalada César', 'ensalada-cesar', 'Lechuga romana, pollo a la plancha, parmesano, croutons y salsa César.', 8.99, 'food/veggie_quest.png', 9),
+('Ensalada Griega', 'ensalada-griega', 'Tomate, pepino, cebolla morada, aceitunas Kalamata, queso feta y orégano.', 7.99, 'food/vegetariana_pro.png', 9),
+('Ensalada Caprese', 'ensalada-caprese', 'Tomate de temporada, mozzarella fresca, albahaca y reducción de balsámico.', 7.49, 'food/margherita_classic.png', 9),
+('Bowl Poke', 'bowl-poke', 'Arroz, salmón marinado, aguacate, edamame, mango y salsa ponzu.', 11.99, 'food/hawaiana_pixel.png', 9),
+('Buddha Bowl', 'buddha-bowl', 'Quinoa, garbanzos, boniato asado, aguacate, hummus y tahini.', 10.99, 'food/4_quesos_gaming.png', 9);
+
+-- WRAPS (category_id = 10)
+INSERT INTO product (label, slug, description, price, image, category_product_id) VALUES
+('Wrap de Pollo', 'wrap-pollo', 'Tortilla con pollo a la plancha, lechuga, tomate, queso y salsa ranch.', 7.49, 'food/crispy_chicken.png', 10),
+('Wrap Mexicano', 'wrap-mexicano', 'Tortilla con carne especiada, frijoles, queso, guacamole y crema agria.', 7.99, 'food/spicy_fire.png', 10),
+('Wrap Falafel', 'wrap-falafel', 'Tortilla con falafel casero, hummus, ensalada, pepinillos y tahini.', 7.49, 'food/veggie_quest.png', 10),
+('Wrap César', 'wrap-cesar', 'Tortilla con pollo crispy, lechuga romana, parmesano y salsa César.', 7.99, 'food/smash_burger.png', 10),
+('Burrito Supreme', 'burrito-supreme', 'Tortilla grande con arroz, carne, frijoles, queso, pico de gallo y guacamole.', 9.99, 'food/boss_battle.png', 10);
 
 -- ============================
--- 50 Additional Logs
+-- TABLE: log
 -- ============================
-INSERT IGNORE INTO log (info, timestamp) VALUES
+INSERT INTO log (info, timestamp) VALUES
+('Usuario Juan inició sesión', '2025-01-01 10:00:00'),
+('Pedido creado', '2025-01-02 14:22:10'),
+('Producto actualizado', '2025-01-05 18:45:31'),
+('Reporte generado', '2025-01-08 09:15:55'),
+('Usuario Ana cerró sesión', '2025-01-09 21:10:10'),
 ('Action 6', '2025-01-10 10:00:00'), ('Action 7', '2025-01-11 11:00:00'), ('Action 8', '2025-01-12 12:00:00'), ('Action 9', '2025-01-13 13:00:00'), ('Action 10', '2025-01-14 14:00:00'),
 ('Action 11', '2025-01-15 15:00:00'), ('Action 12', '2025-01-16 16:00:00'), ('Action 13', '2025-01-17 17:00:00'), ('Action 14', '2025-01-18 18:00:00'), ('Action 15', '2025-01-19 19:00:00'),
 ('Action 16', '2025-01-20 20:00:00'), ('Action 17', '2025-01-21 21:00:00'), ('Action 18', '2025-01-22 22:00:00'), ('Action 19', '2025-01-23 23:00:00'), ('Action 20', '2025-01-24 00:00:00'),
@@ -248,49 +220,165 @@ INSERT IGNORE INTO log (info, timestamp) VALUES
 ('Action 46', '2025-02-19 02:00:00'), ('Action 47', '2025-02-20 03:00:00'), ('Action 48', '2025-02-21 04:00:00'), ('Action 49', '2025-02-22 05:00:00'), ('Action 50', '2025-02-23 06:00:00'),
 ('Action 51', '2025-02-24 07:00:00'), ('Action 52', '2025-02-25 08:00:00'), ('Action 53', '2025-02-26 09:00:00'), ('Action 54', '2025-02-27 10:00:00'), ('Action 55', '2025-02-28 11:00:00');
 
-
-
 -- ============================
--- 50 Additional PCs
+-- TABLE: category_pc
 -- ============================
-INSERT IGNORE INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
-('PC 6', 'pc-6', '10', 'i7, 32GB RAM', '2023-01-01', 'pc-1.png', 'AVAILABLE', 1), ('PC 7', 'pc-7', '12', 'i9, 64GB RAM', '2023-01-02', 'pc-1.png', 'AVAILABLE', 2), ('PC 8', 'pc-8', '8', 'Ryzen 7, 16GB RAM', '2023-01-03', 'pc-1.png', 'AVAILABLE', 3), ('PC 9', 'pc-9', '15', 'Ryzen 5, 16GB RAM', '2023-01-04', 'pc-1.png', 'AVAILABLE', 4), ('PC 10', 'pc-10', '20', 'i5, 8GB RAM', '2023-01-05', 'pc-1.png', 'AVAILABLE', 5),
-('PC 11', 'pc-11', '10', 'Specs 11', '2023-01-06', 'pc-1.png', 'AVAILABLE', 6), ('PC 12', 'pc-12', '12', 'Specs 12', '2023-01-07', 'pc-1.png', 'AVAILABLE', 7), ('PC 13', 'pc-13', '8', 'Specs 13', '2023-01-08', 'pc-1.png', 'AVAILABLE', 1), ('PC 14', 'pc-14', '15', 'Specs 14', '2023-01-09', 'pc-1.png', 'AVAILABLE', 2), ('PC 15', 'pc-15', '20', 'Specs 15', '2023-01-10', 'pc-1.png', 'AVAILABLE', 3),
-('PC 16', 'pc-16', '10', 'Specs 16', '2023-01-11', 'pc-1.png', 'AVAILABLE', 4), ('PC 17', 'pc-17', '12', 'Specs 17', '2023-01-12', 'pc-1.png', 'AVAILABLE', 5), ('PC 18', 'pc-18', '8', 'Specs 18', '2023-01-13', 'pc-1.png', 'AVAILABLE', 6), ('PC 19', 'pc-19', '15', 'Specs 19', '2023-01-14', 'pc-1.png', 'AVAILABLE', 7), ('PC 20', 'pc-20', '20', 'Specs 20', '2023-01-15', 'pc-1.png', 'AVAILABLE', 1),
-('PC 21', 'pc-21', '10', 'Specs 21', '2023-01-16', 'pc-1.png', 'AVAILABLE', 2), ('PC 22', 'pc-22', '12', 'Specs 22', '2023-01-17', 'pc-1.png', 'AVAILABLE', 3), ('PC 23', 'pc-23', '8', 'Specs 23', '2023-01-18', 'pc-1.png', 'AVAILABLE', 4), ('PC 24', 'pc-24', '15', 'Specs 24', '2023-01-19', 'pc-1.png', 'AVAILABLE', 5), ('PC 25', 'pc-25', '20', 'Specs 25', '2023-01-20', 'pc-1.png', 'AVAILABLE', 6),
-('PC 26', 'pc-26', '10', 'Specs 26', '2023-01-21', 'pc-1.png', 'AVAILABLE', 7), ('PC 27', 'pc-27', '12', 'Specs 27', '2023-01-22', 'pc-1.png', 'AVAILABLE', 1), ('PC 28', 'pc-28', '8', 'Specs 28', '2023-01-23', 'pc-1.png', 'AVAILABLE', 2), ('PC 29', 'pc-29', '15', 'Specs 29', '2023-01-24', 'pc-1.png', 'AVAILABLE', 3), ('PC 30', 'pc-30', '20', 'Specs 30', '2023-01-25', 'pc-1.png', 'AVAILABLE', 4),
-('PC 31', 'pc-31', '10', 'Specs 31', '2023-01-26', 'pc-1.png', 'AVAILABLE', 5), ('PC 32', 'pc-32', '12', 'Specs 32', '2023-01-27', 'pc-1.png', 'AVAILABLE', 6), ('PC 33', 'pc-33', '8', 'Specs 33', '2023-01-28', 'pc-1.png', 'AVAILABLE', 7), ('PC 34', 'pc-34', '15', 'Specs 34', '2023-01-29', 'pc-1.png', 'AVAILABLE', 1), ('PC 35', 'pc-35', '20', 'Specs 35', '2023-01-30', 'pc-1.png', 'AVAILABLE', 2),
-('PC 36', 'pc-36', '10', 'Specs 36', '2023-01-31', 'pc-1.png', 'AVAILABLE', 3), ('PC 37', 'pc-37', '12', 'Specs 37', '2023-02-01', 'pc-1.png', 'AVAILABLE', 4), ('PC 38', 'pc-38', '8', 'Specs 38', '2023-02-02', 'pc-1.png', 'AVAILABLE', 5), ('PC 39', 'pc-39', '15', 'Specs 39', '2023-02-03', 'pc-1.png', 'AVAILABLE', 6), ('PC 40', 'pc-40', '20', 'Specs 40', '2023-02-04', 'pc-1.png', 'AVAILABLE', 7),
-('PC 41', 'pc-41', '10', 'Specs 41', '2023-02-05', 'pc-1.png', 'AVAILABLE', 1), ('PC 42', 'pc-42', '12', 'Specs 42', '2023-02-06', 'pc-1.png', 'AVAILABLE', 2), ('PC 43', 'pc-43', '8', 'Specs 43', '2023-02-07', 'pc-1.png', 'AVAILABLE', 3), ('PC 44', 'pc-44', '15', 'Specs 44', '2023-02-08', 'pc-1.png', 'AVAILABLE', 4), ('PC 45', 'pc-45', '20', 'Specs 45', '2023-02-09', 'pc-1.png', 'AVAILABLE', 5),
-('PC 46', 'pc-46', '10', 'Specs 46', '2023-02-10', 'pc-1.png', 'AVAILABLE', 6), ('PC 47', 'pc-47', '12', 'Specs 47', '2023-02-11', 'pc-1.png', 'AVAILABLE', 7), ('PC 48', 'pc-48', '8', 'Specs 48', '2023-02-12', 'pc-1.png', 'AVAILABLE', 1), ('PC 49', 'pc-49', '15', 'Specs 49', '2023-02-13', 'pc-1.png', 'AVAILABLE', 2), ('PC 50', 'pc-50', '20', 'Specs 50', '2023-02-14', 'pc-1.png', 'AVAILABLE', 3),
-('PC 51', 'pc-51', '10', 'Specs 51', '2023-02-15', 'pc-1.png', 'AVAILABLE', 4), ('PC 52', 'pc-52', '12', 'Specs 52', '2023-02-16', 'pc-1.png', 'AVAILABLE', 5), ('PC 53', 'pc-53', '8', 'Specs 53', '2023-02-17', 'pc-1.png', 'AVAILABLE', 6), ('PC 54', 'pc-54', '15', 'Specs 54', '2023-02-18', 'pc-1.png', 'AVAILABLE', 7), ('PC 55', 'pc-55', '20', 'Specs 55', '2023-02-19', 'pc-1.png', 'AVAILABLE', 1);
+INSERT INTO category_pc (label, slug, price) VALUES
+('Gama Baja', 'gama-baja', 2.50),
+('Gama Media', 'gama-media', 5.00),
+('Gama Alta', 'gama-alta', 8.00),
+('Streaming', 'streaming', 7.00),
+('Esports', 'esports', 10.00);
 
 -- ============================
--- 50 Additional User Orders
+-- TABLE: pc (20 por categoría)
 -- ============================
-INSERT IGNORE INTO user_order (status, user_id, created_at) VALUES
-('CONFIRMED', 11, '2025-05-01 10:00:00'), ('SHIPPED', 12, '2025-05-02 11:00:00'), ('DELIVERED', 13, '2025-05-03 12:00:00'), ('CONFIRMED', 14, '2025-05-04 13:00:00'), ('PENDING', 15, '2025-05-05 14:00:00'),
-('CONFIRMED', 16, '2025-05-06 15:00:00'), ('SHIPPED', 17, '2025-05-07 16:00:00'), ('DELIVERED', 18, '2025-05-08 17:00:00'), ('CONFIRMED', 19, '2025-05-09 18:00:00'), ('PENDING', 20, '2025-05-10 19:00:00'),
-('CONFIRMED', 21, '2025-05-11 20:00:00'), ('SHIPPED', 22, '2025-05-12 21:00:00'), ('DELIVERED', 23, '2025-05-13 22:00:00'), ('CONFIRMED', 24, '2025-05-14 23:00:00'), ('PENDING', 25, '2025-05-15 00:00:00'),
-('CONFIRMED', 26, '2025-05-16 01:00:00'), ('SHIPPED', 27, '2025-05-17 02:00:00'), ('DELIVERED', 28, '2025-05-18 03:00:00'), ('CONFIRMED', 29, '2025-05-19 04:00:00'), ('PENDING', 30, '2025-05-20 05:00:00'),
-('CONFIRMED', 31, '2025-05-21 06:00:00'), ('SHIPPED', 32, '2025-05-22 07:00:00'), ('DELIVERED', 33, '2025-05-23 08:00:00'), ('CONFIRMED', 34, '2025-05-24 09:00:00'), ('PENDING', 35, '2025-05-25 10:00:00'),
-('CONFIRMED', 36, '2025-05-26 11:00:00'), ('SHIPPED', 37, '2025-05-27 12:00:00'), ('DELIVERED', 38, '2025-05-28 13:00:00'), ('CONFIRMED', 39, '2025-05-29 14:00:00'), ('PENDING', 40, '2025-05-30 15:00:00'),
-('CONFIRMED', 41, '2025-05-31 16:00:00'), ('SHIPPED', 42, '2025-06-01 17:00:00'), ('DELIVERED', 43, '2025-06-02 18:00:00'), ('CONFIRMED', 44, '2025-06-03 19:00:00'), ('PENDING', 45, '2025-06-04 20:00:00'),
-('CONFIRMED', 46, '2025-06-05 21:00:00'), ('SHIPPED', 47, '2025-06-06 22:00:00'), ('DELIVERED', 48, '2025-06-07 23:00:00'), ('CONFIRMED', 49, '2025-06-08 00:00:00'), ('PENDING', 50, '2025-06-09 01:00:00'),
-('CONFIRMED', 51, '2025-06-10 02:00:00'), ('SHIPPED', 52, '2025-06-11 03:00:00'), ('DELIVERED', 53, '2025-06-12 04:00:00'), ('CONFIRMED', 54, '2025-06-13 05:00:00'), ('PENDING', 55, '2025-06-14 06:00:00'),
-('CONFIRMED', 56, '2025-06-15 07:00:00'), ('SHIPPED', 57, '2025-06-16 08:00:00'), ('DELIVERED', 58, '2025-06-17 09:00:00'), ('CONFIRMED', 59, '2025-06-18 10:00:00'), ('PENDING', 60, '2025-06-19 11:00:00');
 
--- Más order_items para los nuevos pedidos
-INSERT IGNORE INTO order_item (quantity, product_id, user_order_id) VALUES
+-- Categoría 1: Gama Baja
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('GB-01', 'gb-01', '20', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-01-15', 'pc-1.png', 'AVAILABLE', 1),
+('GB-02', 'gb-02', '18', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-02-20', 'pc-1.png', 'AVAILABLE', 1),
+('GB-03', 'gb-03', '22', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-03-10', 'pc-1.png', 'AVAILABLE', 1),
+('GB-04', 'gb-04', '15', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-04-05', 'pc-1.png', 'AVAILABLE', 1),
+('GB-05', 'gb-05', '25', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-05-12', 'pc-1.png', 'AVAILABLE', 1),
+('GB-06', 'gb-06', '19', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-06-18', 'pc-1.png', 'AVAILABLE', 1),
+('GB-07', 'gb-07', '21', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-07-22', 'pc-1.png', 'AVAILABLE', 1),
+('GB-08', 'gb-08', '17', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-08-30', 'pc-1.png', 'AVAILABLE', 1),
+('GB-09', 'gb-09', '23', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-09-14', 'pc-1.png', 'AVAILABLE', 1),
+('GB-10', 'gb-10', '16', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-10-08', 'pc-1.png', 'AVAILABLE', 1),
+('GB-11', 'gb-11', '24', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-10-20', 'pc-1.png', 'AVAILABLE', 1),
+('GB-12', 'gb-12', '14', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-11-05', 'pc-1.png', 'AVAILABLE', 1),
+('GB-13', 'gb-13', '26', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-11-18', 'pc-1.png', 'AVAILABLE', 1),
+('GB-14', 'gb-14', '13', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2023-12-02', 'pc-1.png', 'AVAILABLE', 1),
+('GB-15', 'gb-15', '27', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2023-12-15', 'pc-1.png', 'AVAILABLE', 1),
+('GB-16', 'gb-16', '12', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2024-01-08', 'pc-1.png', 'AVAILABLE', 1),
+('GB-17', 'gb-17', '28', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2024-01-22', 'pc-1.png', 'AVAILABLE', 1),
+('GB-18', 'gb-18', '11', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2024-02-10', 'pc-1.png', 'AVAILABLE', 1),
+('GB-19', 'gb-19', '29', 'AMD Ryzen 3 4100, Radeon Graphics, 8GB RAM', '2024-03-05', 'pc-1.png', 'AVAILABLE', 1),
+('GB-20', 'gb-20', '10', 'Intel i3-12100, Intel UHD 730, 8GB RAM', '2024-03-20', 'pc-1.png', 'AVAILABLE', 1);
+
+-- Categoría 2: Gama Media
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('GM-01', 'gm-01', '12', 'AMD Ryzen 5 5600X, RTX 3060, 16GB RAM', '2023-01-20', 'pc-1.png', 'AVAILABLE', 2),
+('GM-02', 'gm-02', '10', 'Intel i5-12400F, RTX 3060 Ti, 16GB RAM', '2023-02-15', 'pc-1.png', 'AVAILABLE', 2),
+('GM-03', 'gm-03', '14', 'AMD Ryzen 5 5600X, RTX 3070, 16GB RAM', '2023-03-08', 'pc-1.png', 'AVAILABLE', 2),
+('GM-04', 'gm-04', '8', 'Intel i5-12400F, RTX 3060, 16GB RAM', '2023-04-12', 'pc-1.png', 'AVAILABLE', 2),
+('GM-05', 'gm-05', '11', 'AMD Ryzen 5 5600X, RTX 3060 Ti, 16GB RAM', '2023-05-25', 'pc-1.png', 'AVAILABLE', 2),
+('GM-06', 'gm-06', '9', 'Intel i5-12400F, RTX 3070, 16GB RAM', '2023-06-30', 'pc-1.png', 'AVAILABLE', 2),
+('GM-07', 'gm-07', '13', 'AMD Ryzen 5 5600X, RTX 3060, 16GB RAM', '2023-07-18', 'pc-1.png', 'AVAILABLE', 2),
+('GM-08', 'gm-08', '7', 'Intel i5-12400F, RTX 3060 Ti, 16GB RAM', '2023-08-22', 'pc-1.png', 'AVAILABLE', 2),
+('GM-09', 'gm-09', '15', 'AMD Ryzen 5 5600X, RTX 3070, 16GB RAM', '2023-09-10', 'pc-1.png', 'AVAILABLE', 2),
+('GM-10', 'gm-10', '6', 'Intel i5-12400F, RTX 3060, 16GB RAM', '2023-10-05', 'pc-1.png', 'AVAILABLE', 2),
+('GM-11', 'gm-11', '16', 'AMD Ryzen 5 5600X, RTX 3060 Ti, 16GB RAM', '2023-10-22', 'pc-1.png', 'AVAILABLE', 2),
+('GM-12', 'gm-12', '5', 'Intel i5-12400F, RTX 3070, 16GB RAM', '2023-11-08', 'pc-1.png', 'AVAILABLE', 2),
+('GM-13', 'gm-13', '17', 'AMD Ryzen 5 5600X, RTX 3060, 16GB RAM', '2023-11-25', 'pc-1.png', 'AVAILABLE', 2),
+('GM-14', 'gm-14', '4', 'Intel i5-12400F, RTX 3060 Ti, 16GB RAM', '2023-12-10', 'pc-1.png', 'AVAILABLE', 2),
+('GM-15', 'gm-15', '18', 'AMD Ryzen 5 5600X, RTX 3070, 16GB RAM', '2023-12-28', 'pc-1.png', 'AVAILABLE', 2),
+('GM-16', 'gm-16', '3', 'Intel i5-12400F, RTX 3060, 16GB RAM', '2024-01-15', 'pc-1.png', 'AVAILABLE', 2),
+('GM-17', 'gm-17', '19', 'AMD Ryzen 5 5600X, RTX 3060 Ti, 16GB RAM', '2024-02-02', 'pc-1.png', 'AVAILABLE', 2),
+('GM-18', 'gm-18', '2', 'Intel i5-12400F, RTX 3070, 16GB RAM', '2024-02-18', 'pc-1.png', 'AVAILABLE', 2),
+('GM-19', 'gm-19', '20', 'AMD Ryzen 5 5600X, RTX 3070, 16GB RAM', '2024-03-08', 'pc-1.png', 'AVAILABLE', 2),
+('GM-20', 'gm-20', '1', 'Intel i5-12400F, RTX 3060 Ti, 16GB RAM', '2024-03-22', 'pc-1.png', 'AVAILABLE', 2);
+
+-- Categoría 3: Gama Alta
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('GA-01', 'ga-01', '10', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2023-01-25', 'pc-1.png', 'AVAILABLE', 3),
+('GA-02', 'ga-02', '8', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2023-02-28', 'pc-1.png', 'AVAILABLE', 3),
+('GA-03', 'ga-03', '12', 'AMD Ryzen 9 5900X, RTX 3080 Ti, 32GB RAM', '2023-03-15', 'pc-1.png', 'AVAILABLE', 3),
+('GA-04', 'ga-04', '6', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2023-04-20', 'pc-1.png', 'AVAILABLE', 3),
+('GA-05', 'ga-05', '14', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2023-05-10', 'pc-1.png', 'AVAILABLE', 3),
+('GA-06', 'ga-06', '9', 'Intel i9-12900K, RTX 3080 Ti, 32GB RAM', '2023-06-22', 'pc-1.png', 'AVAILABLE', 3),
+('GA-07', 'ga-07', '11', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2023-07-08', 'pc-1.png', 'AVAILABLE', 3),
+('GA-08', 'ga-08', '7', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2023-08-18', 'pc-1.png', 'AVAILABLE', 3),
+('GA-09', 'ga-09', '13', 'AMD Ryzen 9 5900X, RTX 3080 Ti, 32GB RAM', '2023-09-28', 'pc-1.png', 'AVAILABLE', 3),
+('GA-10', 'ga-10', '5', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2023-10-12', 'pc-1.png', 'AVAILABLE', 3),
+('GA-11', 'ga-11', '15', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2023-10-28', 'pc-1.png', 'AVAILABLE', 3),
+('GA-12', 'ga-12', '4', 'Intel i9-12900K, RTX 3080 Ti, 32GB RAM', '2023-11-12', 'pc-1.png', 'AVAILABLE', 3),
+('GA-13', 'ga-13', '16', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2023-11-28', 'pc-1.png', 'AVAILABLE', 3),
+('GA-14', 'ga-14', '3', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2023-12-15', 'pc-1.png', 'AVAILABLE', 3),
+('GA-15', 'ga-15', '17', 'AMD Ryzen 9 5900X, RTX 3080 Ti, 32GB RAM', '2024-01-02', 'pc-1.png', 'AVAILABLE', 3),
+('GA-16', 'ga-16', '2', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2024-01-18', 'pc-1.png', 'AVAILABLE', 3),
+('GA-17', 'ga-17', '18', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2024-02-05', 'pc-1.png', 'AVAILABLE', 3),
+('GA-18', 'ga-18', '1', 'Intel i9-12900K, RTX 3080 Ti, 32GB RAM', '2024-02-22', 'pc-1.png', 'AVAILABLE', 3),
+('GA-19', 'ga-19', '19', 'AMD Ryzen 9 5900X, RTX 3090, 32GB RAM', '2024-03-10', 'pc-1.png', 'AVAILABLE', 3),
+('GA-20', 'ga-20', '2', 'Intel i9-12900K, RTX 3090, 32GB RAM', '2024-03-28', 'pc-1.png', 'AVAILABLE', 3);
+
+-- Categoría 4: Streaming
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('STR-01', 'str-01', '5', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2023-01-10', 'pc-1.png', 'AVAILABLE', 4),
+('STR-02', 'str-02', '7', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2023-02-18', 'pc-1.png', 'AVAILABLE', 4),
+('STR-03', 'str-03', '4', 'AMD Ryzen 7 5800X, RTX 3080 Ti, 32GB RAM', '2023-03-22', 'pc-1.png', 'AVAILABLE', 4),
+('STR-04', 'str-04', '6', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2023-04-15', 'pc-1.png', 'AVAILABLE', 4),
+('STR-05', 'str-05', '8', 'AMD Ryzen 7 5800X, RTX 3080 Ti, 32GB RAM', '2023-05-28', 'pc-1.png', 'AVAILABLE', 4),
+('STR-06', 'str-06', '3', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2023-06-12', 'pc-1.png', 'AVAILABLE', 4),
+('STR-07', 'str-07', '9', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2023-07-25', 'pc-1.png', 'AVAILABLE', 4),
+('STR-08', 'str-08', '5', 'Intel i7-12700K, RTX 3080 Ti, 32GB RAM', '2023-08-08', 'pc-1.png', 'AVAILABLE', 4),
+('STR-09', 'str-09', '7', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2023-09-20', 'pc-1.png', 'AVAILABLE', 4),
+('STR-10', 'str-10', '4', 'Intel i7-12700K, RTX 3080 Ti, 32GB RAM', '2023-10-15', 'pc-1.png', 'AVAILABLE', 4),
+('STR-11', 'str-11', '10', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2023-10-30', 'pc-1.png', 'AVAILABLE', 4),
+('STR-12', 'str-12', '2', 'Intel i7-12700K, RTX 3080 Ti, 32GB RAM', '2023-11-15', 'pc-1.png', 'AVAILABLE', 4),
+('STR-13', 'str-13', '11', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2023-12-01', 'pc-1.png', 'AVAILABLE', 4),
+('STR-14', 'str-14', '1', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2023-12-18', 'pc-1.png', 'AVAILABLE', 4),
+('STR-15', 'str-15', '12', 'AMD Ryzen 7 5800X, RTX 3080 Ti, 32GB RAM', '2024-01-05', 'pc-1.png', 'AVAILABLE', 4),
+('STR-16', 'str-16', '6', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2024-01-22', 'pc-1.png', 'AVAILABLE', 4),
+('STR-17', 'str-17', '13', 'AMD Ryzen 7 5800X, RTX 3080, 32GB RAM', '2024-02-08', 'pc-1.png', 'AVAILABLE', 4),
+('STR-18', 'str-18', '3', 'Intel i7-12700K, RTX 3080 Ti, 32GB RAM', '2024-02-25', 'pc-1.png', 'AVAILABLE', 4),
+('STR-19', 'str-19', '14', 'AMD Ryzen 7 5800X, RTX 3080 Ti, 32GB RAM', '2024-03-12', 'pc-1.png', 'AVAILABLE', 4),
+('STR-20', 'str-20', '2', 'Intel i7-12700K, RTX 3080, 32GB RAM', '2024-03-28', 'pc-1.png', 'AVAILABLE', 4);
+
+-- Categoría 5: Esports
+INSERT INTO pc (label, slug, runtime, specs, working_since, image, status, category_pc_id) VALUES
+('ESP-01', 'esp-01', '6', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-01-08', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-02', 'esp-02', '4', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-01-22', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-03', 'esp-03', '8', 'AMD Ryzen 7 7800X3D, RTX 4080 Super, 32GB RAM', '2024-02-12', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-04', 'esp-04', '3', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-02-28', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-05', 'esp-05', '7', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-03-18', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-06', 'esp-06', '5', 'Intel i7-13700K, RTX 4080 Super, 32GB RAM', '2024-04-05', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-07', 'esp-07', '9', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-04-22', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-08', 'esp-08', '2', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-05-10', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-09', 'esp-09', '6', 'AMD Ryzen 7 7800X3D, RTX 4080 Super, 32GB RAM', '2024-05-28', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-10', 'esp-10', '4', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-06-15', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-11', 'esp-11', '10', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-07-02', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-12', 'esp-12', '1', 'Intel i7-13700K, RTX 4080 Super, 32GB RAM', '2024-07-18', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-13', 'esp-13', '11', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-08-05', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-14', 'esp-14', '3', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-08-22', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-15', 'esp-15', '12', 'AMD Ryzen 7 7800X3D, RTX 4080 Super, 32GB RAM', '2024-09-08', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-16', 'esp-16', '2', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-09-25', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-17', 'esp-17', '13', 'AMD Ryzen 7 7800X3D, RTX 4080, 32GB RAM', '2024-10-12', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-18', 'esp-18', '4', 'Intel i7-13700K, RTX 4080 Super, 32GB RAM', '2024-10-28', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-19', 'esp-19', '14', 'AMD Ryzen 7 7800X3D, RTX 4080 Super, 32GB RAM', '2024-11-12', 'pc-1.png', 'AVAILABLE', 5),
+('ESP-20', 'esp-20', '5', 'Intel i7-13700K, RTX 4080, 32GB RAM', '2024-11-28', 'pc-1.png', 'AVAILABLE', 5);
+
+-- ============================
+-- TABLE: user_order
+-- ============================
+INSERT INTO user_order (status, user_id, created_at, delivery_type) VALUES
+('CONFIRMED', 3, '2025-01-15 10:00:00', 'TABLE'),
+('SHIPPED', 4, '2025-01-20 14:00:00', 'TABLE'),
+('DELIVERED', 5, '2025-02-10 09:00:00', 'TABLE'),
+('CONFIRMED', 6, '2025-02-25 16:00:00', 'TABLE'),
+('DELIVERED', 7, '2025-03-05 11:00:00', 'TABLE'),
+('SHIPPED', 8, '2025-03-18 13:00:00', 'TABLE'),
+('CONFIRMED', 9, '2025-04-02 15:00:00', 'TABLE'),
+('DELIVERED', 10, '2025-04-15 10:00:00', 'TABLE'),
+('CONFIRMED', 11, '2025-05-01 10:00:00', 'TABLE'), ('SHIPPED', 12, '2025-05-02 11:00:00', 'TABLE'), ('DELIVERED', 13, '2025-05-03 12:00:00', 'TABLE'), ('CONFIRMED', 14, '2025-05-04 13:00:00', 'TABLE'), ('PENDING', 15, '2025-05-05 14:00:00', 'TABLE'),
+('CONFIRMED', 16, '2025-05-06 15:00:00', 'TABLE'), ('SHIPPED', 17, '2025-05-07 16:00:00', 'TABLE'), ('DELIVERED', 18, '2025-05-08 17:00:00', 'TABLE'), ('CONFIRMED', 19, '2025-05-09 18:00:00', 'TABLE'), ('PENDING', 20, '2025-05-10 19:00:00', 'TABLE'),
+('CONFIRMED', 21, '2025-05-11 20:00:00', 'TABLE'), ('SHIPPED', 22, '2025-05-12 21:00:00', 'TABLE'), ('DELIVERED', 23, '2025-05-13 22:00:00', 'TABLE'), ('CONFIRMED', 24, '2025-05-14 23:00:00', 'TABLE'), ('PENDING', 25, '2025-05-15 00:00:00', 'TABLE'),
+('CONFIRMED', 26, '2025-05-16 01:00:00', 'TABLE'), ('SHIPPED', 27, '2025-05-17 02:00:00', 'TABLE'), ('DELIVERED', 28, '2025-05-18 03:00:00', 'TABLE'), ('CONFIRMED', 29, '2025-05-19 04:00:00', 'TABLE'), ('PENDING', 30, '2025-05-20 05:00:00', 'TABLE'),
+('CONFIRMED', 31, '2025-05-21 06:00:00', 'TABLE'), ('SHIPPED', 32, '2025-05-22 07:00:00', 'TABLE'), ('DELIVERED', 33, '2025-05-23 08:00:00', 'TABLE'), ('CONFIRMED', 34, '2025-05-24 09:00:00', 'TABLE'), ('PENDING', 35, '2025-05-25 10:00:00', 'TABLE'),
+('CONFIRMED', 36, '2025-05-26 11:00:00', 'TABLE'), ('SHIPPED', 37, '2025-05-27 12:00:00', 'TABLE'), ('DELIVERED', 38, '2025-05-28 13:00:00', 'TABLE'), ('CONFIRMED', 39, '2025-05-29 14:00:00', 'TABLE'), ('PENDING', 40, '2025-05-30 15:00:00', 'TABLE'),
+('CONFIRMED', 41, '2025-05-31 16:00:00', 'TABLE'), ('SHIPPED', 42, '2025-06-01 17:00:00', 'TABLE'), ('DELIVERED', 43, '2025-06-02 18:00:00', 'TABLE'), ('CONFIRMED', 44, '2025-06-03 19:00:00', 'TABLE'), ('PENDING', 45, '2025-06-04 20:00:00', 'TABLE'),
+('CONFIRMED', 46, '2025-06-05 21:00:00', 'TABLE'), ('SHIPPED', 47, '2025-06-06 22:00:00', 'TABLE'), ('DELIVERED', 48, '2025-06-07 23:00:00', 'TABLE'), ('CONFIRMED', 49, '2025-06-08 00:00:00', 'TABLE'), ('PENDING', 50, '2025-06-09 01:00:00', 'TABLE'),
+('CONFIRMED', 51, '2025-06-10 02:00:00', 'TABLE'), ('SHIPPED', 52, '2025-06-11 03:00:00', 'TABLE'), ('DELIVERED', 53, '2025-06-12 04:00:00', 'TABLE'), ('CONFIRMED', 54, '2025-06-13 05:00:00', 'TABLE'), ('PENDING', 55, '2025-06-14 06:00:00', 'TABLE'),
+('CONFIRMED', 56, '2025-06-15 07:00:00', 'TABLE'), ('SHIPPED', 57, '2025-06-16 08:00:00', 'TABLE'), ('DELIVERED', 58, '2025-06-17 09:00:00', 'TABLE'), ('CONFIRMED', 59, '2025-06-18 10:00:00', 'TABLE'), ('PENDING', 60, '2025-06-19 11:00:00', 'TABLE');
+
+-- ============================
+-- TABLE: order_item
+-- ============================
+INSERT INTO order_item (quantity, product_id, user_order_id) VALUES
 (1, 1, 3), (2, 2, 3), (1, 3, 4), (3, 4, 4), (2, 5, 5), (1, 1, 6), (4, 2, 6), (1, 3, 7), (2, 4, 7), (3, 5, 8),
 (1, 1, 9), (2, 2, 9), (1, 3, 10), (3, 4, 3), (2, 5, 4), (1, 1, 5), (4, 2, 6), (1, 3, 7), (2, 4, 8), (3, 5, 9),
-(1, 1, 10), (2, 2, 3), (1, 3, 4), (3, 4, 5), (2, 5, 6), (1, 1, 7), (4, 2, 8), (1, 3, 9), (2, 4, 10), (3, 5, 3);
-
-
--- ============================
--- 50 Additional Order Items
--- ============================
-INSERT IGNORE INTO order_item (quantity, product_id, user_order_id) VALUES
+(1, 1, 10), (2, 2, 3), (1, 3, 4), (3, 4, 5), (2, 5, 6), (1, 1, 7), (4, 2, 8), (1, 3, 9), (2, 4, 10), (3, 5, 3),
 (1, 6, 11), (2, 7, 11), (1, 8, 12), (3, 9, 12), (2, 10, 13), (1, 11, 14), (4, 12, 15), (1, 13, 16), (2, 14, 17), (3, 15, 18),
 (1, 16, 19), (2, 17, 20), (1, 18, 21), (3, 19, 22), (2, 20, 23), (1, 21, 24), (4, 22, 25), (1, 23, 26), (2, 24, 27), (3, 25, 28),
 (1, 26, 29), (2, 27, 30), (1, 28, 31), (3, 29, 32), (2, 30, 33), (1, 31, 34), (4, 32, 35), (1, 33, 36), (2, 34, 37), (3, 35, 38),
@@ -298,26 +386,16 @@ INSERT IGNORE INTO order_item (quantity, product_id, user_order_id) VALUES
 (1, 46, 49), (2, 47, 50), (1, 48, 51), (3, 49, 52), (2, 50, 53), (1, 51, 54), (4, 52, 55), (1, 53, 56), (2, 54, 57), (3, 55, 58);
 
 -- ============================
--- 50 Additional Bookings
+-- TABLE: report
 -- ============================
-INSERT IGNORE INTO booking (hours, pc_id, user_id) VALUES
-(2, 6, 11), (4, 7, 12), (3, 8, 13), (5, 9, 14), (2, 10, 15), (4, 11, 16), (3, 12, 17), (5, 13, 18), (2, 14, 19), (4, 15, 20),
-(3, 16, 21), (5, 17, 22), (2, 18, 23), (4, 19, 24), (3, 20, 25), (5, 21, 26), (2, 22, 27), (4, 23, 28), (3, 24, 29), (5, 25, 30),
-(2, 26, 31), (4, 27, 32), (3, 28, 33), (5, 29, 34), (2, 30, 35), (4, 31, 36), (3, 32, 37), (5, 33, 38), (2, 34, 39), (4, 35, 40),
-(3, 36, 41), (5, 37, 42), (2, 38, 43), (4, 39, 44), (3, 40, 45), (5, 41, 46), (2, 42, 47), (4, 43, 48), (3, 44, 49), (5, 45, 50),
-(2, 46, 51), (4, 47, 52), (3, 48, 53), (5, 49, 54), (2, 50, 55), (4, 51, 56), (3, 52, 57), (5, 53, 58), (2, 54, 59), (4, 55, 60);
-
--- ============================
--- 50 Additional Reports
--- ============================
-INSERT IGNORE INTO report (priority, `subject`, description, pc_id, user_id, created_at, `status`) VALUES
-(1, 'Issue 6', 'Detail 6', 6, 11, '2025-07-01 10:00:00', 'PENDING'), (2, 'Issue 7', 'Detail 7', 7, 12, '2025-07-02 11:00:00', 'IN_PROGRESS'), (3, 'Issue 8', 'Detail 8', 8, 13, '2025-07-03 12:00:00', 'RESOLVED'), (1, 'Issue 9', 'Detail 9', 9, 14, '2025-07-04 13:00:00', 'PENDING'), (2, 'Issue 10', 'Detail 10', 10, 15, '2025-07-05 14:00:00', 'IN_PROGRESS'),
-(3, 'Issue 11', 'Detail 11', 11, 16, '2025-07-06 15:00:00', 'RESOLVED'), (1, 'Issue 12', 'Detail 12', 12, 17, '2025-07-07 16:00:00', 'PENDING'), (2, 'Issue 13', 'Detail 13', 13, 18, '2025-07-08 17:00:00', 'IN_PROGRESS'), (3, 'Issue 14', 'Detail 14', 14, 19, '2025-07-09 18:00:00', 'RESOLVED'), (1, 'Issue 15', 'Detail 15', 15, 20, '2025-07-10 19:00:00', 'PENDING'),
-(2, 'Issue 16', 'Detail 16', 16, 21, '2025-07-11 20:00:00', 'IN_PROGRESS'), (3, 'Issue 17', 'Detail 17', 17, 22, '2025-07-12 21:00:00', 'RESOLVED'), (1, 'Issue 18', 'Detail 18', 18, 23, '2025-07-13 22:00:00', 'PENDING'), (2, 'Issue 19', 'Detail 19', 19, 24, '2025-07-14 23:00:00', 'IN_PROGRESS'), (3, 'Issue 20', 'Detail 20', 20, 25, '2025-07-15 00:00:00', 'RESOLVED'),
-(1, 'Issue 21', 'Detail 21', 21, 26, '2025-07-16 01:00:00', 'PENDING'), (2, 'Issue 22', 'Detail 22', 22, 27, '2025-07-17 02:00:00', 'IN_PROGRESS'), (3, 'Issue 23', 'Detail 23', 23, 28, '2025-07-18 03:00:00', 'RESOLVED'), (1, 'Issue 24', 'Detail 24', 24, 29, '2025-07-19 04:00:00', 'PENDING'), (2, 'Issue 25', 'Detail 25', 25, 30, '2025-07-20 05:00:00', 'IN_PROGRESS'),
-(3, 'Issue 26', 'Detail 26', 26, 31, '2025-07-21 06:00:00', 'RESOLVED'), (1, 'Issue 27', 'Detail 27', 27, 32, '2025-07-22 07:00:00', 'PENDING'), (2, 'Issue 28', 'Detail 28', 28, 33, '2025-07-23 08:00:00', 'IN_PROGRESS'), (3, 'Issue 29', 'Detail 29', 29, 34, '2025-07-24 09:00:00', 'RESOLVED'), (1, 'Issue 30', 'Detail 30', 30, 35, '2025-07-25 10:00:00', 'PENDING'),
-(2, 'Issue 31', 'Detail 31', 31, 36, '2025-07-26 11:00:00', 'IN_PROGRESS'), (3, 'Issue 32', 'Detail 32', 32, 37, '2025-07-27 12:00:00', 'RESOLVED'), (1, 'Issue 33', 'Detail 33', 33, 38, '2025-07-28 13:00:00', 'PENDING'), (2, 'Issue 34', 'Detail 34', 34, 39, '2025-07-29 14:00:00', 'IN_PROGRESS'), (3, 'Issue 35', 'Detail 35', 35, 40, '2025-07-30 15:00:00', 'RESOLVED'),
-(1, 'Issue 36', 'Detail 36', 36, 41, '2025-07-31 16:00:00', 'PENDING'), (2, 'Issue 37', 'Detail 37', 37, 42, '2025-08-01 17:00:00', 'IN_PROGRESS'), (3, 'Issue 38', 'Detail 38', 38, 43, '2025-08-02 18:00:00', 'RESOLVED'), (1, 'Issue 39', 'Detail 39', 39, 44, '2025-08-03 19:00:00', 'PENDING'), (2, 'Issue 40', 'Detail 40', 40, 45, '2025-08-04 20:00:00', 'IN_PROGRESS'),
-(3, 'Issue 41', 'Detail 41', 41, 46, '2025-08-05 21:00:00', 'RESOLVED'), (1, 'Issue 42', 'Detail 42', 42, 47, '2025-08-06 22:00:00', 'PENDING'), (2, 'Issue 43', 'Detail 43', 43, 48, '2025-08-07 23:00:00', 'IN_PROGRESS'), (3, 'Issue 44', 'Detail 44', 44, 49, '2025-08-08 00:00:00', 'RESOLVED'), (1, 'Issue 45', 'Detail 45', 45, 50, '2025-08-09 01:00:00', 'PENDING'),
-(2, 'Issue 46', 'Detail 46', 46, 51, '2025-08-10 02:00:00', 'IN_PROGRESS'), (3, 'Issue 47', 'Detail 47', 47, 52, '2025-08-11 03:00:00', 'RESOLVED'), (1, 'Issue 48', 'Detail 48', 48, 53, '2025-08-12 04:00:00', 'PENDING'), (2, 'Issue 49', 'Detail 49', 49, 54, '2025-08-13 05:00:00', 'IN_PROGRESS'), (3, 'Issue 50', 'Detail 50', 50, 55, '2025-08-14 06:00:00', 'RESOLVED'),
-(1, 'Issue 51', 'Detail 51', 51, 56, '2025-08-15 07:00:00', 'PENDING'), (2, 'Issue 52', 'Detail 52', 52, 57, '2025-08-16 08:00:00', 'IN_PROGRESS'), (3, 'Issue 53', 'Detail 53', 53, 58, '2025-08-17 09:00:00', 'RESOLVED'), (1, 'Issue 54', 'Detail 54', 54, 59, '2025-08-18 10:00:00', 'PENDING'), (2, 'Issue 55', 'Detail 55', 55, 60, '2025-08-19 11:00:00', 'IN_PROGRESS');
+INSERT INTO report (priority, `subject`, description, pc_id, user_id, created_at, `status`) VALUES
+(3, 'Pantalla parpadeando', 'Pantalla parpadeando, la pantalla parpadea constantemente.', 3, 3, '2025-01-15 10:00:00', 'PENDING'),
+(1, 'No enciende', 'No enciende, la computadora no enciende.', 4, 4, '2025-01-20 14:00:00', 'PENDING'),
+(2, 'Lento rendimiento', 'Lento rendimiento, la computadora es muy lenta.', 5, 5, '2025-02-10 09:00:00', 'IN_PROGRESS'),
+(3, 'Sobrecalentamiento', 'Sobrecalentamiento, la computadora se calienta mucho.', 1, 6, '2025-02-25 16:00:00', 'IN_PROGRESS'),
+(1, 'Error de conexión', 'Error de conexión, la computadora no se conecta.', 2, 7, '2025-03-05 11:00:00', 'IN_PROGRESS'),
+(2, 'Ruido excesivo', 'Ruido excesivo, la computadora hace mucho ruido.', 3, 8, '2025-03-18 13:00:00', 'IN_PROGRESS'),
+(3, 'Actualización necesaria', 'Actualización necesaria, la computadora necesita una actualización.', 4, 1, '2025-04-02 15:00:00', 'RESOLVED'),
+(1, 'Falla en periféricos', 'Falla en periféricos, la computadora tiene problemas con los periféricos.', 5, 2, '2025-04-15 10:00:00', 'RESOLVED'),
+(2, 'Problema de red', 'Problema de red, la computadora tiene problemas de red.', 1, 3, '2025-04-20 14:00:00', 'RESOLVED'),
+(3, 'Configuración incorrecta', 'Configuración incorrecta, la computadora tiene una configuración incorrecta.', 2, 4, '2025-04-25 16:00:00', 'RESOLVED');
