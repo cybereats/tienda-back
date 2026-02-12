@@ -74,7 +74,6 @@ class ReportServiceImplTest {
         void shouldInsertReportWithDefaults() {
             ReportDto inputDto = new ReportDto(null, 1, "Desc", "Subject", null, null, reportDto.user(),
                     reportDto.pc());
-            when(reportRepository.findById(null)).thenReturn(Optional.empty());
             when(reportRepository.save(any(ReportDto.class))).thenReturn(reportDto);
 
             ReportDto result = reportService.insert(inputDto);
@@ -98,6 +97,7 @@ class ReportServiceImplTest {
         @DisplayName("Debería actualizar un reporte existente")
         void shouldUpdateExistingReport() {
             when(reportRepository.findById(1L)).thenReturn(Optional.of(reportDto));
+            when(pcRepository.findById(anyLong())).thenReturn(Optional.of(reportDto.pc()));
             when(reportRepository.save(any(ReportDto.class))).thenReturn(reportDto);
 
             ReportDto result = reportService.update(reportDto);

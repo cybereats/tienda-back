@@ -1,5 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.domain.repository;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,7 +22,7 @@ public interface ReportRepository {
 
     List<ReportDto> findByPCId(Long pcId);
 
-    List<ReportDto> findByStatus(String status);
+    List<ReportDto> findByStatus(ReportStatus status);
 
     List<ReportDto> findByCreatedAt(String createdAt);
 

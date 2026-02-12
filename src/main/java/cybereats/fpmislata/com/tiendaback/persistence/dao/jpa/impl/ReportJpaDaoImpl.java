@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.impl;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ReportJpaDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -86,7 +87,7 @@ public class ReportJpaDaoImpl implements ReportJpaDao {
     }
 
     @Override
-    public List<ReportJpaEntity> findByStatus(String status) {
+    public List<ReportJpaEntity> findByStatus(ReportStatus status) {
         String jpql = "SELECT r FROM ReportJpaEntity r WHERE r.status = :status";
         return entityManager.createQuery(jpql, ReportJpaEntity.class)
                 .setParameter("status", status)

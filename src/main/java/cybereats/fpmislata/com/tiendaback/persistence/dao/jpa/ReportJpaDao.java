@@ -1,5 +1,7 @@
 package cybereats.fpmislata.com.tiendaback.persistence.dao.jpa;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
+
 import java.util.List;
 
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.entity.ReportJpaEntity;
@@ -10,7 +12,7 @@ public interface ReportJpaDao extends GenericJpaDao<ReportJpaEntity> {
 
     List<ReportJpaEntity> findByPCId(Long pcId);
 
-    List<ReportJpaEntity> findByStatus(String status);
+    List<ReportJpaEntity> findByStatus(ReportStatus status);
 
     List<ReportJpaEntity> findByCreatedAt(String createdAt);
 

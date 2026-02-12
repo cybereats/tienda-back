@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.presentation.mapper;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.UserRole;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.CategoryPCDto;
 import cybereats.fpmislata.com.tiendaback.domain.service.dto.PCDto;
@@ -19,7 +20,7 @@ class ReportMapperTest {
         @Test
         @DisplayName("Debería mapear de ReportRequest a ReportDto")
         void shouldMapRequestToDto() {
-                ReportRequest request = new ReportRequest(1L, 10L, 20L, "Description", "Subject", "Status",
+                ReportRequest request = new ReportRequest(1L, 10L, 20L, "Description", "Subject", "PENDING",
                                 "2025-01-15 10:00:00", 1);
 
                 ReportDto dto = ReportMapper.fromReportRequestToReportDto(request);
@@ -28,7 +29,7 @@ class ReportMapperTest {
                 assertEquals(request.id(), dto.id());
                 assertEquals(request.description(), dto.description());
                 assertEquals(request.subject(), dto.subject());
-                assertEquals(request.status(), dto.status());
+                assertEquals(ReportStatus.valueOf(request.status()), dto.status());
                 assertEquals(request.createdAt(), dto.createdAt());
                 assertEquals(request.priority(), dto.priority());
                 assertEquals(request.userId(), dto.user().id());
@@ -43,7 +44,8 @@ class ReportMapperTest {
                 CategoryPCDto categoryPCDto = new CategoryPCDto(1L, "Category", "category", new BigDecimal("10.00"));
                 PCDto pcDto = new PCDto(1L, "PC 1", "pc-1", 100, "Specs", "2020-01-01", "image.png",
                                 cybereats.fpmislata.com.tiendaback.domain.model.PCStatus.AVAILABLE, categoryPCDto);
-                ReportDto dto = new ReportDto(1L, 1, "Description", "Subject", "Status", "2025-01-15 10:00:00", userDto,
+                ReportDto dto = new ReportDto(1L, 1, "Description", "Subject", ReportStatus.PENDING,
+                                "2025-01-15 10:00:00", userDto,
                                 pcDto);
 
                 ReportResponse response = ReportMapper.fromReportDtoToReportResponse(dto);

@@ -151,7 +151,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<ReportDto> findByStatus(String status) {
-        return reportRepository.findByStatus(status);
+        try {
+            return reportRepository.findByStatus(ReportStatus.valueOf(status));
+        } catch (IllegalArgumentException e) {
+            // Handle invalid status string if necessary, or return empty list
+            return List.of();
+        }
     }
 
     @Override

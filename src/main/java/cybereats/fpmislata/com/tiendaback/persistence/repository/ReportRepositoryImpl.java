@@ -1,5 +1,6 @@
 package cybereats.fpmislata.com.tiendaback.persistence.repository;
 
+import cybereats.fpmislata.com.tiendaback.domain.model.ReportStatus;
 import cybereats.fpmislata.com.tiendaback.domain.model.Page;
 import cybereats.fpmislata.com.tiendaback.domain.repository.ReportRepository;
 import cybereats.fpmislata.com.tiendaback.persistence.dao.jpa.ReportJpaDao;
@@ -68,7 +69,7 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
-    public List<ReportDto> findByStatus(String status) {
+    public List<ReportDto> findByStatus(ReportStatus status) {
         return reportJpaDao.findByStatus(status).stream().map(ReportMapper::fromReportJpaEntitytoReportDto).toList();
     }
 
